@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProMatch - Complete Freelancing & Project Management Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --primary-light: #4F75FF;
+            --primary-dark: #0B3BA8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --border-default: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-bg: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .container-wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 140px;
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(19, 81, 216, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            line-height: 1.1;
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subhead {
+            font-size: 24px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 36px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-height: 56px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--primary);
+            border: 2px solid var(--border-default);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .btn-google {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Platform Overview */
+        .platform-overview {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .overview-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .overview-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .overview-header p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .feature-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .feature-highlights {
+            list-style: none;
+        }
+
+        .feature-highlights li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .feature-highlights li::before {
+            content: '✓';
+            width: 16px;
+            height: 16px;
+            background: var(--success);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        /* AI Features Section */
+        .ai-features {
+            padding: 100px 0;
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .ai-features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top left, rgba(79, 117, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(79, 117, 255, 0.1);
+            color: var(--primary-light);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .ai-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .ai-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ai-content h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .ai-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .ai-features-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .ai-features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .ai-features-list li strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .ai-demo {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border-light);
+            position: relative;
+        }
+
+        .demo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .demo-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ai-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .cost-estimation-demo {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-light);
+        }
+
+        .cost-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .cost-category {
+            text-align: center;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border: 2px solid var(--border-light);
+        }
+
+        .cost-category.recommended {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.05);
+        }
+
+        .category-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .category-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .category-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 100px 0;
+            background: var(--bg-secondary);
+        }
+
+        .how-it-works-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .how-it-works-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .step-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-md);
+            position: relative;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+        }
+
+        .step-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .step-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Community Section */
+        .community-section {
+            padding: 100px 0;
+            background: var(--bg-primary);
+        }
+
+        .community-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .community-header h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .community-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .community-content h3 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .qa-demo {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+        }
+
+        .qa-question {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .qa-question h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .qa-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .qa-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .qa-tag {
+            padding: 4px 12px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 0;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item h3 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-item p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 120px 0;
+            background: var(--bg-primary);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+        }
+
+        .final-cta p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Auth Modal Styles */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .auth-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .auth-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            width: 90%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .auth-modal.active .auth-card {
+            transform: scale(1);
+        }
+
+        .auth-header {
+            padding: 32px 32px 0;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 32px;
+        }
+
+        .auth-tab {
+            padding: 16px 0;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .close-btn {
+            background: var(--bg-tertiary);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover {
+            background: var(--border-default);
+            color: var(--text-primary);
+        }
+
+        .auth-content {
+            padding: 32px;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        .role-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .role-card {
+            padding: 24px;
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+        }
+
+        .role-card:hover {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.02);
+            box-shadow: var(--shadow-md);
+        }
+
+        .role-card.selected {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.05);
+            box-shadow: var(--shadow-md);
+        }
+
+        .role-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .role-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .consent {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .consent a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 40px;
+            background: var(--text-primary);
+            color: white;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container, .container-wide {
+                padding: 0 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero .subhead {
+                font-size: 18px;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .overview-header h2,
+            .ai-header h2,
+            .how-it-works-header h2,
+            .community-header h2,
+            .final-cta h2 {
+                font-size: 32px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .ai-showcase,
+            .community-features {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 2fr 2fr;
+                gap: 30px;
+            }
+
+            .cost-categories {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .nav-links .desktop-only {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 0 100px;
+            }
+
+            .platform-overview,
+            .ai-features,
+            .how-it-works,
+            .community-section,
+            .final-cta {
+                padding: 60px 0;
+            }
+        }
+
+        /* Utilities */
+        .hidden {
+            display: none;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .progress-step {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border-default);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">P</div>
+                    ProMatch
+                </a>
+                <nav class="nav-links">
+                    <a href="#features" class="desktop-only">Features</a>
+                    <a href="#how-it-works" class="desktop-only">How It Works</a>
+                    <a href="#pricing" class="desktop-only">Pricing</a>
+                    <a href="#" onclick="openAuthModal('signin')">Sign In</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>From Profile to Paid</h1>
+                <p class="subhead">The complete platform for freelancers and clients. Create profiles, manage projects, get accurate cost estimates, and connect with the perfect match—all powered by AI.</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary btn-google" onclick="signInWithGoogle()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Get Started with Google
+                    </button>
+                    <button class="btn btn-secondary" onclick="openAuthModal('join')">Join with Email</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Overview -->
+    <section class="platform-overview" id="features">
+        <div class="container-wide">
+            <div class="overview-header">
+                <h2>Everything You Need in One Platform</h2>
+                <p>From professional profiles to project completion and payment—streamlined with AI assistance</p>
+            </div>
+            
+            <div class="features-grid">
+                <!-- Professional Profiles -->
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍💼</div>
+                    <h3>Professional Profiles</h3>
+                    <p>Create stunning LinkedIn-style profiles that showcase your skills, portfolio, education, and experience.</p>
+                    <ul class="feature-highlights">
+                        <li>AI-powered profile optimization</li>
+                        <li>Portfolio showcase with projects</li>
+                        <li>Skills verification & endorsements</li>
+                        <li>Custom profile URLs</li>
+                        <li>Social media integration</li>
+                    </ul>
+                </div>
+
+                <!-- Order Management -->
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Smart Order Management</h3>
+                    <p>Fiverr-style order system with milestone tracking, automated workflows, and client communication.</p>
+                    <ul class="feature-highlights">
+                        <li>Milestone-based payments</li>
+                        <li>Order tracking & status updates</li>
+                        <li>Automated client notifications</li>
+                        <li>File sharing & collaboration</li>
+                        <li>Dispute resolution system</li>
+                    </ul>
+                </div>
+
+                <!-- Project Management -->
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Project Management Hub</h3>
+                    <p>Complete project lifecycle management from initial brief to final delivery and feedback.</p>
+                    <ul class="feature-highlights">
+                        <li>Kanban boards & task tracking</li>
+                        <li>Time tracking & reporting</li>
+                        <li>Team collaboration tools</li>
+                        <li>Progress monitoring</li>
+                        <li>Client portal access</li>
+                    </ul>
+                </div>
+
+                <!-- Contracts & Invoicing -->
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Contracts & Invoicing</h3>
+                    <p>Professional contract templates, automated invoicing, and secure payment processing.</p>
+                    <ul class="feature-highlights">
+                        <li>Legal contract templates</li>
+                        <li>E-signature integration</li>
+                        <li>Automated recurring invoices</li>
+                        <li>Multi-currency support</li>
+                        <li>Tax calculation & reporting</li>
+                    </ul>
+                </div>
+
+                <!-- Q&A Community -->
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Q&A Community</h3>
+                    <p>Quora-style knowledge sharing platform where experts answer questions and build reputation.</p>
+                    <ul class="feature-highlights">
+                        <li>Expert verification system</li>
+                        <li>Reputation scoring</li>
+                        <li>Tag-based categorization</li>
+                        <li>Best answer selection</li>
+                        <li>Knowledge base building</li>
+                    </ul>
+                </div>
+
+                <!-- AI-Powered Matching -->
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Matching</h3>
+                    <p>Intelligent matching system that connects the right freelancers with the perfect projects.</p>
+                    <ul class="feature-highlights">
+                        <li>Smart skill matching</li>
+                        <li>Budget compatibility analysis</li>
+                        <li>Timeline feasibility check</li>
+                        <li>Success rate predictions</li>
+                        <li>Automated recommendations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Features Showcase -->
+    <section class="ai-features">
+        <div class="container">
+            <div class="ai-header">
+                <div class="ai-badge">🤖 AI-Powered</div>
+                <h2>Intelligent Cost Estimation</h2>
+                <p>Upload your project details or describe requirements—our AI analyzes complexity and provides accurate cost estimates across different skill levels.</p>
+            </div>
+            
+            <div class="ai-showcase">
+                <div class="ai-content">
+                    <h3>Smart Project Analysis</h3>
+                    <p>Our AI reads your project documents, analyzes requirements, and categorizes work by complexity and skill requirements.</p>
+                    
+                    <ul class="ai-features-list">
+                        <li>
+                            <strong>Document Analysis:</strong> Upload PDFs, Word docs, or paste text descriptions
+                        </li>
+                        <li>
+                            <strong>Skill Categorization:</strong> Automatically identifies required technologies and expertise levels
+                        </li>
+                        <li>
+                            <strong>Timeline Estimation:</strong> Predicts realistic project completion timeframes
+                        </li>
+                        <li>
+                            <strong>Risk Assessment:</strong> Identifies potential challenges and complexity factors
+                        </li>
+                    </ul>
+                    
+                    <button class="btn btn-primary" onclick="openAuthModal('join')">Try AI Estimation</button>
+                </div>
+                
+                <div class="ai-demo">
+                    <div class="demo-header">
+                        <div class="demo-title">Project: E-commerce Website</div>
+                        <div class="ai-indicator">
+                            <span>🤖</span>
+                            AI Analysis
+                        </div>
+                    </div>
+                    
+                    <div class="cost-estimation-demo">
+                        <p><strong>Detected Technologies:</strong> Laravel, React, MySQL, Stripe</p>
+                        <p><strong>Estimated Timeline:</strong> 6-8 weeks</p>
+                        
+                        <div class="cost-categories">
+                            <div class="cost-category">
+                                <div class="category-title">Beginner</div>
+                                <div class="category-price">₨75,000</div>
+                                <div class="category-desc">Junior developers, basic features</div>
+                            </div>
+                            
+                            <div class="cost-category recommended">
+                                <div class="category-title">Professional</div>
+                                <div class="category-price">₨150,000</div>
+                                <div class="category-desc">Experienced devs, full features</div>
+                            </div>
+                            
+                            <div class="cost-category">
+                                <div class="category-title">Expert</div>
+                                <div class="category-price">₨300,000</div>
+                                <div class="category-desc">Senior experts, premium quality</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="how-it-works-header">
+                <h2>How ProMatch Works</h2>
+                <p>Simple, transparent process from project posting to payment</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Build a professional profile showcasing your skills, portfolio, and experience. Our AI helps optimize your profile for better visibility.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Post or Find Projects</h3>
+                    <p>Clients post projects with AI cost estimation. Freelancers get matched based on skills, budget, and availability.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Collaborate & Deliver</h3>
+                    <p>Use built-in project management tools, milestone tracking, and communication features to deliver exceptional results.</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Get Paid Securely</h3>
+                    <p>Automated invoicing, secure payments, and contract management ensure you get paid on time, every time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section">
+        <div class="container">
+            <div class="community-header">
+                <h2>Learn & Share Knowledge</h2>
+                <p>Join our thriving community of experts and learners</p>
+            </div>
+            
+            <div class="community-features">
+                <div class="community-content">
+                    <h3>Q&A Community</h3>
+                    <p>Get answers from verified professionals, share your expertise, and build your reputation in the community.</p>
+                    
+                    <ul class="ai-features-list">
+                        <li><strong>Expert Answers:</strong> Verified professionals provide detailed solutions</li>
+                        <li><strong>Skill Building:</strong> Learn from real-world project experiences</li>
+                        <li><strong>Reputation System:</strong> Build credibility through helpful contributions</li>
+                        <li><strong>Trending Topics:</strong> Stay updated with latest industry trends</li>
+                    </ul>
+                </div>
+                
+                <div class="qa-demo">
+                    <div class="qa-question">
+                        <h4>How to implement real-time notifications in Laravel?</h4>
+                        <div class="qa-meta">
+                            <span>👤 Sarah Ahmed</span>
+                            <span>⭐ 4.9 Expert</span>
+                            <span>📅 2 hours ago</span>
+                        </div>
+                        <div class="qa-tags">
+                            <span class="qa-tag">Laravel</span>
+                            <span class="qa-tag">WebSockets</span>
+                            <span class="qa-tag">Real-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="qa-question">
+                        <h4>Best practices for React performance optimization?</h4>
+                        <div class="qa-meta">
+                            <span>👤 Ahmed Khan</span>
+                            <span>⭐ 5.0 Expert</span>
+                            <span>📅 5 hours ago</span>
+                        </div>
+                        <div class="qa-tags">
+                            <span class="qa-tag">React</span>
+                            <span class="qa-tag">Performance</span>
+                            <span class="qa-tag">Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>15,000+</h3>
+                    <p>Active Professionals</p>
+                </div>
+                <div class="stat-item">
+                    <h3>₨500M+</h3>
+                    <p>Paid to Freelancers</p>
+                </div>
+                <div class="stat-item">
+                    <h3>25,000+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.9★</h3>
+                    <p>Average Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Join thousands of professionals and clients who trust ProMatch for their project needs</p>
+            <div class="hero-cta">
+                <button class="btn btn-primary" onclick="openAuthModal('join')">Start Your Journey</button>
+                <button class="btn btn-secondary" onclick="openAuthModal('signin')">Sign In</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="signinTab" onclick="switchTab('signin')">Sign In</div>
+                    <div class="auth-tab" id="joinTab" onclick="switchTab('join')">Join Now</div>
+                </div>
+                <button class="close-btn" onclick="closeAuthModal()">&times;</button>
+            </div>
+            
+            <div class="auth-content">
+                <!-- Sign In Form -->
+                <div id="signinForm">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter your password">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;">Sign In</button>
+                    <button class="btn btn-secondary btn-google" style="width: 100%; margin-bottom: 16px;" onclick="signInWithGoogle()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+                    <div class="text-center">
+                        <a href="#" style="color: var(--primary); text-decoration: none;">Forgot password?</a>
+                        <span style="margin: 0 8px;">•</span>
+                        <a href="#" style="color: var(--primary); text-decoration: none;" onclick="switchTab('join')">Create an account</a>
+                    </div>
+                </div>
+
+                <!-- Join Form -->
+                <div id="joinForm" class="hidden">
+                    <div id="joinStep1">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="your.email@example.com" id="joinEmail">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Create a strong password" id="joinPassword">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <select id="joinCountry">
+                                <option value="">Select your country</option>
+                                <option value="pk">Pakistan</option>
+                                <option value="us">United States</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="ca">Canada</option>
+                                <option value="in">India</option>
+                                <option value="bd">Bangladesh</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%; margin-bottom: 16px;" onclick="signInWithGoogle()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            Continue with Google
+                        </button>
+                        
+                        <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                            <button class="btn btn-secondary" style="flex: 1; font-size: 14px;">GitHub</button>
+                            <button class="btn btn-secondary" style="flex: 1; font-size: 14px;">LinkedIn</button>
+                        </div>
+
+                        <div class="consent">
+                            By continuing you agree to <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>
+                        </div>
+                        
+                        <button class="btn btn-primary" style="width: 100%;" onclick="nextStep()">Continue</button>
+                    </div>
+
+                    <div id="joinStep2" class="hidden">
+                        <div class="progress-steps">
+                            <div class="progress-step active"></div>
+                            <div class="progress-step active"></div>
+                            <div class="progress-step"></div>
+                        </div>
+                        <h3 style="text-align: center; margin-bottom: 24px;">Choose your role</h3>
+                        <div class="role-cards">
+                            <div class="role-card" onclick="selectRole('freelancer')">
+                                <h4>🚀 Freelancer / Professional</h4>
+                                <p>Showcase your skills, win projects, and build your reputation with AI-powered profile optimization.</p>
+                            </div>
+                            <div class="role-card" onclick="selectRole('agency')">
+                                <h4>🏢 Agency / Team</h4>
+                                <p>Manage multiple team members, handle larger projects, and streamline your agency workflow.</p>
+                            </div>
+                            <div class="role-card" onclick="selectRole('client')">
+                                <h4>💼 Client / Buyer</h4>
+                                <p>Post projects, get AI cost estimates, and connect with verified professionals for your needs.</p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">You can change this later in your account settings.</p>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="nextStep()" id="roleNextBtn" disabled>Continue</button>
+                    </div>
+
+                    <div id="joinStep3" class="hidden">
+                        <div class="progress-steps">
+                            <div class="progress-step active"></div>
+                            <div class="progress-step active"></div>
+                            <div class="progress-step active"></div>
+                        </div>
+                        <h3 style="text-align: center; margin-bottom: 24px;">Complete your profile</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Professional Title</label>
+                            <input type="text" placeholder="e.g., Full-Stack Developer, UI/UX Designer">
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" placeholder="City, Country">
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;" onclick="completeSignup()">Complete Profile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>ProMatch</h4>
+                    <p>The complete platform for freelancers and clients. From profile to payment, we've got you covered with AI-powered solutions.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Community</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ProMatch. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+        let selectedRole = '';
+
+        function openAuthModal(tab) {
+            document.getElementById('authModal').classList.add('active');
+            switchTab(tab);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            resetForm();
+        }
+
+        function switchTab(tab) {
+            document.getElementById('signinTab').classList.remove('active');
+            document.getElementById('joinTab').classList.remove('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
+
+            document.getElementById('signinForm').classList.toggle('hidden', tab !== 'signin');
+            document.getElementById('joinForm').classList.toggle('hidden', tab !== 'join');
+            
+            if (tab === 'join') {
+                showStep(1);
+            }
+        }
+
+        function showStep(step) {
+            currentStep = step;
+            
+            const steps = ['joinStep1', 'joinStep2', 'joinStep3'];
+            steps.forEach(stepId => {
+                document.getElementById(stepId).classList.add('hidden');
+            });
+
+            document.getElementById('joinStep' + step).classList.remove('hidden');
+        }
+
+        function nextStep() {
+            if (currentStep === 1) {
+                const email = document.getElementById('joinEmail').value;
+                const password = document.getElementById('joinPassword').value;
+                const country = document.getElementById('joinCountry').value;
+                
+                if (!email || !password || !country) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+                
+                showStep(2);
+            } else if (currentStep === 2 && selectedRole) {
+                showStep(3);
+            }
+        }
+
+        function selectRole(role) {
+            selectedRole = role;
+            
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            event.target.closest('.role-card').classList.add('selected');
+            
+            document.getElementById('roleNextBtn').disabled = false;
+            document.getElementById('roleNextBtn').style.opacity = '1';
+        }
+
+        function completeSignup() {
+            alert('Welcome to ProMatch! Your account has been created successfully.');
+            closeAuthModal();
+        }
+
+        function signInWithGoogle() {
+            alert('Google Sign-In integration would be implemented here');
+        }
+
+        function resetForm() {
+            currentStep = 1;
+            selectedRole = '';
+            document.querySelectorAll('input, select, textarea').forEach(input => {
+                if (input.type !== 'checkbox') {
+                    input.value = '';
+                }
+            });
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            const nextBtn = document.getElementById('roleNextBtn');
+            if (nextBtn) {
+                nextBtn.disabled = true;
+                nextBtn.style.opacity = '0.5';
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAuthModal();
+            }
+        });
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextBtn = document.getElementById('roleNextBtn');
+            if (nextBtn) {
+                nextBtn.style.opacity = '0.5';
+            }
+        });
+    </script>
+</body>
+</html>
