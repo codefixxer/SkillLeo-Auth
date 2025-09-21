@@ -214,3 +214,4 @@ All three pages implement an **overlay modal** with:
 * [ ] Hook Google SSO to real OAuth flow.
 * [ ] Add unit tests for step validation.
 
+# Auth-SkillLeo
