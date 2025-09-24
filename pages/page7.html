@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Preferences - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --success: #10B981;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 87.5%;
+            transition: width 0.3s ease;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .section {
+            margin-bottom: 28px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: var(--primary);
+        }
+
+        .checkbox-item.checked {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.05);
+        }
+
+        .checkbox-item input {
+            margin: 0;
+        }
+
+        .checkbox-item label {
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .rate-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .rate-inputs {
+            display: flex;
+            gap: 12px;
+            align-items: end;
+            margin-bottom: 16px;
+        }
+
+        .currency-input {
+            flex: 0 0 80px;
+        }
+
+        .amount-input {
+            flex: 1;
+        }
+
+        .unit-input {
+            flex: 0 0 100px;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-light);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .rate-inputs {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .currency-input, .unit-input {
+                flex: 1;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            <div class="progress-indicator">Step 7 of 8</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header">
+                <div class="step-badge">Work Preferences</div>
+                <h1 class="card-title">How do you work?</h1>
+                <p class="card-subtitle">Set your preferences to help clients find the right match</p>
+            </div>
+
+            <form id="preferencesForm">
+                <!-- Contract Types -->
+                <div class="section">
+                    <h2 class="section-title">Contract Types</h2>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item" onclick="toggleContract('fixed')">
+                            <input type="checkbox" id="fixed" value="fixed">
+                            <label for="fixed">Fixed Price</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleContract('hourly')">
+                            <input type="checkbox" id="hourly" value="hourly">
+                            <label for="hourly">Hourly</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleContract('retainer')">
+                            <input type="checkbox" id="retainer" value="retainer">
+                            <label for="retainer">Retainer</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rate -->
+                <div class="section">
+                    <h2 class="section-title">Your Rate</h2>
+                    <div class="rate-section">
+                        <div class="rate-inputs">
+                            <div class="form-group currency-input">
+                                <label class="form-label">Currency</label>
+                                <select class="form-select" id="currency">
+                                    <option value="PKR">PKR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="GBP">GBP</option>
+                                </select>
+                            </div>
+                            <div class="form-group amount-input">
+                                <label class="form-label">Amount</label>
+                                <input type="number" class="form-input" id="amount" placeholder="5000">
+                            </div>
+                            <div class="form-group unit-input">
+                                <label class="form-label">Per</label>
+                                <select class="form-select" id="unit">
+                                    <option value="/hour">Hour</option>
+                                    <option value="/day">Day</option>
+                                    <option value="/project">Project</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Availability -->
+                <div class="section">
+                    <div class="form-group">
+                        <label class="form-label">Availability</label>
+                        <select class="form-select" id="availability">
+                            <option value="now">Available now</option>
+                            <option value="1-2weeks">1-2 weeks</option>
+                            <option value="1month">1 month</option>
+                            <option value="part-time">Part-time only</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Hours per week</label>
+                        <select class="form-select" id="hoursPerWeek">
+                            <option value="10">Less than 10 hours</option>
+                            <option value="20">10-20 hours</option>
+                            <option value="30">20-30 hours</option>
+                            <option value="40" selected>30-40 hours</option>
+                            <option value="40+">40+ hours</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Location Preferences -->
+                <div class="section">
+                    <h2 class="section-title">Location Preferences</h2>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item checked" onclick="toggleLocation('remote')">
+                            <input type="checkbox" id="remote" value="remote" checked>
+                            <label for="remote">Remote</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleLocation('onsite')">
+                            <input type="checkbox" id="onsite" value="onsite">
+                            <label for="onsite">On-site</label>
+                        </div>
+                        <div class="checkbox-item" onclick="toggleLocation('hybrid')">
+                            <input type="checkbox" id="hybrid" value="hybrid">
+                            <label for="hybrid">Hybrid</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Open to Work -->
+                <div class="switch-container">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 4px;">Open to work</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">Show availability on your profile</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="openToWork" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- AI Section -->
+                <div class="ai-section">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <span style="font-weight: 600; font-size: 14px;">AI Rate Helper</span>
+                    </div>
+                    <button type="button" class="btn-ai" onclick="getRateRecommendation()">Get market rate suggestion</button>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span> Back
+                    </a>
+                    <button type="submit" class="btn btn-next">
+                        Continue <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleContract(type) {
+            const checkbox = document.getElementById(type);
+            const container = checkbox.parentElement;
+            
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                container.classList.add('checked');
+            } else {
+                container.classList.remove('checked');
+            }
+        }
+
+        function toggleLocation(type) {
+            const checkbox = document.getElementById(type);
+            const container = checkbox.parentElement;
+            
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                container.classList.add('checked');
+            } else {
+                container.classList.remove('checked');
+            }
+        }
+
+        function getLocationData() {
+            const saved = localStorage.getItem('onboarding_location');
+            return saved ? JSON.parse(saved) : null;
+        }
+
+        function getSkillsData() {
+            const saved = localStorage.getItem('onboarding_skills');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function getExperienceData() {
+            const saved = localStorage.getItem('onboarding_experience');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function getRateRecommendation() {
+            const locationData = getLocationData();
+            const skills = getSkillsData();
+            const experience = getExperienceData();
+            
+            // Simulate AI rate calculation
+            let baseRate = 2000; // PKR base rate
+            let currency = 'PKR';
+            
+            if (locationData) {
+                // Adjust based on country
+                switch(locationData.country) {
+                    case 'us':
+                    case 'uk':
+                    case 'ca':
+                        baseRate = 50;
+                        currency = 'USD';
+                        break;
+                    case 'ae':
+                    case 'sa':
+                        baseRate = 100;
+                        currency = 'AED';
+                        break;
+                    default:
+                        baseRate = 2000;
+                        currency = 'PKR';
+                }
+            }
+            
+            // Adjust based on skills level
+            const advancedSkills = skills.filter(skill => skill.level >= 4).length;
+            baseRate += advancedSkills * (currency === 'PKR' ? 500 : 10);
+            
+            // Adjust based on experience
+            if (experience.length > 2) {
+                baseRate *= 1.3;
+            }
+            
+            const minRate = Math.round(baseRate * 0.8);
+            const maxRate = Math.round(baseRate * 1.5);
+            
+            // Update form
+            document.getElementById('currency').value = currency;
+            document.getElementById('amount').value = Math.round(baseRate);
+            
+            alert(`Recommended rate range: ${currency} ${minRate} - ${maxRate} per hour\n\nBased on your location, skills, and experience level.`);
+            
+            gtag('event', 'rate_helper_click', {
+                event_category: 'onboarding',
+                event_label: `${currency}_${baseRate}`
+            });
+        }
+
+        function goBack() {
+            alert('Going back to Education & Languages...');
+        }
+
+        document.getElementById('preferencesForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect form data
+            const contractTypes = [];
+            ['fixed', 'hourly', 'retainer'].forEach(type => {
+                if (document.getElementById(type).checked) {
+                    contractTypes.push(type);
+                }
+            });
+            
+            const locationPrefs = {
+                remote: document.getElementById('remote').checked,
+                onsite: document.getElementById('onsite').checked,
+                hybrid: document.getElementById('hybrid').checked
+            };
+            
+            const preferences = {
+                contractTypes,
+                currency: document.getElementById('currency').value,
+                rate: document.getElementById('amount').value,
+                unit: document.getElementById('unit').value,
+                availability: document.getElementById('availability').value,
+                hoursPerWeek: document.getElementById('hoursPerWeek').value,
+                locationPreferences: locationPrefs,
+                openToWork: document.getElementById('openToWork').checked
+            };
+            
+            localStorage.setItem('onboarding_preferences', JSON.stringify(preferences));
+            
+            gtag('event', 'prefs_save', {
+                event_category: 'onboarding',
+                event_label: 'step_7_complete'
+            });
+            
+            document.querySelector('.progress-fill').style.width = '100%';
+            
+            setTimeout(() => {
+                alert('Work preferences saved! Moving to final review...');
+            }, 500);
+        });
+
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+
+        // Initialize with sensible defaults
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default currency based on location
+            const locationData = getLocationData();
+            if (locationData) {
+                switch(locationData.country) {
+                    case 'us':
+                    case 'ca':
+                        document.getElementById('currency').value = 'USD';
+                        break;
+                    case 'uk':
+                        document.getElementById('currency').value = 'GBP';
+                        break;
+                    case 'pk':
+                    default:
+                        document.getElementById('currency').value = 'PKR';
+                }
+            }
+            
+            // Load saved data
+            const saved = localStorage.getItem('onboarding_preferences');
+            if (saved) {
+                const data = JSON.parse(saved);
+                
+                // Set contract types
+                data.contractTypes?.forEach(type => {
+                    const checkbox = document.getElementById(type);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        checkbox.parentElement.classList.add('checked');
+                    }
+                });
+                
+                // Set other fields
+                if (data.currency) document.getElementById('currency').value = data.currency;
+                if (data.rate) document.getElementById('amount').value = data.rate;
+                if (data.unit) document.getElementById('unit').value = data.unit;
+                if (data.availability) document.getElementById('availability').value = data.availability;
+                if (data.hoursPerWeek) document.getElementById('hoursPerWeek').value = data.hoursPerWeek;
+                if (data.openToWork !== undefined) document.getElementById('openToWork').checked = data.openToWork;
+                
+                // Set location preferences
+                if (data.locationPreferences) {
+                    Object.keys(data.locationPreferences).forEach(loc => {
+                        const checkbox = document.getElementById(loc);
+                        if (checkbox && data.locationPreferences[loc]) {
+                            checkbox.checked = true;
+                            checkbox.parentElement.classList.add('checked');
+                        } else if (checkbox) {
+                            checkbox.checked = false;
+                            checkbox.parentElement.classList.remove('checked');
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

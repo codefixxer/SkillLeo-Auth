@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --success: #10B981;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 50%;
+            transition: width 0.3s ease;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .experience-container {
+            margin-bottom: 24px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border: 2px dashed var(--border-light);
+            border-radius: 12px;
+        }
+
+        .experience-card {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ef4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .bullets-section {
+            margin-top: 20px;
+        }
+
+        .bullets-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .bullet-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .bullet-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .bullet-example {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .btn-add-bullet {
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .btn-add-bullet:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-1px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-light);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            <div class="progress-indicator">Step 4 of 8</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header">
+                <div class="step-badge">Work Experience</div>
+                <h1 class="card-title">Your work history</h1>
+                <p class="card-subtitle">Add your professional experience with impact-focused achievements</p>
+            </div>
+
+            <form id="experienceForm">
+                <div class="experience-container" id="experienceContainer">
+                    <div class="empty-state" id="emptyState">
+                        Add your first role to showcase your professional journey
+                    </div>
+                </div>
+
+                <button type="button" class="btn-add" onclick="addExperience()">+ Add Experience</button>
+
+                <div class="ai-section">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <span style="font-weight: 600; font-size: 14px;">AI Writing Helper</span>
+                    </div>
+                    <button type="button" class="btn-ai" onclick="improveImpact()">Turn into impact bullets</button>
+                    <button type="button" class="btn-ai" onclick="quantifyResults()">Add metrics</button>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span> Back
+                    </a>
+                    <button type="submit" class="btn btn-next" id="nextBtn" disabled>
+                        Continue <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let experiences = [];
+        let experienceCounter = 0;
+
+        const months = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        const currentYear = new Date().getFullYear();
+        const years = Array.from({length: 20}, (_, i) => currentYear - i);
+
+        function addExperience() {
+            experienceCounter++;
+            const experience = {
+                id: experienceCounter,
+                company: '',
+                title: '',
+                startMonth: '',
+                startYear: '',
+                endMonth: '',
+                endYear: '',
+                current: false,
+                bullets: ['']
+            };
+            
+            experiences.push(experience);
+            renderExperiences();
+            validateForm();
+            
+            gtag('event', 'experience_add', {
+                event_category: 'onboarding',
+                event_label: 'experience_added'
+            });
+        }
+
+        function removeExperience(id) {
+            experiences = experiences.filter(e => e.id !== id);
+            renderExperiences();
+            validateForm();
+        }
+
+        function renderExperiences() {
+            const container = document.getElementById('experienceContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (experiences.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            experiences.forEach(exp => {
+                const expCard = document.createElement('div');
+                expCard.className = 'experience-card';
+                expCard.innerHTML = `
+                    <button type="button" class="remove-btn" onclick="removeExperience(${exp.id})">×</button>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-input" placeholder="Company name" 
+                                   value="${exp.company}" onchange="updateExperience(${exp.id}, 'company', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Role/Title</label>
+                            <input type="text" class="form-input" placeholder="Your job title" 
+                                   value="${exp.title}" onchange="updateExperience(${exp.id}, 'title', this.value)">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select class="form-select" onchange="updateExperience(${exp.id}, 'startMonth', this.value)">
+                                    <option value="">Month</option>
+                                    ${months.map((month, i) => `<option value="${i+1}" ${exp.startMonth == i+1 ? 'selected' : ''}>${month}</option>`).join('')}
+                                </select>
+                                <select class="form-select" onchange="updateExperience(${exp.id}, 'startYear', this.value)">
+                                    <option value="">Year</option>
+                                    ${years.map(year => `<option value="${year}" ${exp.startYear == year ? 'selected' : ''}>${year}</option>`).join('')}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select class="form-select" ${exp.current ? 'disabled' : ''} onchange="updateExperience(${exp.id}, 'endMonth', this.value)">
+                                    <option value="">Month</option>
+                                    ${months.map((month, i) => `<option value="${i+1}" ${exp.endMonth == i+1 ? 'selected' : ''}>${month}</option>`).join('')}
+                                </select>
+                                <select class="form-select" ${exp.current ? 'disabled' : ''} onchange="updateExperience(${exp.id}, 'endYear', this.value)">
+                                    <option value="">Year</option>
+                                    ${years.map(year => `<option value="${year}" ${exp.endYear == year ? 'selected' : ''}>${year}</option>`).join('')}
+                                </select>
+                            </div>
+                            <label style="display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 13px;">
+                                <input type="checkbox" ${exp.current ? 'checked' : ''} onchange="updateExperience(${exp.id}, 'current', this.checked)">
+                                Current role
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="bullets-section">
+                        <label class="bullets-label">Key Achievements</label>
+                        <div class="bullet-example">Example: Increased sales by 25% through implementing new CRM system</div>
+                        <div id="bullets-${exp.id}">
+                            ${exp.bullets.map((bullet, i) => `
+                                <input type="text" class="bullet-input" placeholder="Start with action verb + add metrics" 
+                                       value="${bullet}" onchange="updateBullet(${exp.id}, ${i}, this.value)">
+                            `).join('')}
+                        </div>
+                        <button type="button" class="btn-add-bullet" onclick="addBullet(${exp.id})">+ Add Achievement</button>
+                    </div>
+                `;
+                container.appendChild(expCard);
+            });
+        }
+
+        function updateExperience(id, field, value) {
+            const exp = experiences.find(e => e.id === id);
+            if (exp) {
+                exp[field] = value;
+                if (field === 'current' && value) {
+                    exp.endMonth = '';
+                    exp.endYear = '';
+                    renderExperiences();
+                }
+                validateForm();
+            }
+        }
+
+        function updateBullet(expId, bulletIndex, value) {
+            const exp = experiences.find(e => e.id === expId);
+            if (exp) {
+                exp.bullets[bulletIndex] = value;
+            }
+        }
+
+        function addBullet(expId) {
+            const exp = experiences.find(e => e.id === expId);
+            if (exp) {
+                exp.bullets.push('');
+                renderExperiences();
+            }
+        }
+
+        function improveImpact() {
+            if (experiences.length === 0) {
+                alert('Add an experience first to use this feature.');
+                return;
+            }
+            
+            alert('AI would rephrase your responsibilities into impact-focused bullets with action verbs and metrics.');
+            
+            gtag('event', 'ai_bullets_click', {
+                event_category: 'onboarding',
+                event_label: 'improve_impact'
+            });
+        }
+
+        function quantifyResults() {
+            if (experiences.length === 0) {
+                alert('Add an experience first to use this feature.');
+                return;
+            }
+            
+            alert('AI would suggest specific metrics and numbers to quantify your achievements.');
+            
+            gtag('event', 'ai_bullets_click', {
+                event_category: 'onboarding',
+                event_label: 'quantify_results'
+            });
+        }
+
+        function validateForm() {
+            const hasValidExperience = experiences.some(exp => 
+                exp.company.trim() && exp.title.trim() && exp.startMonth && exp.startYear
+            );
+            
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = !hasValidExperience;
+            nextBtn.style.opacity = hasValidExperience ? '1' : '0.5';
+        }
+
+        function goBack() {
+            alert('Going back to Skills...');
+        }
+
+        document.getElementById('experienceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            localStorage.setItem('onboarding_experience', JSON.stringify(experiences));
+            
+            document.querySelector('.progress-fill').style.width = '62.5%';
+            
+            setTimeout(() => {
+                alert('Experience saved! Moving to portfolio...');
+            }, 500);
+        });
+
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('onboarding_experience');
+            if (saved) {
+                experiences = JSON.parse(saved);
+                renderExperiences();
+                validateForm();
+            }
+        });
+    </script>
+</body>
+</html>

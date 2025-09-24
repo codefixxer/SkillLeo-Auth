@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education & Languages - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --success: #10B981;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 75%;
+            transition: width 0.3s ease;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .education-container, .languages-container {
+            margin-bottom: 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            border: 2px dashed var(--border-light);
+            border-radius: 12px;
+        }
+
+        .education-card {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ef4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .languages-input-section {
+            margin-bottom: 16px;
+        }
+
+        .language-input-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .language-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .language-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        .language-name {
+            font-weight: 500;
+        }
+
+        .language-level {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+
+        .chip-remove {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ef4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-1px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-light);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .form-row, .language-input-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            <div class="progress-indicator">Step 6 of 8</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header">
+                <div class="step-badge">Education & Languages</div>
+                <h1 class="card-title">Academic background</h1>
+                <p class="card-subtitle">Add your education and language skills for better profile visibility</p>
+            </div>
+
+            <form id="educationForm">
+                <!-- Education Section -->
+                <div class="section">
+                    <h2 class="section-title">Education</h2>
+                    
+                    <div class="education-container" id="educationContainer">
+                        <div class="empty-state" id="educationEmpty">
+                            Add your educational background to build credibility
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-add" onclick="addEducation()">+ Add Education</button>
+                </div>
+
+                <!-- Languages Section -->
+                <div class="section">
+                    <h2 class="section-title">Languages</h2>
+                    
+                    <div class="languages-input-section">
+                        <div class="language-input-row">
+                            <input type="text" class="form-input" id="languageInput" placeholder="Language name" style="flex: 2;">
+                            <select class="form-select" id="proficiencySelect" style="flex: 1;">
+                                <option value="">Proficiency</option>
+                                <option value="Basic">Basic</option>
+                                <option value="Conversational">Conversational</option>
+                                <option value="Fluent">Fluent</option>
+                                <option value="Native">Native</option>
+                            </select>
+                            <button type="button" class="btn-add" onclick="addLanguage()" style="width: auto; padding: 12px 16px; margin: 0;">Add</button>
+                        </div>
+                    </div>
+
+                    <div class="language-chips" id="languageChips"></div>
+                </div>
+
+                <!-- AI Section -->
+                <div class="ai-section">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <span style="font-weight: 600; font-size: 14px;">AI Helper</span>
+                    </div>
+                    <button type="button" class="btn-ai" onclick="normalizeDegrees()">Normalize degree names</button>
+                    <button type="button" class="btn-ai" onclick="suggestLanguages()">Suggest languages</button>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span> Back
+                    </a>
+                    <button type="submit" class="btn btn-next">
+                        Continue <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let educations = [];
+        let languages = [];
+        let educationCounter = 0;
+
+        const currentYear = new Date().getFullYear();
+        const years = Array.from({length: 30}, (_, i) => currentYear - i);
+
+        function addEducation() {
+            educationCounter++;
+            const education = {
+                id: educationCounter,
+                school: '',
+                degree: '',
+                startYear: '',
+                endYear: ''
+            };
+            
+            educations.push(education);
+            renderEducations();
+            
+            gtag('event', 'education_add', {
+                event_category: 'onboarding',
+                event_label: 'education_added'
+            });
+        }
+
+        function removeEducation(id) {
+            educations = educations.filter(e => e.id !== id);
+            renderEducations();
+        }
+
+        function renderEducations() {
+            const container = document.getElementById('educationContainer');
+            const emptyState = document.getElementById('educationEmpty');
+            
+            if (educations.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            educations.forEach(edu => {
+                const eduCard = document.createElement('div');
+                eduCard.className = 'education-card';
+                eduCard.innerHTML = `
+                    <button type="button" class="remove-btn" onclick="removeEducation(${edu.id})">×</button>
+                    
+                    <div class="form-group">
+                        <label class="form-label">School/University</label>
+                        <input type="text" class="form-input" placeholder="Institution name" 
+                               value="${edu.school}" onchange="updateEducation(${edu.id}, 'school', this.value)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Degree</label>
+                        <input type="text" class="form-input" placeholder="e.g., Bachelor of Science in Computer Science" 
+                               value="${edu.degree}" onchange="updateEducation(${edu.id}, 'degree', this.value)">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Start Year</label>
+                            <select class="form-select" onchange="updateEducation(${edu.id}, 'startYear', this.value)">
+                                <option value="">Year</option>
+                                ${years.map(year => `<option value="${year}" ${edu.startYear == year ? 'selected' : ''}>${year}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Year</label>
+                            <select class="form-select" onchange="updateEducation(${edu.id}, 'endYear', this.value)">
+                                <option value="">Year</option>
+                                ${years.map(year => `<option value="${year}" ${edu.endYear == year ? 'selected' : ''}>${year}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(eduCard);
+            });
+        }
+
+        function updateEducation(id, field, value) {
+            const edu = educations.find(e => e.id === id);
+            if (edu) {
+                edu[field] = value;
+            }
+        }
+
+        function addLanguage() {
+            const languageInput = document.getElementById('languageInput');
+            const proficiencySelect = document.getElementById('proficiencySelect');
+            
+            const languageName = languageInput.value.trim();
+            const proficiency = proficiencySelect.value;
+            
+            if (!languageName || !proficiency) {
+                alert('Please enter both language name and proficiency level.');
+                return;
+            }
+            
+            // Check for duplicates
+            if (languages.find(lang => lang.name.toLowerCase() === languageName.toLowerCase())) {
+                alert('Language already added!');
+                return;
+            }
+            
+            languages.push({
+                id: Date.now(),
+                name: languageName,
+                level: proficiency
+            });
+            
+            languageInput.value = '';
+            proficiencySelect.value = '';
+            
+            renderLanguages();
+            
+            gtag('event', 'language_add', {
+                event_category: 'onboarding',
+                event_label: languageName
+            });
+        }
+
+        function removeLanguage(id) {
+            languages = languages.filter(lang => lang.id !== id);
+            renderLanguages();
+        }
+
+        function renderLanguages() {
+            const container = document.getElementById('languageChips');
+            
+            if (languages.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px;">No languages added yet</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            languages.forEach(lang => {
+                const chip = document.createElement('div');
+                chip.className = 'language-chip';
+                chip.innerHTML = `
+                    <span class="language-name">${lang.name}</span>
+                    <span class="language-level">${lang.level}</span>
+                    <button class="chip-remove" onclick="removeLanguage(${lang.id})">×</button>
+                `;
+                container.appendChild(chip);
+            });
+        }
+
+        function normalizeDegrees() {
+            if (educations.length === 0) {
+                alert('Add education entries first to use this feature.');
+                return;
+            }
+            
+            // Simulate degree normalization
+            educations.forEach(edu => {
+                if (edu.degree.toLowerCase().includes('bsc') || edu.degree.toLowerCase().includes('bs')) {
+                    edu.degree = edu.degree.replace(/bsc|bs/gi, 'Bachelor of Science');
+                }
+                if (edu.degree.toLowerCase().includes('ba')) {
+                    edu.degree = edu.degree.replace(/\bba\b/gi, 'Bachelor of Arts');
+                }
+                if (edu.degree.toLowerCase().includes('msc') || edu.degree.toLowerCase().includes('ms')) {
+                    edu.degree = edu.degree.replace(/msc|ms/gi, 'Master of Science');
+                }
+            });
+            
+            renderEducations();
+            alert('Degree names have been normalized to full forms.');
+        }
+
+        function suggestLanguages() {
+            // Get location from previous step
+            const locationData = localStorage.getItem('onboarding_location');
+            
+            if (!locationData) {
+                alert('Location information not found. Please complete the location step first.');
+                return;
+            }
+            
+            const location = JSON.parse(locationData);
+            let suggestions = [];
+            
+            // Country-based language suggestions
+            switch(location.country) {
+                case 'pk':
+                    suggestions = ['Urdu', 'English', 'Punjabi'];
+                    break;
+                case 'us':
+                case 'uk':
+                case 'ca':
+                case 'au':
+                    suggestions = ['English'];
+                    break;
+                case 'in':
+                    suggestions = ['Hindi', 'English'];
+                    break;
+                case 'bd':
+                    suggestions = ['Bengali', 'English'];
+                    break;
+                case 'ae':
+                case 'sa':
+                    suggestions = ['Arabic', 'English'];
+                    break;
+                default:
+                    suggestions = ['English'];
+            }
+            
+            // Add suggested languages that aren't already added
+            suggestions.forEach(langName => {
+                if (!languages.find(lang => lang.name.toLowerCase() === langName.toLowerCase())) {
+                    languages.push({
+                        id: Date.now() + Math.random(),
+                        name: langName,
+                        level: langName === 'English' ? 'Fluent' : 'Native'
+                    });
+                }
+            });
+            
+            renderLanguages();
+            alert(`Added suggested languages based on your location: ${suggestions.join(', ')}`);
+        }
+
+        // Enter key handling for language input
+        document.getElementById('languageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addLanguage();
+            }
+        });
+
+        function goBack() {
+            alert('Going back to Portfolio...');
+        }
+
+        document.getElementById('educationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            localStorage.setItem('onboarding_education', JSON.stringify(educations));
+            localStorage.setItem('onboarding_languages', JSON.stringify(languages));
+            
+            document.querySelector('.progress-fill').style.width = '87.5%';
+            
+            setTimeout(() => {
+                alert('Education & Languages saved! Moving to work preferences...');
+            }, 500);
+        });
+
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedEducation = localStorage.getItem('onboarding_education');
+            const savedLanguages = localStorage.getItem('onboarding_languages');
+            
+            if (savedEducation) {
+                educations = JSON.parse(savedEducation);
+                renderEducations();
+            }
+            
+            if (savedLanguages) {
+                languages = JSON.parse(savedLanguages);
+                renderLanguages();
+            } else {
+                renderLanguages(); // Show empty state
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Projects - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --success: #10B981;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 62.5%;
+            transition: width 0.3s ease;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .skip-section {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+        }
+
+        .skip-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .btn-skip {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            color: var(--text-secondary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-skip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .projects-container {
+            margin-bottom: 32px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .project-card {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ef4444;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .char-count {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-add:hover {
+            transform: translateY(-1px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-light);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            <div class="progress-indicator">Step 5 of 8</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header">
+                <div class="step-badge">Portfolio Projects</div>
+                <h1 class="card-title">Showcase your work</h1>
+                <p class="card-subtitle">Add case studies to demonstrate your expertise</p>
+            </div>
+
+            <div class="skip-section">
+                <div class="skip-text">Portfolio is optional but recommended for better visibility</div>
+                <button class="btn-skip" onclick="skipPortfolio()">Skip for now</button>
+            </div>
+
+            <form id="portfolioForm">
+                <div class="projects-container" id="projectsContainer">
+                    <div class="empty-state" id="emptyState">
+                        No projects added yet. Click "Add Project" to get started.
+                    </div>
+                </div>
+
+                <button type="button" class="btn-add" onclick="addProject()">+ Add Project</button>
+
+                <div class="ai-section">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <span style="font-weight: 600; font-size: 14px;">AI Assistant</span>
+                    </div>
+                    <button type="button" class="btn-ai" onclick="draftFromURL()">Draft from URL</button>
+                    <button type="button" class="btn-ai" onclick="compressToBullets()">Compress to bullets</button>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span> Back
+                    </a>
+                    <button type="submit" class="btn btn-next">
+                        Continue <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let projects = [];
+        let projectCounter = 0;
+
+        function addProject() {
+            projectCounter++;
+            const project = {
+                id: projectCounter,
+                title: '',
+                summary: '',
+                challenge: '',
+                solution: '',
+                outcome: '',
+                techStack: ''
+            };
+            
+            projects.push(project);
+            renderProjects();
+            
+            gtag('event', 'portfolio_add', {
+                event_category: 'onboarding',
+                event_label: 'project_added'
+            });
+        }
+
+        function removeProject(id) {
+            projects = projects.filter(p => p.id !== id);
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const container = document.getElementById('projectsContainer');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (projects.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            container.innerHTML = '';
+            
+            projects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'project-card';
+                projectCard.innerHTML = `
+                    <button type="button" class="remove-btn" onclick="removeProject(${project.id})">×</button>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Project Title</label>
+                        <input type="text" class="form-input" placeholder="e.g., E-commerce Platform" 
+                               value="${project.title}" onchange="updateProject(${project.id}, 'title', this.value)">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">One-line Summary</label>
+                        <input type="text" class="form-input" placeholder="Brief description of the project" 
+                               value="${project.summary}" onchange="updateProject(${project.id}, 'summary', this.value)">
+                        <div class="char-count">${project.summary.length}/100</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Challenge</label>
+                        <textarea class="form-textarea" placeholder="What problem did you solve?" 
+                                  onchange="updateProject(${project.id}, 'challenge', this.value)">${project.challenge}</textarea>
+                        <div class="char-count">${project.challenge.length}/200</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Solution</label>
+                        <textarea class="form-textarea" placeholder="How did you solve it?" 
+                                  onchange="updateProject(${project.id}, 'solution', this.value)">${project.solution}</textarea>
+                        <div class="char-count">${project.solution.length}/200</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Outcome & Metrics</label>
+                        <textarea class="form-textarea" placeholder="What were the results? Include numbers if possible" 
+                                  onchange="updateProject(${project.id}, 'outcome', this.value)">${project.outcome}</textarea>
+                        <div class="char-count">${project.outcome.length}/150</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Tech Stack</label>
+                        <input type="text" class="form-input" placeholder="Laravel, React, MySQL (comma-separated)" 
+                               value="${project.techStack}" onchange="updateProject(${project.id}, 'techStack', this.value)">
+                    </div>
+                `;
+                container.appendChild(projectCard);
+            });
+        }
+
+        function updateProject(id, field, value) {
+            const project = projects.find(p => p.id === id);
+            if (project) {
+                project[field] = value;
+            }
+        }
+
+        function draftFromURL() {
+            const url = prompt('Enter GitHub URL or live project link:');
+            if (url) {
+                alert('AI would analyze the URL and draft a case study. Feature coming soon!');
+                
+                gtag('event', 'ai_case_study_click', {
+                    event_category: 'onboarding',
+                    event_label: 'draft_from_url'
+                });
+            }
+        }
+
+        function compressToBullets() {
+            if (projects.length === 0) {
+                alert('Add a project first to use this feature.');
+                return;
+            }
+            
+            alert('AI would compress your case studies to 3 key bullets for the card view.');
+            
+            gtag('event', 'ai_case_study_click', {
+                event_category: 'onboarding',
+                event_label: 'compress_bullets'
+            });
+        }
+
+        function skipPortfolio() {
+            document.querySelector('.progress-fill').style.width = '75%';
+            setTimeout(() => {
+                alert('Skipping portfolio. Moving to next step...');
+            }, 300);
+        }
+
+        function goBack() {
+            alert('Going back to Experience...');
+        }
+
+        document.getElementById('portfolioForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            localStorage.setItem('onboarding_portfolio', JSON.stringify(projects));
+            
+            document.querySelector('.progress-fill').style.width = '75%';
+            
+            setTimeout(() => {
+                alert('Portfolio saved! Moving to next step...');
+            }, 500);
+        });
+
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const saved = localStorage.getItem('onboarding_portfolio');
+            if (saved) {
+                projects = JSON.parse(saved);
+                renderProjects();
+            }
+        });
+    </script>
+</body>
+</html>

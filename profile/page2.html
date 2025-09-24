@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codefixxer — Profile</title>
+
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#F3F2EE;
+      --surface:#fff;
+      --ink:#111;
+      --muted:#6b7280;
+      --border:#E5E5E5;
+      --accent:#1351d8;
+      --chip:#f6f6f6;
+      --radius:14px;
+      --radius-lg:16px;
+      --radius-sm:10px;
+      --container-max:1280px; /* keeps desktop ratio consistent */
+    }
+
+    /* Global */
+    html,body{background:var(--bg); color:var(--ink);}
+    .container-xxl{max-width:var(--container-max);}
+    .bordered{border:1px solid var(--border); border-radius:var(--radius); background:var(--surface);}
+    .bordered-lg{border:1px solid var(--border); border-radius:var(--radius-lg); background:var(--surface);}
+    .chip{
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.35rem .7rem; border:1px solid var(--border);
+      border-radius:999px; background:#fff; font-size:.82rem; line-height:1;
+      white-space:nowrap;
+    }
+    .chip i{font-size:.9rem;}
+    .chip.soft{background:var(--chip);}
+    .text-muted{color:var(--muted)!important;}
+    a{color:inherit; text-decoration:none}
+    .btn-accent{background:var(--accent); color:#fff; border:1px solid var(--accent);}
+    .btn-accent:hover{filter:brightness(.97); color:#fff}
+    .btn-outline-accent{border:1px solid var(--accent); color:var(--accent); background:#fff;}
+    .btn-outline-accent:hover{background:rgba(19,81,216,.06); color:var(--accent);}
+    .btn-light-border{background:#fff; border:1px solid var(--border); color:var(--ink);}
+    .section-title{font-weight:700; font-size:1.05rem; letter-spacing:.2px}
+    .small-title{font-weight:700; font-size:.95rem}
+    .xs{font-size:.82rem}
+    .xxs{font-size:.78rem}
+
+    /* Top App Bar */
+    .topbar{backdrop-filter:saturate(180%) blur(2px);}
+    .topbar .navwrap{border:1px solid var(--border); border-radius:999px; background:#fff;}
+    .topbar .search{
+      border:none; outline:0; width:100%; font-size:.95rem; padding:.55rem .25rem;
+    }
+    .avatar-sm{width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid var(--border);}
+
+    /* Cover Banner */
+    .cover{overflow:hidden; border:1px solid var(--border); border-radius:var(--radius-lg); position:relative;}
+    .cover img{width:100%; height:220px; object-fit:cover; display:block;}
+    .cover .logo-word{position:absolute; left:18px; top:14px; font-weight:800; color:#fff; letter-spacing:.3px}
+    .cover .ask-ai{position:absolute; right:14px; top:14px;}
+    .badge-open{background:#eaffea; color:#2b8a3e; border:1px solid #cceccd; padding:.25rem .5rem; border-radius:999px; font-weight:600; font-size:.78rem}
+
+    /* 3-Column Desktop Grid (ratio preserved) */
+    @media (min-width: 1200px){
+      .layout-grid{
+        display:grid; gap:16px;
+        grid-template-columns: 300px 1fr 320px; /* left / main / right */
+      }
+    }
+    @media (min-width: 1400px){
+      .layout-grid{grid-template-columns: 320px 1fr 360px;}
+    }
+
+    /* Profile card head */
+    .profile-card .avatar-xl{
+      width:96px; height:96px; border-radius:50%; border:3px solid #fff; object-fit:cover;
+      box-sizing:content-box; margin-top:-48px;
+    }
+    .cta-row .btn{padding:.55rem .9rem; font-weight:600}
+    .label-row{gap:.45rem; flex-wrap:wrap}
+    .link-row a{
+      width:36px; height:36px; border:1px solid var(--border); border-radius:999px; display:inline-flex; align-items:center; justify-content:center;
+    }
+
+    /* Portfolios */
+    .filter-pills .nav-link{
+      border:1px solid var(--border); color:#111; margin-right:.5rem; border-radius:999px; padding:.4rem .85rem; font-weight:600;
+    }
+    .filter-pills .nav-link.active{background:var(--accent); color:#fff; border-color:var(--accent)}
+    .project-card img{width:100%; height:168px; object-fit:cover; border-radius:12px; border:1px solid var(--border);}
+    .meta-tags .chip{font-size:.75rem}
+
+    /* Skills */
+    .skillbar{
+      height:8px; background:#f0f0f0; border-radius:999px; border:1px solid var(--border); overflow:hidden;
+    }
+    .skillbar .fill{height:100%; background:var(--accent); width:0}
+    .skillbar[data-val="90"] .fill{width:90%}
+    .skillbar[data-val="95"] .fill{width:95%}
+    .skillbar[data-val="100"] .fill{width:100%}
+
+    /* Experience timeline look (bordered) */
+    .exp-item{border:1px solid var(--border); border-radius:12px; padding:14px}
+    .exp-item .date{font-weight:700; font-size:.82rem}
+    .exp-item .loc{font-size:.82rem}
+
+    /* Testimonials */
+    .review{border:1px solid var(--border); border-radius:12px; padding:16px}
+    .qmark{font-size:1.3rem; opacity:.6}
+
+    /* Right Rail lists */
+    .list-clean{margin:0; padding-left:1rem}
+    .list-clean li{margin:.35rem 0}
+
+    /* “Generate Profile” card */
+    .uploader .drop{border:1px dashed var(--border); border-radius:12px; padding:12px; text-align:center}
+
+    /* Mobile Header Card */
+    .mob-head{position:relative}
+    .mob-head .circle{
+      width:64px; height:64px; border-radius:50%; border:2px solid #fff; position:absolute; left:12px; bottom:-32px; background:#d9d9d9;
+    }
+    .generate-pill{position:absolute; right:12px; bottom:-16px;}
+
+    /* Sticky mobile tabs */
+    .mobile-tabs{
+      background:#fff; border-top:1px solid var(--border);
+    }
+    .mobile-tabs .nav-link{font-size:.8rem; padding:.5rem .25rem; color:#444}
+    .mobile-tabs .nav-link.active{color:var(--accent)}
+
+    /* Utilities */
+    .divider{height:1px; background:var(--border);}
+    .min-gap>*+*{margin-top:.35rem}
+    .tight>*+*{margin-top:.6rem}
+    .pad{padding:16px}
+    .pad-lg{padding:20px}
+    .section{padding:16px; border:1px solid var(--border); border-radius:var(--radius); background:#fff}
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar py-2">
+    <div class="container-xxl">
+      <div class="d-flex align-items-center gap-2">
+        <a class="d-flex align-items-center gap-2 fw-bold px-2 py-1 rounded-3 btn-light-border" href="#">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=300&auto=format&fit=crop" alt="logo" class="avatar-sm">
+          <span>Codefixxer</span>
+        </a>
+
+        <div class="flex-grow-1">
+          <div class="navwrap d-flex align-items-center px-3">
+            <i class="bi bi-search me-2 text-muted"></i>
+            <input class="search" placeholder="Graphic Designer, Web Developer etc." />
+          </div>
+        </div>
+
+        <div class="d-none d-md-flex align-items-center gap-3">
+          <a href="#" class="text-secondary"><i class="bi bi-house-door"></i></a>
+          <a href="#" class="text-secondary"><i class="bi bi-bell"></i></a>
+          <a href="#" class="text-secondary"><i class="bi bi-star"></i></a>
+          <a href="#" class="text-secondary"><i class="bi bi-people"></i></a>
+          <a href="#" class="btn btn-light-border d-none d-lg-inline-flex"><i class="bi bi-share me-1"></i> Share</a>
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=200&auto=format&fit=crop" class="avatar-sm" alt="Me">
+          <div class="text-center d-none d-xl-block xxs">Alina Ali</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COVER -->
+  <div class="container-xxl mt-2">
+    <div class="cover">
+      <img src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1400&auto=format&fit=crop" alt="Banner">
+      <div class="logo-word h4 m-0">Codefixxer</div>
+      <div class="ask-ai">
+        <span class="btn btn-accent btn-sm"><i class="bi bi-stars me-1"></i> Ask Leo Ai</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE PROFILE HEAD (shown ≤ md) -->
+  <div class="container-xxl d-md-none">
+    <div class="mob-head mt-3 bordered pad">
+      <div class="position-relative">
+        <div class="circle"></div>
+        <span class="btn btn-accent btn-sm generate-pill">Generate</span>
+      </div>
+      <div class="mt-4">
+        <h5 class="fw-bold m-0">Hassam Mehmood <span class="badge-open ms-1">Open to work</span></h5>
+        <div class="mt-2 d-flex label-row">
+          <span class="chip">Web Develop</span>
+          <span class="chip">Web Develop</span>
+          <span class="chip">HTML</span>
+          <span class="chip">Web Develop</span>
+          <span class="chip">HTML</span>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-2 xxs">
+          <i class="bi bi-geo-alt"></i> Sargodha, Pakistan
+        </div>
+        <div class="d-flex gap-2 mt-2 cta-row">
+          <a class="btn btn-accent btn-sm" href="#">Let’s Chat!</a>
+          <a class="btn btn-light-border btn-sm" href="#">Follow</a>
+          <a class="btn btn-light-border btn-sm" href="#"><i class="bi bi-three-dots"></i></a>
+        </div>
+        <div class="mt-2 d-flex gap-2 link-row">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a class="ms-auto btn btn-light-border btn-sm" href="#"><i class="bi bi-download me-1"></i> Download CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="container-xxl my-3 layout-grid">
+    <!-- LEFT RAIL -->
+    <aside class="d-none d-xl-block">
+      <!-- Profile Card -->
+      <div class="bordered pad profile-card">
+        <div class="position-relative">
+          <img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=300&auto=format&fit=crop" class="avatar-xl" alt="Profile">
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="fw-bold mb-0">Hassam Mehmood</h5>
+          <span class="badge-open">Open to work</span>
+        </div>
+        <div class="xxs text-muted mt-1">PHP · Larevel · React Js · Node Js · Express Js · Mongo DB · Tailwind CSS</div>
+        <div class="mt-2 xxs text-muted">Sargodha, Pakistan</div>
+
+        <div class="mt-3">
+          <div class="small-title mb-1">About:</div>
+          <div class="xxs text-muted">
+            I am a problem solver who writes and maintains the code that powers websites, applications, ...
+          </div>
+          <a class="xxs fw-semibold mt-1 d-inline-block" href="#" style="color:var(--accent)">See more</a>
+        </div>
+
+        <div class="d-flex gap-2 mt-3 cta-row">
+          <a class="btn btn-accent w-100" href="#">Let’s Chat!</a>
+          <a class="btn btn-light-border w-100" href="#">Follow</a>
+        </div>
+        <div class="mt-2 d-flex gap-2 link-row">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+
+      <!-- Top Skills -->
+      <div class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Top Skills</div>
+          <a href="#" class="xxs fw-semibold">See all</a>
+        </div>
+        <div class="mt-2 d-flex flex-wrap gap-2">
+          <span class="chip">Web Develop</span>
+          <span class="chip">Web Develop</span>
+          <span class="chip">HTML</span>
+        </div>
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Soft Skills</div>
+          <a href="#" class="xxs fw-semibold">See all</a>
+        </div>
+        <div class="min-gap mt-2">
+          <div class="d-flex align-items-center gap-2 xxs"><i class="bi bi-check2-circle"></i> Problem-solving</div>
+          <div class="d-flex align-items-center gap-2 xxs"><i class="bi bi-chat-dots"></i> Communication skills</div>
+          <div class="d-flex align-items-center gap-2 xxs"><i class="bi bi-clock-history"></i> Time management</div>
+        </div>
+      </div>
+
+      <!-- Language -->
+      <div class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Language</div>
+        </div>
+        <div class="tight mt-2">
+          <div class="d-flex justify-content-between xxs"><span>English — Professional</span></div>
+          <div class="divider"></div>
+          <div class="d-flex justify-content-between xxs"><span>Urdu — Native</span></div>
+          <div class="divider"></div>
+          <div class="d-flex justify-content-between xxs"><span>Arabic — Basic</span></div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Education</div>
+          <a href="#" class="xxs fw-semibold">See all Education</a>
+        </div>
+        <div class="tight mt-2">
+          <div class="xxs fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">Recent</span></div>
+          <div class="xxs text-muted">Lorem ipsum is placeholder</div>
+          <div class="xxs text-muted">Jul 2024 - Jul 2025 • Sargodha, Pakistan</div>
+          <div class="divider my-2"></div>
+
+          <div class="xxs fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">Recent</span></div>
+          <div class="xxs text-muted">Lorem ipsum is placeholder</div>
+          <div class="xxs text-muted">Jul 2024 - Jul 2025 • Sargodha, Pakistan</div>
+          <div class="divider my-2"></div>
+
+          <div class="xxs fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">Recent</span></div>
+          <div class="xxs text-muted">Lorem ipsum is placeholder</div>
+          <div class="xxs text-muted">Jul 2024 - Jul 2025 • Sargodha, Pakistan</div>
+          <div class="divider my-2"></div>
+
+          <div class="xxs fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">Recent</span></div>
+          <div class="xxs text-muted">Lorem ipsum is placeholder</div>
+          <div class="xxs text-muted">Jul 2024 - Jul 2025 • Sargodha, Pakistan</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main>
+      <!-- Portfolios -->
+      <section id="portfolios" class="bordered pad">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <div class="small text-muted">96 Projects</div>
+            <div class="section-title mt-1">Portfolios</div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <ul class="nav filter-pills" id="filterTabs">
+              <li class="nav-item"><a class="nav-link active" data-filter="all" href="#">All</a></li>
+              <li class="nav-item"><a class="nav-link" data-filter="laravel" href="#">Laravel</a></li>
+              <li class="nav-item"><a class="nav-link" data-filter="react" href="#">React Js</a></li>
+              <li class="nav-item"><a class="nav-link" data-filter="node" href="#">Node Js</a></li>
+              <li class="nav-item"><a class="nav-link" data-filter="ai" href="#">Ai</a></li>
+              <li class="nav-item"><a class="nav-link" data-filter="mern" href="#">Mern Stack</a></li>
+            </ul>
+            <a class="btn btn-light-border btn-sm" href="#"><i class="bi bi-plus-lg me-1"></i> Add Projects</a>
+          </div>
+        </div>
+
+        <!-- ONE project card as requested -->
+        <div class="row g-3 mt-1">
+          <div class="col-12">
+            <div class="project-card bordered p-3">
+              <div class="row g-3 align-items-start">
+                <div class="col-md-4">
+                  <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1600&auto=format&fit=crop" alt="Project cover">
+                </div>
+                <div class="col-md-8">
+                  <h6 class="fw-bold">How Laravel + AI Can Transform Your Business: A Client’s Guide</h6>
+                  <div class="meta-tags d-flex flex-wrap gap-1 mt-2">
+                    <span class="chip soft">PHP+</span>
+                    <span class="chip soft">CSS3</span>
+                    <span class="chip soft">HTML</span>
+                    <span class="chip soft">Laravel</span>
+                    <span class="chip soft">Python</span>
+                  </div>
+                  <p class="xxs text-muted mt-2 mb-2">
+                    A productivity tool for organizing tasks, setting deadlines, and tracking progress. setting deadlines, and tracking progress.
+                  </p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="xxs">
+                      <a href="#" class="fw-semibold" style="color:var(--accent)">www.codefixxer.com</a>
+                      <span class="text-muted ms-1">Launched in 3 Weeks</span>
+                    </div>
+                    <a class="btn btn-outline-accent btn-sm" href="#">View Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section id="skills" class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Skills</div>
+          <div class="d-none d-md-flex gap-3 xxs">
+            <div><span class="fw-bold me-1">Backend</span> PHP Core | Laravel | Node Js. | My SQL | Sql Queries | Mongo DB</div>
+            <div class="vr"></div>
+            <div><span class="fw-bold me-1">Frontend</span> HTML 5 | CSS 3 | Vanilla Js. | React Js. | Ajax | Tailwind CSS</div>
+          </div>
+        </div>
+
+        <div class="row g-3 mt-1">
+          <div class="col-md-4">
+            <div class="fw-semibold">Laravel</div>
+            <div class="skillbar mt-2" data-val="90"><div class="fill"></div></div>
+            <div class="xxs text-end mt-1">90%</div>
+          </div>
+          <div class="col-md-4">
+            <div class="fw-semibold">React Js</div>
+            <div class="skillbar mt-2" data-val="95"><div class="fill"></div></div>
+            <div class="xxs text-end mt-1">95%</div>
+          </div>
+          <div class="col-md-4">
+            <div class="fw-semibold">Mechine Learning</div>
+            <div class="skillbar mt-2" data-val="100"><div class="fill"></div></div>
+            <div class="xxs text-end mt-1">100%</div>
+          </div>
+        </div>
+
+        <!-- Stacked tech lists for tablet/mobile -->
+        <div class="mt-3 d-md-none xxs">
+          <div class="fw-bold">Backend</div>
+          <div class="text-muted">PHP Core | Laravel | Node Js. | My SQL | Sql Queries | Mongo DB</div>
+          <div class="fw-bold mt-2">Frontend</div>
+          <div class="text-muted">HTML 5 | CSS 3 | Vanilla Js. | React Js. | Ajax | Tailwind CSS</div>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section id="experience" class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Experience</div>
+          <a href="#" class="xxs fw-semibold">See all Experiences</a>
+        </div>
+
+        <div class="row g-2 mt-1">
+          <div class="col-12">
+            <div class="exp-item">
+              <div class="fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">Current</span></div>
+              <div class="xxs text-muted">
+                Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem ipsum is plaLorem ipsum is placeholder, Lorem ipsum is placeholder Lorem ipsum is placeholder...
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <div class="date">Jul 2024 - Jul 2025</div>
+                <div class="loc text-muted">Sargodha, Pakistan</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="exp-item">
+              <div class="fw-bold">Lorem ipsum <span class="badge bg-secondary-subtle text-dark border ms-1">2019-2021</span></div>
+              <div class="xxs text-muted">
+                Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem ipsum is plaLorem ipsum is placeholder, Lorem ipsum is placeholder Lorem ipsum is placeholder...
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <div class="date">Jul 2024 - Jul 2025</div>
+                <div class="loc text-muted">Sargodha, Pakistan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section id="testimonials" class="bordered pad mt-3">
+        <div class="section-title mb-2">Client Reviews</div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="review h-100">
+              <div class="d-flex align-items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=200&auto=format&fit=crop" class="avatar-sm" alt="Sophie">
+                <div>
+                  <div class="fw-semibold xxs">Sophie Carter</div>
+                  <div class="xxs text-muted">New York, USA</div>
+                </div>
+              </div>
+              <p class="xxs mt-2 mb-0"><span class="qmark">“</span> Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups. <span class="qmark">”</span></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="review h-100">
+              <div class="d-flex align-items-center gap-2">
+                <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=200&auto=format&fit=crop" class="avatar-sm" alt="James">
+                <div>
+                  <div class="fw-semibold xxs">James Bennett</div>
+                  <div class="xxs text-muted">Toronto, Canada</div>
+                </div>
+              </div>
+              <p class="xxs mt-2 mb-0"><span class="qmark">“</span> Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups. <span class="qmark">”</span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- RIGHT RAIL -->
+    <aside class="d-none d-xxl-block">
+      <!-- AI Profile Creator -->
+      <div class="bordered pad">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">AI Profile Creator</div>
+        </div>
+        <div class="xxs text-muted mt-1">Upload your CV or describe yourself — AI will build your profile.</div>
+        <div class="uploader mt-2">
+          <div class="drop">
+            <i class="bi bi-cloud-arrow-up"></i>
+            <div class="xxs">Upload your Resume/CV</div>
+          </div>
+          <div class="text-center xxs my-2">OR</div>
+          <textarea class="form-control xxs" rows="4" placeholder="Describe yourself here...."></textarea>
+          <button class="btn btn-accent w-100 mt-2">Generate Profile</button>
+        </div>
+      </div>
+
+      <!-- Why Choose Me -->
+      <div class="bordered pad mt-3">
+        <div class="section-title">Why Chose Me</div>
+        <ul class="list-clean xxs mt-2">
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="bordered pad mt-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="section-title">Services</div>
+          <a href="#" class="xxs fw-semibold">See all Services</a>
+        </div>
+        <ul class="list-clean xxs mt-2">
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+          <li>Lorem ipsum is placeholder</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <!-- MOBILE BOTTOM TABS -->
+  <nav class="mobile-tabs d-md-none fixed-bottom">
+    <ul class="nav justify-content-around py-1">
+      <li class="nav-item">
+        <a class="nav-link active" data-target="#portfolios" href="#portfolios"><div class="text-center"><i class="bi bi-grid"></i><div class="xxs">Portfolios</div></div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#skills" href="#skills"><div class="text-center"><i class="bi bi-lightning-charge"></i><div class="xxs">Skills</div></div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#experience" href="#experience"><div class="text-center"><i class="bi bi-briefcase"></i><div class="xxs">Experiences</div></div></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-target="#testimonials" href="#testimonials"><div class="text-center"><i class="bi bi-chat-quote"></i><div class="xxs">Testimonials</div></div></a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- JS (Bootstrap + minimal interactions) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Filter pills (only one card present, but keeps behavior true to design)
+    document.querySelectorAll('#filterTabs .nav-link').forEach(link=>{
+      link.addEventListener('click', e=>{
+        e.preventDefault();
+        document.querySelectorAll('#filterTabs .nav-link').forEach(a=>a.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+
+    // Animate skill bars on load
+    window.addEventListener('load', ()=>{
+      document.querySelectorAll('.skillbar .fill').forEach(el=>{
+        el.style.transition='width .9s ease';
+        // width already set by data-val rule
+        const p = getComputedStyle(el).width;
+      });
+    });
+
+    // Mobile tab active state while scrolling
+    const tabs = document.querySelectorAll('.mobile-tabs .nav-link');
+    const ids = Array.from(tabs).map(t => t.getAttribute('data-target'));
+    const opts = {root:null, rootMargin:'-40% 0px -55% 0px', threshold:0};
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){
+          tabs.forEach(t => t.classList.toggle('active', t.getAttribute('data-target')===('#'+ent.target.id)));
+        }
+      });
+    }, opts);
+    ids.forEach(id=>{
+      const el=document.querySelector(id);
+      if(el) observer.observe(el);
+    });
+  </script>
+</body>
+</html>

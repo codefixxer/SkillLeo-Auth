@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codefixxer – Profile</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Bootstrap Icons (no Bootstrap CSS to avoid conflicts) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+
+  <script>
+    /* Tailwind configuration — brand colors & container */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg: '#F3F2EE',          // body background
+              primary: '#111111',     // default text
+              secondary: '#1351D8'    // buttons / accents
+            }
+          },
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          container: { center: true, padding: '1rem' }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Pixel-detail helpers: use borders (no shadows) */
+    .card { @apply bg-white border border-neutral-200 rounded-xl; }
+    .chip { @apply inline-flex items-center gap-2 border border-neutral-300 rounded-full px-3 py-1 text-[13px] font-medium text-neutral-700; }
+    .chip.is-active { @apply border-brand-secondary text-brand-secondary; }
+    .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-secondary bg-brand-secondary text-white px-4 py-2 font-semibold; }
+    .btn-outline { @apply inline-flex items-center justify-center gap-2 rounded-full border border-neutral-300 bg-white text-neutral-800 px-4 py-2 font-semibold; }
+    .kpi { @apply text-[12px] text-neutral-500; }
+    .divider-h { @apply h-px bg-neutral-200; }
+    .divider-v { @apply w-px bg-neutral-200; }
+    .input { @apply w-full border border-neutral-300 rounded-lg px-3 py-2 text-[14px] outline-none focus:border-brand-secondary; }
+    .heading { @apply text-[15px] font-semibold text-neutral-900; }
+  </style>
+</head>
+<body class="bg-brand-bg text-neutral-900">
+  <!-- Top app bar (desktop) -->
+  <header class="sticky top-0 z-30 bg-brand-bg/80 backdrop-blur supports-[backdrop-filter]:bg-brand-bg/60 border-b border-neutral-200">
+    <div class="container hidden md:flex items-center justify-between h-14 gap-4">
+      <nav class="flex items-center gap-5 text-[13px]">
+        <a class="chip !rounded-lg !px-2 !py-1" href="#">Graphic Designer, Web Developer etc.</a>
+        <a class="text-neutral-700 hover:text-neutral-900" href="#">Home</a>
+        <a class="text-neutral-700 hover:text-neutral-900" href="#">Messages</a>
+        <a class="text-neutral-700 hover:text-neutral-900" href="#">Notifications</a>
+        <a class="text-neutral-700 hover:text-neutral-900" href="#">Favorites</a>
+        <a class="text-neutral-700 hover:text-neutral-900" href="#">My Connection</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <button class="chip !rounded-lg !px-2 !py-1"><i class="bi bi-share pe-1"></i> Share</button>
+        <div class="w-9 h-9 rounded-full bg-neutral-300 overflow-hidden"></div>
+        <span class="text-[12px] text-neutral-600">Alina Ali</span>
+      </div>
+    </div>
+    <!-- Mobile app bar -->
+    <div class="container md:hidden flex items-center justify-between h-12">
+      <button id="mbMenuBtn" class="chip !rounded-lg !px-2 !py-1"><i class="bi bi-list"></i></button>
+      <a class="text-[13px]" href="#">Graphic Designer, Web Developer etc.</a>
+      <button class="chip !rounded-lg !px-2 !py-1"><i class="bi bi-share"></i></button>
+    </div>
+  </header>
+
+  <!-- Hero banner -->
+  <section class="container mt-3 md:mt-6">
+    <div class="card overflow-hidden">
+      <div class="relative">
+        <div class="h-[148px] md:h-[180px] bg-[url('https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+        <div class="absolute -bottom-8 left-4 md:left-6 w-20 h-20 md:w-24 md:h-24 rounded-full border-4 border-white bg-neutral-300 overflow-hidden"></div>
+      </div>
+      <div class="px-4 md:px-6 pt-10 pb-4 md:pb-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-3">
+              <h1 class="text-xl md:text-2xl font-bold">Hassam Mehmood</h1>
+              <span class="chip !text-[11px] !py-0.5 !px-2 !rounded-md bg-green-50 border-green-600 text-green-700">Open to work</span>
+            </div>
+            <p class="mt-2 text-[13px] md:text-sm text-neutral-700 max-w-3xl">
+              Full-Stack Laravel & React Developer | AI & Chatbot Integration Expert | SaaS, API & Payment Gateway Specialist | Founder @ Code Fixxer | Web & Mobile (Flutter/React Native) App Specialist...
+            </p>
+            <div class="mt-2 flex flex-wrap items-center gap-2 text-[12px]">
+              <span class="chip">Web Develop</span>
+              <span class="chip">Web Develop</span>
+              <span class="chip">HTML</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2 text-[13px] text-neutral-600">
+              <i class="bi bi-geo-alt"></i> Sargodha, Pakistan
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 md:gap-3">
+            <button class="btn-primary">Let's Chat!</button>
+            <button class="btn-outline">Follow</button>
+            <div class="divider-v hidden md:block h-6"></div>
+            <button class="btn-outline"><i class="bi bi-download"></i> Download CV</button>
+            <div class="flex items-center gap-2 text-[14px] md:ml-2">
+              <a href="#" aria-label="facebook" class="chip !rounded-full !p-2" title="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="instagram" class="chip !rounded-full !p-2" title="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="linkedin" class="chip !rounded-full !p-2" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="twitter" class="chip !rounded-full !p-2" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Page grid -->
+  <main class="container mt-4 md:mt-6 grid grid-cols-12 gap-4 md:gap-6">
+    <!-- Left sidebar -->
+    <aside class="col-span-12 lg:col-span-3 space-y-4 md:space-y-6 order-2 lg:order-1">
+      <!-- About -->
+      <section class="card p-4 md:p-5">
+        <h3 class="heading">About</h3>
+        <p class="mt-2 text-[13px] text-neutral-700 leading-6">I am a problem solver who writes and maintains the code that powers websites, applications...</p>
+        <button class="mt-2 text-[13px] text-brand-secondary font-medium">See more</button>
+      </section>
+
+      <!-- Top Skills -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Top Skills</h3>
+          <button class="text-[12px] text-brand-secondary">See all</button>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <span class="chip">Web Develop</span>
+          <span class="chip">Web Develop</span>
+          <span class="chip">HTML</span>
+        </div>
+      </section>
+
+      <!-- Soft Skills -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Soft Skills</h3>
+          <button class="text-[12px] text-brand-secondary">See all</button>
+        </div>
+        <ul class="mt-3 space-y-2 text-[13px]">
+          <li class="flex items-center gap-2"><i class="bi bi-check2-circle text-brand-secondary"></i> Problem‑solving</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-circle text-brand-secondary"></i> Communication skills</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-circle text-brand-secondary"></i> Time management</li>
+        </ul>
+      </section>
+
+      <!-- Languages -->
+      <section class="card p-4 md:p-5">
+        <h3 class="heading">Language</h3>
+        <div class="mt-3 space-y-3 text-[13px]">
+          <div class="flex items-start justify-between">
+            <span>English — Professional</span>
+          </div>
+          <div class="flex items-start justify-between">
+            <span>Urdu — Native</span>
+          </div>
+          <div class="flex items-start justify-between">
+            <span>Arabic — Basic</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Education</h3>
+          <button class="text-[12px] text-brand-secondary">See all Education</button>
+        </div>
+        <div class="mt-3 space-y-4 text-[13px]">
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="font-semibold">Lorem ipsum</div>
+            <div class="kpi">Sargodha, Pakistan</div>
+            <div class="kpi">Jul 2024 - Jul 2025 <span class="ml-2 chip !px-2 !py-0.5 !rounded bg-neutral-50">Recent</span></div>
+          </div>
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="font-semibold">Lorem ipsum</div>
+            <div class="kpi">Sargodha, Pakistan</div>
+            <div class="kpi">Jul 2024 - Jul 2025 <span class="ml-2 chip !px-2 !py-0.5 !rounded bg-neutral-50">Recent</span></div>
+          </div>
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="font-semibold">Lorem ipsum</div>
+            <div class="kpi">Sargodha, Pakistan</div>
+            <div class="kpi">Jul 2024 - Jul 2025 <span class="ml-2 chip !px-2 !py-0.5 !rounded bg-neutral-50">Recent</span></div>
+          </div>
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="font-semibold">Lorem ipsum</div>
+            <div class="kpi">Sargodha, Pakistan</div>
+            <div class="kpi">Jul 2024 - Jul 2025 <span class="ml-2 chip !px-2 !py-0.5 !rounded bg-neutral-50">Recent</span></div>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- Main column -->
+    <section class="col-span-12 lg:col-span-6 space-y-4 md:space-y-6 order-1 lg:order-2">
+      <!-- Portfolios -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Portfolios <span class="kpi">96 Projects</span></h3>
+          <button class="btn-outline text-[13px] !rounded-md"><i class="bi bi-plus-lg"></i> Add Projects</button>
+        </div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="chip is-active" data-filter="all">All</button>
+          <button class="chip" data-filter="laravel">Laravel</button>
+          <button class="chip" data-filter="react">React Js</button>
+          <button class="chip" data-filter="node">Node Js</button>
+          <button class="chip" data-filter="ai">Ai</button>
+          <button class="chip" data-filter="mern">Mern Stack</button>
+        </div>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4" id="portfolioGrid">
+          <!-- Card template (repeat 4x) -->
+          <article class="border border-neutral-200 rounded-xl overflow-hidden" data-tags="laravel,ai">
+            <div class="h-36 bg-[url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1887&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="p-4">
+              <h4 class="font-semibold leading-5">How Laravel + AI Can Transform Your Business: A Client’s Guide</h4>
+              <p class="kpi mt-2">PHP+ | CSS3 | HTML | Laravel | Python</p>
+              <p class="text-[13px] text-neutral-700 mt-1 line-clamp-2">A productivity tool for organizing tasks, setting deadlines, and tracking progress...</p>
+              <div class="mt-3 flex items-center justify-between text-[12px] text-neutral-600">
+                <span>www.codefixxer.com</span>
+                <span>Launched in 3 Weeks</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn-outline !rounded-md w-full">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="border border-neutral-200 rounded-xl overflow-hidden" data-tags="laravel,ai">
+            <div class="h-36 bg-[url('https://images.unsplash.com/photo-1555252333-9f8e92e65df9?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="p-4">
+              <h4 class="font-semibold leading-5">How Laravel + AI Can Transform Your Business: A Client’s Guide</h4>
+              <p class="kpi mt-2">PHP+ | CSS3 | HTML | Laravel | Python</p>
+              <p class="text-[13px] text-neutral-700 mt-1 line-clamp-2">A productivity tool for organizing tasks, setting deadlines, and tracking progress...</p>
+              <div class="mt-3 flex items-center justify-between text-[12px] text-neutral-600">
+                <span>www.codefixxer.com</span>
+                <span>Launched in 3 Weeks</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn-outline !rounded-md w-full">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="border border-neutral-200 rounded-xl overflow-hidden" data-tags="react,node">
+            <div class="h-36 bg-[url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2069&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="p-4">
+              <h4 class="font-semibold leading-5">How Laravel + AI Can Transform Your Business: A Client’s Guide</h4>
+              <p class="kpi mt-2">PHP+ | CSS3 | HTML | Laravel | Python</p>
+              <p class="text-[13px] text-neutral-700 mt-1 line-clamp-2">A productivity tool for organizing tasks, setting deadlines, and tracking progress...</p>
+              <div class="mt-3 flex items-center justify-between text-[12px] text-neutral-600">
+                <span>www.codefixxer.com</span>
+                <span>Launched in 3 Weeks</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn-outline !rounded-md w-full">View Details</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="border border-neutral-200 rounded-xl overflow-hidden" data-tags="mern,ai">
+            <div class="h-36 bg-[url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center"></div>
+            <div class="p-4">
+              <h4 class="font-semibold leading-5">How Laravel + AI Can Transform Your Business: A Client’s Guide</h4>
+              <p class="kpi mt-2">PHP+ | CSS3 | HTML | Laravel | Python</p>
+              <p class="text-[13px] text-neutral-700 mt-1 line-clamp-2">A productivity tool for organizing tasks, setting deadlines, and tracking progress...</p>
+              <div class="mt-3 flex items-center justify-between text-[12px] text-neutral-600">
+                <span>www.codefixxer.com</span>
+                <span>Launched in 3 Weeks</span>
+              </div>
+              <div class="mt-3">
+                <button class="btn-outline !rounded-md w-full">View Details</button>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="mt-4 text-center">
+          <button class="btn-outline !rounded-md">See all Projects</button>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="card p-4 md:p-5">
+        <h3 class="heading">Skills</h3>
+        <div class="grid md:grid-cols-2 gap-6 mt-3">
+          <div>
+            <div class="text-[13px] font-semibold">Laravel</div>
+            <div class="mt-2 h-2 border border-neutral-300 rounded-full overflow-hidden">
+              <div class="h-full bg-brand-secondary" style="width:90%"></div>
+            </div>
+            <div class="text-right kpi mt-1">90%</div>
+
+            <div class="mt-5 text-[13px] font-semibold">React Js</div>
+            <div class="mt-2 h-2 border border-neutral-300 rounded-full overflow-hidden">
+              <div class="h-full bg-brand-secondary" style="width:95%"></div>
+            </div>
+            <div class="text-right kpi mt-1">95%</div>
+
+            <div class="mt-5 text-[13px] font-semibold">Mechine Learning</div>
+            <div class="mt-2 h-2 border border-neutral-300 rounded-full overflow-hidden">
+              <div class="h-full bg-brand-secondary" style="width:100%"></div>
+            </div>
+            <div class="text-right kpi mt-1">100%</div>
+          </div>
+          <div class="grid gap-4">
+            <div>
+              <div class="font-semibold text-[13px]">Backend</div>
+              <p class="kpi mt-1">PHP Core | Laravel | Node Js. | My SQL | Sql Queries | Mongo DB</p>
+            </div>
+            <div>
+              <div class="font-semibold text-[13px]">Frontend</div>
+              <p class="kpi mt-1">HTML 5 | CSS 3 | Vanilla Js. | React Js. | Ajax | Tailwind CSS</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Experience</h3>
+          <button class="text-[12px] text-brand-secondary">See all Experiences</button>
+        </div>
+        <div class="mt-4 space-y-5">
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="flex items-center gap-2"><span class="font-semibold">Lorem ipsum</span><span class="chip !px-2 !py-0.5 !rounded bg-neutral-50">Current</span></div>
+            <p class="kpi mt-1">Sargodha, Pakistan</p>
+            <p class="text-[13px] text-neutral-700 mt-2">Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem ipsum is placeholder...</p>
+            <p class="kpi mt-2">Jul 2024 - Jul 2025</p>
+          </div>
+          <div class="border border-neutral-200 rounded-lg p-3">
+            <div class="flex items-center gap-2"><span class="font-semibold">Lorem ipsum</span><span class="chip !px-2 !py-0.5 !rounded bg-neutral-50">2019-2021</span></div>
+            <p class="kpi mt-1">Sargodha, Pakistan</p>
+            <p class="text-[13px] text-neutral-700 mt-2">Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem ipsum is placeholder...</p>
+            <p class="kpi mt-2">Jul 2024 - Jul 2025</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Client Reviews -->
+      <section class="card p-4 md:p-5">
+        <h3 class="heading">Client Reviews</h3>
+        <div class="mt-4 grid sm:grid-cols-2 gap-4">
+          <div class="border border-neutral-200 rounded-xl p-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-neutral-300"></div>
+              <div>
+                <div class="font-semibold text-[13px]">Sophie Carter</div>
+                <div class="kpi">New York, USA</div>
+              </div>
+            </div>
+            <p class="text-[13px] text-neutral-700 mt-3">“Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.”</p>
+          </div>
+          <div class="border border-neutral-200 rounded-xl p-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-neutral-300"></div>
+              <div>
+                <div class="font-semibold text-[13px]">James Bennett</div>
+                <div class="kpi">Toronto, Canada</div>
+              </div>
+            </div>
+            <p class="text-[13px] text-neutral-700 mt-3">“Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.”</p>
+          </div>
+        </div>
+        <div class="mt-4 text-center"><button class="btn-outline !rounded-md">See all Reviews</button></div>
+      </section>
+    </section>
+
+    <!-- Right sidebar -->
+    <aside class="col-span-12 lg:col-span-3 space-y-4 md:space-y-6 order-3">
+      <!-- AI Profile Creator -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">AI Profile Creator</h3>
+          <button class="chip !px-2 !py-1 !rounded-md"><i class="bi bi-stars"></i> Generate</button>
+        </div>
+        <p class="kpi mt-2">Upload your CV or describe yourself — AI will build your profile.</p>
+        <div class="mt-3 grid gap-3">
+          <button class="btn-outline !rounded-md"><i class="bi bi-upload"></i> Upload your Resume/CV</button>
+          <div class="text-center kpi">OR</div>
+          <textarea class="input h-24" placeholder="Describe yourself here...."></textarea>
+          <button class="btn-primary !rounded-md">Generate Profile</button>
+        </div>
+      </section>
+
+      <!-- Why Chose Me -->
+      <section class="card p-4 md:p-5">
+        <h3 class="heading">Why Chose Me</h3>
+        <ul class="mt-3 space-y-2 text-[13px]">
+          <li class="flex items-center gap-2"><i class="bi bi-check2-square text-brand-secondary"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-square text-brand-secondary"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-square text-brand-secondary"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-square text-brand-secondary"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-check2-square text-brand-secondary"></i> Lorem ipsum is placeholder</li>
+        </ul>
+      </section>
+
+      <!-- Services -->
+      <section class="card p-4 md:p-5">
+        <div class="flex items-center justify-between">
+          <h3 class="heading">Services</h3>
+          <button class="text-[12px] text-brand-secondary">See all Services</button>
+        </div>
+        <ul class="mt-3 space-y-2 text-[13px]">
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+          <li class="flex items-center gap-2"><i class="bi bi-dot"></i> Lorem ipsum is placeholder</li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Mobile bottom nav -->
+  <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-neutral-200">
+    <ul class="grid grid-cols-4 text-[12px]">
+      <li><button data-tab="portfolios" class="w-full py-2 flex flex-col items-center gap-1 text-brand-secondary"><i class="bi bi-grid"></i><span>Portfolios</span></button></li>
+      <li><button data-tab="skills" class="w-full py-2 flex flex-col items-center gap-1 text-neutral-600"><i class="bi bi-sliders"></i><span>Skills</span></button></li>
+      <li><button data-tab="experience" class="w-full py-2 flex flex-col items-center gap-1 text-neutral-600"><i class="bi bi-briefcase"></i><span>Experiences</span></button></li>
+      <li><button data-tab="reviews" class="w-full py-2 flex flex-col items-center gap-1 text-neutral-600"><i class="bi bi-chat-quote"></i><span>Testimonials</span></button></li>
+    </ul>
+  </nav>
+
+  <script>
+    // Portfolio filter (border-only visual)
+    const chips = document.querySelectorAll('.chip[data-filter]');
+    const cards = document.querySelectorAll('#portfolioGrid article');
+    chips.forEach(btn => btn.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const f = btn.dataset.filter;
+      cards.forEach(card => {
+        if (f === 'all') { card.classList.remove('hidden'); return; }
+        const tags = (card.dataset.tags || '').split(',');
+        card.classList.toggle('hidden', !tags.includes(f));
+      })
+    }));
+
+    // Mobile bottom-nav quick scroll
+    const sections = {
+      portfolios: document.querySelector('section.card:has(#portfolioGrid)') || document.getElementById('portfolioGrid'),
+      skills: [...document.querySelectorAll('.card')].find(s => s.querySelector('h3')?.textContent.trim() === 'Skills'),
+      experience: [...document.querySelectorAll('.card')].find(s => s.querySelector('h3')?.textContent.trim() === 'Experience'),
+      reviews: [...document.querySelectorAll('.card')].find(s => s.querySelector('h3')?.textContent.trim() === 'Client Reviews')
+    };
+    document.querySelectorAll('nav [data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.getAttribute('data-tab');
+        const el = sections[key];
+        if (!el) return;
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 76, behavior: 'smooth' });
+        document.querySelectorAll('nav [data-tab]').forEach(b => b.classList.remove('text-brand-secondary'));
+        btn.classList.add('text-brand-secondary');
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills Section - Pixel Perfect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4285f4;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-tertiary: #9aa0a6;
+            --border-color: #dadce0;
+            --background-white: #ffffff;
+            --background-gray: #f8f9fa;
+            --progress-bg: #e8eaed;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: var(--background-gray);
+            color: var(--text-primary);
+            line-height: 1.4;
+            padding: 40px 20px;
+        }
+
+        .skills-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--background-white);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            position: relative;
+        }
+
+        /* Header */
+        .skills-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .skills-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .edit-icon {
+            font-size: 18px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        /* Main Content Container */
+        .skills-content {
+            display: grid;
+            grid-template-columns: 60% 40%;
+            gap: 48px;
+            align-items: start;
+        }
+
+        /* Progress Bars Section (Left 60%) */
+        .progress-section {
+            padding-right: 24px;
+        }
+
+        .skill-item {
+            margin-bottom: 32px;
+        }
+
+        .skill-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .skill-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .skill-percentage {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .progress-container {
+            position: relative;
+            background-color: var(--progress-bg);
+            height: 8px;
+            border-radius: 4px;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--primary-blue);
+            border-radius: 4px;
+            position: relative;
+            transition: width 1.2s ease-in-out;
+        }
+
+        .progress-icon {
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background-color: var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-icon i {
+            font-size: 10px;
+            color: white;
+        }
+
+        /* Divider Line */
+        .divider {
+            width: 1px;
+            height: 100%;
+            background-color: var(--border-color);
+            position: absolute;
+            left: 60%;
+            top: 0;
+            transform: translateX(-50%);
+        }
+
+        /* Tech Stack Section (Right 40%) */
+        .tech-stack-section {
+            padding-left: 24px;
+        }
+
+        .tech-category {
+            margin-bottom: 32px;
+        }
+
+        .tech-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .tech-items {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .tech-separator {
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 24px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .skills-content {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .progress-section {
+                padding-right: 0;
+            }
+
+            .tech-stack-section {
+                padding-left: 0;
+                border-top: 1px solid var(--border-color);
+                padding-top: 32px;
+            }
+
+            .divider {
+                display: none;
+            }
+
+            .skills-section {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .skills-title {
+                font-size: 20px;
+            }
+
+            .skill-name,
+            .skill-percentage {
+                font-size: 14px;
+            }
+
+            .category-title {
+                font-size: 14px;
+            }
+
+            .tech-items {
+                font-size: 13px;
+            }
+        }
+
+        /* Animation Classes */
+        .progress-bar.animate {
+            animation: fillProgress 1.2s ease-in-out;
+        }
+
+        @keyframes fillProgress {
+            from {
+                width: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="skills-section">
+        <!-- Header -->
+        <div class="skills-header">
+            <h2 class="skills-title">Skills</h2>
+            <i class="fas fa-edit edit-icon"></i>
+        </div>
+
+        <!-- Main Content -->
+        <div class="skills-content">
+            <!-- Progress Bars Section (60%) -->
+            <div class="progress-section">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Laravel</span>
+                        <span class="skill-percentage">90%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="90%" style="width: 90%;">
+                            <div class="progress-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">React Js</span>
+                        <span class="skill-percentage">95%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="95%" style="width: 95%;">
+                            <div class="progress-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <span class="skill-name">Machine Learning</span>
+                        <span class="skill-percentage">100%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" data-width="100%" style="width: 100%;">
+                            <div class="progress-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider Line -->
+            <div class="divider"></div>
+
+            <!-- Tech Stack Section (40%) -->
+            <div class="tech-stack-section">
+                <div class="tech-category">
+                    <h3 class="category-title">Backend</h3>
+                    <div class="tech-items">
+                        PHP Core | Laravel | Node Js. |<br>
+                        My SQL | Sql Queries | Mongo DB
+                    </div>
+                </div>
+
+                <div class="tech-separator"></div>
+
+                <div class="tech-category">
+                    <h3 class="category-title">Frontend</h3>
+                    <div class="tech-items">
+                        HTML 5 | CSS 3 | Vanilla Js. |<br>
+                        React Js. | Ajax | Tailwind CSS
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate progress bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            
+            progressBars.forEach(bar => {
+                const targetWidth = bar.getAttribute('data-width');
+                bar.style.width = '0%';
+                
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                    bar.classList.add('animate');
+                }, 300);
+            });
+        });
+
+        // Edit icon functionality
+        document.querySelector('.edit-icon').addEventListener('click', function() {
+            console.log('Edit skills clicked');
+        });
+
+        // Add hover effects to progress bars
+        document.querySelectorAll('.skill-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                const progressIcon = item.querySelector('.progress-icon');
+                progressIcon.style.transform = 'translateY(-50%) scale(1.1)';
+                progressIcon.style.transition = 'transform 0.2s ease';
+            });
+
+            item.addEventListener('mouseleave', function() {
+                const progressIcon = item.querySelector('.progress-icon');
+                progressIcon.style.transform = 'translateY(-50%) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

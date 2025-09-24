@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills & Expertise - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --primary-light: #4F75FF;
+            --primary-dark: #0B3BA8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --border-default: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 37.5%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            position: relative;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Skills Input */
+        .skills-input-section {
+            margin-bottom: 32px;
+        }
+
+        .input-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .skills-input-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .skills-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+            min-height: 52px;
+        }
+
+        .skills-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Skills Display */
+        .skills-container {
+            min-height: 200px;
+            border: 2px dashed var(--border-light);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .skills-container.has-skills {
+            border-style: solid;
+            background: var(--bg-secondary);
+        }
+
+        .skills-empty {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .skill-name {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .skill-level {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        .skill-remove {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 4px;
+        }
+
+        .skill-remove:hover {
+            background: #dc2626;
+        }
+
+        /* Level Dropdown */
+        .level-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 10;
+            min-width: 120px;
+            display: none;
+        }
+
+        .level-dropdown.show {
+            display: block;
+        }
+
+        .level-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .level-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .level-option.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* AI Section */
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ai-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .ai-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .btn-ai {
+            padding: 12px 20px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .btn-ai:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Tips & Warnings */
+        .tip-section {
+            background: var(--bg-tertiary);
+            border-left: 3px solid var(--success);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+
+        .tip-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .tip-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .warning-section {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--warning);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .warning-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 4px;
+        }
+
+        .warning-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Info */
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+
+        .skills-count {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .skills-count .count {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .minimum-indicator {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-height: 52px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-default);
+        }
+
+        .btn-back:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            min-width: 140px;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .skills-list {
+                gap: 8px;
+            }
+
+            .skill-chip {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        /* Loading States */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            
+            <div class="progress-indicator">
+                <span>Step 3 of 8</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="step-badge">Skills & Expertise</div>
+                <h1 class="card-title">What are your key skills?</h1>
+                <p class="card-subtitle">Add 5-10 focused skills that showcase your expertise</p>
+            </div>
+
+            <!-- Form -->
+            <form id="skillsForm">
+                <!-- Skills Input -->
+                <div class="skills-input-section">
+                    <label class="input-label">Add Skills</label>
+                    <div class="skills-input-container">
+                        <input 
+                            type="text" 
+                            class="skills-input" 
+                            id="skillInput"
+                            placeholder="Type a skill and press Enter"
+                        >
+                    </div>
+                    <div class="input-hint">Press Enter to add each skill, then set its proficiency level</div>
+                </div>
+
+                <!-- Progress Info -->
+                <div class="progress-info">
+                    <div class="skills-count">
+                        Skills added: <span class="count" id="skillsCount">0</span>
+                    </div>
+                    <div class="minimum-indicator">Minimum 3 required</div>
+                </div>
+
+                <!-- Skills Display -->
+                <div class="skills-container" id="skillsContainer">
+                    <div class="skills-empty" id="skillsEmpty">
+                        Add your first skill above to get started<br>
+                        <small>Popular skills: Laravel, React, Python, UI/UX Design, Digital Marketing</small>
+                    </div>
+                    <div class="skills-list" id="skillsList" style="display: none;"></div>
+                </div>
+
+                <!-- AI Section -->
+                <div class="ai-section">
+                    <div class="ai-header">
+                        <div class="ai-icon">🤖</div>
+                        <div class="ai-title">AI Skill Suggestions</div>
+                    </div>
+                    
+                    <button type="button" class="btn-ai" id="suggestSkills">
+                        <span>✨</span>
+                        Suggest skills from my profile
+                    </button>
+                </div>
+
+                <!-- Tips -->
+                <div class="tip-section">
+                    <div class="tip-title">💡 Pro Tip</div>
+                    <div class="tip-text">Keep it focused; you can add endorsements later. Quality over quantity!</div>
+                </div>
+
+                <!-- Warning (hidden by default) -->
+                <div class="warning-section" id="warningSection">
+                    <div class="warning-title">⚠️ Balance Focus</div>
+                    <div class="warning-text">Too many skills can dilute your profile. Consider focusing on your strongest areas.</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span>
+                        Back
+                    </a>
+                    
+                    <button type="submit" class="btn btn-next" id="nextBtn" disabled>
+                        <span>Continue</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Level Dropdown Template -->
+    <div class="level-dropdown" id="levelDropdown">
+        <div class="level-option" data-level="1">1 - Beginner</div>
+        <div class="level-option" data-level="2">2 - Basic</div>
+        <div class="level-option" data-level="3">3 - Intermediate</div>
+        <div class="level-option" data-level="4">4 - Advanced</div>
+        <div class="level-option" data-level="5">5 - Expert</div>
+    </div>
+
+    <script>
+        // Skills management
+        let skills = [];
+        let currentDropdownSkill = null;
+
+        const skillInput = document.getElementById('skillInput');
+        const skillsContainer = document.getElementById('skillsContainer');
+        const skillsList = document.getElementById('skillsList');
+        const skillsEmpty = document.getElementById('skillsEmpty');
+        const skillsCount = document.getElementById('skillsCount');
+        const warningSection = document.getElementById('warningSection');
+        const nextBtn = document.getElementById('nextBtn');
+        const levelDropdown = document.getElementById('levelDropdown');
+
+        // Skill input handling
+        skillInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addSkill();
+            }
+        });
+
+        // Add skill function
+        function addSkill() {
+            const skillName = skillInput.value.trim();
+            
+            if (!skillName) return;
+            
+            // Check for duplicates
+            if (skills.find(skill => skill.name.toLowerCase() === skillName.toLowerCase())) {
+                alert('Skill already added!');
+                skillInput.value = '';
+                return;
+            }
+
+            // Add skill with default level
+            const skill = {
+                id: Date.now(),
+                name: skillName,
+                level: 3 // Default to intermediate
+            };
+
+            skills.push(skill);
+            skillInput.value = '';
+            
+            // Analytics
+            gtag('event', 'skills_add', {
+                event_category: 'onboarding',
+                event_label: skillName
+            });
+
+            updateSkillsDisplay();
+            validateForm();
+        }
+
+        // Update skills display
+        function updateSkillsDisplay() {
+            skillsCount.textContent = skills.length;
+            
+            if (skills.length === 0) {
+                skillsEmpty.style.display = 'block';
+                skillsList.style.display = 'none';
+                skillsContainer.classList.remove('has-skills');
+            } else {
+                skillsEmpty.style.display = 'none';
+                skillsList.style.display = 'flex';
+                skillsContainer.classList.add('has-skills');
+                
+                skillsList.innerHTML = '';
+                skills.forEach(skill => {
+                    const chip = createSkillChip(skill);
+                    skillsList.appendChild(chip);
+                });
+            }
+
+            // Show warning if too many skills
+            if (skills.length > 12) {
+                warningSection.style.display = 'block';
+            } else {
+                warningSection.style.display = 'none';
+            }
+        }
+
+        // Create skill chip
+        function createSkillChip(skill) {
+            const chip = document.createElement('div');
+            chip.className = 'skill-chip';
+            chip.innerHTML = `
+                <span class="skill-name">${skill.name}</span>
+                <span class="skill-level" onclick="showLevelDropdown(${skill.id}, this)">${getLevelText(skill.level)}</span>
+                <button class="skill-remove" onclick="removeSkill(${skill.id})">×</button>
+            `;
+            return chip;
+        }
+
+        // Get level text
+        function getLevelText(level) {
+            const levels = {
+                1: '1',
+                2: '2', 
+                3: '3',
+                4: '4',
+                5: '5'
+            };
+            return levels[level] || '3';
+        }
+
+        // Show level dropdown
+        function showLevelDropdown(skillId, element) {
+            currentDropdownSkill = skillId;
+            
+            // Position dropdown
+            const rect = element.getBoundingClientRect();
+            levelDropdown.style.position = 'fixed';
+            levelDropdown.style.top = rect.bottom + 5 + 'px';
+            levelDropdown.style.left = rect.left + 'px';
+            levelDropdown.classList.add('show');
+            
+            // Highlight current level
+            const currentSkill = skills.find(s => s.id === skillId);
+            document.querySelectorAll('.level-option').forEach(option => {
+                option.classList.remove('selected');
+                if (parseInt(option.dataset.level) === currentSkill.level) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        // Level option click
+        document.querySelectorAll('.level-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const level = parseInt(this.dataset.level);
+                updateSkillLevel(currentDropdownSkill, level);
+                levelDropdown.classList.remove('show');
+            });
+        });
+
+        // Update skill level
+        function updateSkillLevel(skillId, level) {
+            const skill = skills.find(s => s.id === skillId);
+            if (skill) {
+                skill.level = level;
+                
+                // Analytics
+                gtag('event', 'skills_level_set', {
+                    event_category: 'onboarding',
+                    event_label: `${skill.name}_level_${level}`
+                });
+                
+                updateSkillsDisplay();
+            }
+        }
+
+        // Remove skill
+        function removeSkill(skillId) {
+            skills = skills.filter(s => s.id !== skillId);
+            updateSkillsDisplay();
+            validateForm();
+        }
+
+        // Hide dropdown on outside click
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.level-dropdown') && !e.target.closest('.skill-level')) {
+                levelDropdown.classList.remove('show');
+            }
+        });
+
+        // AI Suggestions
+        document.getElementById('suggestSkills').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<div class="spinner"></div> Analyzing...';
+            btn.disabled = true;
+            
+            // Analytics
+            gtag('event', 'ai_skills_suggest_click', {
+                event_category: 'onboarding',
+                event_label: 'suggest_skills'
+            });
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                const suggestedSkills = [
+                    'Laravel', 'PHP', 'MySQL', 'JavaScript', 'React', 
+                    'HTML/CSS', 'API Development', 'Git'
+                ];
+                
+                // Add suggested skills that aren't already added
+                suggestedSkills.forEach(skillName => {
+                    if (!skills.find(skill => skill.name.toLowerCase() === skillName.toLowerCase())) {
+                        const skill = {
+                            id: Date.now() + Math.random(),
+                            name: skillName,
+                            level: 3
+                        };
+                        skills.push(skill);
+                    }
+                });
+                
+                updateSkillsDisplay();
+                validateForm();
+                
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                alert('Skills suggested based on your profile!');
+            }, 2000);
+        });
+
+        // Form validation
+        function validateForm() {
+            const isValid = skills.length >= 3;
+            nextBtn.disabled = !isValid;
+            nextBtn.style.opacity = isValid ? '1' : '0.5';
+        }
+
+        // Form submission
+        document.getElementById('skillsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (skills.length < 3) {
+                alert('Please add at least 3 skills to continue.');
+                return;
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('onboarding_skills', JSON.stringify(skills));
+            
+            // Animate progress
+            document.querySelector('.progress-fill').style.width = '50%';
+            
+            // Simulate navigation
+            nextBtn.innerHTML = '<div class="spinner"></div> Saving...';
+            setTimeout(() => {
+                alert('Skills saved! Moving to experience step...');
+                // In real app: window.location.href = '/onboarding/experience';
+            }, 1000);
+        });
+
+        // Back button
+        function goBack() {
+            alert('Going back to Location...');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            const saved = localStorage.getItem('onboarding_skills');
+            if (saved) {
+                skills = JSON.parse(saved);
+                updateSkillsDisplay();
+                validateForm();
+            }
+        });
+
+        // Analytics helper
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+    </script>
+</body>
+</html>

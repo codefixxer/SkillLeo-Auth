@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review & Publish - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            padding: 8px 16px;
+            background: var(--success);
+            color: white;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--success);
+            color: white;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        .validation-section {
+            background: #fef3c7;
+            border: 1px solid var(--warning);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            display: none;
+        }
+
+        .validation-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 12px;
+        }
+
+        .validation-list {
+            list-style: none;
+        }
+
+        .validation-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .validation-item.complete {
+            color: var(--success);
+        }
+
+        .validation-item.incomplete {
+            color: var(--danger);
+        }
+
+        .profile-preview {
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .profile-header {
+            margin-bottom: 24px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-location {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .profile-bio {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .profile-url {
+            background: var(--bg-secondary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .skills-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .skill-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        .skill-level {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+
+        .section-preview {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-preview:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-content {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .visibility-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--success);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .ai-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--gradient-primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-light);
+        }
+
+        .btn-publish {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            min-width: 160px;
+        }
+
+        .btn-publish:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-publish:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            <div class="progress-indicator">Step 8 of 8 - Complete!</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <div class="card-header">
+                <div class="step-badge">Review & Publish</div>
+                <h1 class="card-title">Your profile is ready!</h1>
+                <p class="card-subtitle">Review everything and publish your professional profile</p>
+            </div>
+
+            <!-- Validation Section -->
+            <div class="validation-section" id="validationSection">
+                <div class="validation-title">Complete these items to publish:</div>
+                <ul class="validation-list" id="validationList"></ul>
+            </div>
+
+            <!-- Profile Preview -->
+            <div class="profile-preview">
+                <div class="profile-header">
+                    <div class="profile-name" id="profileName">John Doe</div>
+                    <div class="profile-location" id="profileLocation">Karachi, Pakistan</div>
+                    <div class="profile-bio" id="profileBio">Full-Stack Developer with 5+ years of experience...</div>
+                    <div class="profile-url" id="profileUrl">promatch.com/johndoe</div>
+                </div>
+
+                <!-- Skills -->
+                <div class="skills-section">
+                    <div class="section-title">Skills & Expertise</div>
+                    <div class="skills-grid" id="skillsPreview"></div>
+                </div>
+
+                <!-- Experience -->
+                <div class="section-preview" id="experienceSection">
+                    <div class="section-title">Experience</div>
+                    <div class="section-content" id="experiencePreview">
+                        No experience added yet
+                    </div>
+                </div>
+
+                <!-- Portfolio -->
+                <div class="section-preview" id="portfolioSection">
+                    <div class="section-title">Portfolio</div>
+                    <div class="section-content" id="portfolioPreview">
+                        No projects added yet
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="section-preview" id="educationSection">
+                    <div class="section-title">Education</div>
+                    <div class="section-content" id="educationPreview">
+                        No education added yet
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="section-preview" id="languagesSection">
+                    <div class="section-title">Languages</div>
+                    <div class="section-content" id="languagesPreview">
+                        No languages added yet
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visibility Toggle -->
+            <div class="visibility-section">
+                <div class="switch-container">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 4px;">Make my profile public</div>
+                        <div style="font-size: 13px; color: var(--text-secondary);">Your profile will be visible to clients and searchable</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="makePublic" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- AI Polish Section -->
+            <div class="ai-section">
+                <div class="ai-header">
+                    <div class="ai-icon">✨</div>
+                    <span style="font-weight: 600; font-size: 14px;">AI Profile Polish</span>
+                </div>
+                <button type="button" class="btn-ai" onclick="polishCopy('professional')">Make it Professional</button>
+                <button type="button" class="btn-ai" onclick="polishCopy('friendly')">Make it Friendly</button>
+                <button type="button" class="btn-ai" onclick="polishCopy('concise')">Make it Concise</button>
+                <button type="button" class="btn-ai" onclick="generateOGImage()">Generate sharing image</button>
+            </div>
+
+            <div class="action-buttons">
+                <a href="#" class="btn btn-back" onclick="goBack()">
+                    <span>←</span> Edit Preferences
+                </a>
+                <button class="btn btn-publish" id="publishBtn" onclick="publishProfile()">
+                    <span>Publish Profile</span>
+                    <span>🚀</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let profileData = {};
+        let validationPassed = false;
+
+        function loadProfileData() {
+            const personal = JSON.parse(localStorage.getItem('onboarding_personal') || '{}');
+            const location = JSON.parse(localStorage.getItem('onboarding_location') || '{}');
+            const skills = JSON.parse(localStorage.getItem('onboarding_skills') || '[]');
+            const experience = JSON.parse(localStorage.getItem('onboarding_experience') || '[]');
+            const portfolio = JSON.parse(localStorage.getItem('onboarding_portfolio') || '[]');
+            const education = JSON.parse(localStorage.getItem('onboarding_education') || '[]');
+            const languages = JSON.parse(localStorage.getItem('onboarding_languages') || '[]');
+            const preferences = JSON.parse(localStorage.getItem('onboarding_preferences') || '{}');
+
+            profileData = {
+                personal,
+                location,
+                skills,
+                experience,
+                portfolio,
+                education,
+                languages,
+                preferences
+            };
+
+            return profileData;
+        }
+
+        function validateProfile() {
+            const data = loadProfileData();
+            const issues = [];
+
+            // Required validations
+            if (!data.personal.firstName) issues.push({key: 'firstName', text: 'First name', page: 1});
+            if (!data.personal.lastName) issues.push({key: 'lastName', text: 'Last name', page: 1});
+            if (!data.personal.email) issues.push({key: 'email', text: 'Email address', page: 1});
+            if (!data.personal.username) issues.push({key: 'username', text: 'Username', page: 1});
+            if (!data.location.country) issues.push({key: 'country', text: 'Country', page: 2});
+            if (!data.location.city) issues.push({key: 'city', text: 'City', page: 2});
+            if (!data.skills || data.skills.length < 3) issues.push({key: 'skills', text: 'At least 3 skills', page: 3});
+
+            const validationSection = document.getElementById('validationSection');
+            const validationList = document.getElementById('validationList');
+            const publishBtn = document.getElementById('publishBtn');
+
+            if (issues.length > 0) {
+                validationSection.style.display = 'block';
+                validationList.innerHTML = '';
+                
+                issues.forEach(issue => {
+                    const li = document.createElement('li');
+                    li.className = 'validation-item incomplete';
+                    li.innerHTML = `<span>✗</span> <a href="#" onclick="goToPage(${issue.page})" style="color: var(--primary); text-decoration: none;">${issue.text}</a>`;
+                    validationList.appendChild(li);
+                });
+                
+                publishBtn.disabled = true;
+                validationPassed = false;
+            } else {
+                validationSection.style.display = 'none';
+                publishBtn.disabled = false;
+                validationPassed = true;
+            }
+        }
+
+        function renderPreview() {
+            const data = profileData;
+
+            // Profile Header
+            const fullName = `${data.personal.firstName || ''} ${data.personal.lastName || ''}`.trim();
+            document.getElementById('profileName').textContent = fullName || 'Your Name';
+            
+            const locationText = [data.location.city, data.location.country].filter(Boolean).join(', ');
+            document.getElementById('profileLocation').textContent = locationText || 'Your Location';
+            
+            document.getElementById('profileBio').textContent = data.personal.bio || 'Your professional bio will appear here';
+            document.getElementById('profileUrl').textContent = `promatch.com/${data.personal.username || 'username'}`;
+
+            // Skills
+            const skillsContainer = document.getElementById('skillsPreview');
+            skillsContainer.innerHTML = '';
+            
+            if (data.skills && data.skills.length > 0) {
+                data.skills.forEach(skill => {
+                    const chip = document.createElement('div');
+                    chip.className = 'skill-chip';
+                    chip.innerHTML = `
+                        <span>${skill.name}</span>
+                        <span class="skill-level">${skill.level}</span>
+                    `;
+                    skillsContainer.appendChild(chip);
+                });
+            } else {
+                skillsContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 14px;">No skills added yet</div>';
+            }
+
+            // Experience
+            const expPreview = document.getElementById('experiencePreview');
+            if (data.experience && data.experience.length > 0) {
+                const expText = data.experience.map(exp => 
+                    `${exp.title} at ${exp.company} (${exp.startYear || 'Start'} - ${exp.current ? 'Present' : exp.endYear || 'End'})`
+                ).join('<br>');
+                expPreview.innerHTML = expText;
+            } else {
+                expPreview.textContent = 'No experience added yet';
+            }
+
+            // Portfolio
+            const portfolioPreview = document.getElementById('portfolioPreview');
+            if (data.portfolio && data.portfolio.length > 0) {
+                const projectText = data.portfolio.map(project => project.title).filter(Boolean).join(', ');
+                portfolioPreview.textContent = projectText || 'Portfolio projects added';
+            } else {
+                portfolioPreview.textContent = 'No projects added yet';
+            }
+
+            // Education
+            const eduPreview = document.getElementById('educationPreview');
+            if (data.education && data.education.length > 0) {
+                const eduText = data.education.map(edu => 
+                    `${edu.degree} from ${edu.school}`
+                ).filter(text => text.trim() !== 'from').join('<br>');
+                eduPreview.innerHTML = eduText || 'Education added';
+            } else {
+                eduPreview.textContent = 'No education added yet';
+            }
+
+            // Languages
+            const langPreview = document.getElementById('languagesPreview');
+            if (data.languages && data.languages.length > 0) {
+                const langText = data.languages.map(lang => `${lang.name} (${lang.level})`).join(', ');
+                langPreview.textContent = langText;
+            } else {
+                langPreview.textContent = 'No languages added yet';
+            }
+        }
+
+        function polishCopy(style) {
+            const styleNames = {
+                'professional': 'Professional',
+                'friendly': 'Friendly', 
+                'concise': 'Concise'
+            };
+            
+            alert(`AI would polish your profile copy to make it more ${styleNames[style].toLowerCase()}. This would update your bio, experience bullets, and project descriptions.`);
+        }
+
+        function generateOGImage() {
+            alert('AI would generate a custom sharing image with your name and top skills for better social media previews.');
+        }
+
+        function goToPage(pageNumber) {
+            const pageNames = {
+                1: 'Personal Information',
+                2: 'Location', 
+                3: 'Skills'
+            };
+            alert(`Would navigate back to ${pageNames[pageNumber]} to complete missing information.`);
+        }
+
+        function goBack() {
+            alert('Going back to Work Preferences...');
+        }
+
+        function publishProfile() {
+            if (!validationPassed) {
+                alert('Please complete all required fields before publishing.');
+                return;
+            }
+
+            const publishBtn = document.getElementById('publishBtn');
+            const makePublic = document.getElementById('makePublic').checked;
+            
+            publishBtn.innerHTML = '<div class="spinner"></div> Publishing...';
+            publishBtn.disabled = true;
+
+            // Analytics
+            gtag('event', 'publish_click', {
+                event_category: 'onboarding',
+                event_label: 'profile_publish_start'
+            });
+
+            // Simulate publishing process
+            setTimeout(() => {
+                // Final save
+                const completeProfile = {
+                    ...profileData,
+                    isPublic: makePublic,
+                    publishedAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('published_profile', JSON.stringify(completeProfile));
+
+                // Success analytics
+                gtag('event', 'publish_success', {
+                    event_category: 'onboarding',
+                    event_label: 'profile_published'
+                });
+
+                // Redirect to success page
+                alert(`🎉 Profile published successfully!\n\nYour profile is now live at: promatch.com/${profileData.personal.username}\n\nBackground processes started:\n- Search indexing\n- OG image generation\n- Welcome email sent`);
+                
+            }, 2000);
+        }
+
+        function gtag(action, event, params) {
+            console.log('Analytics:', action, event, params);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            gtag('event', 'review_view', {
+                event_category: 'onboarding',
+                event_label: 'step_8_view'
+            });
+
+            loadProfileData();
+            validateProfile();
+            renderPreview();
+        });
+    </script>
+</body>
+</html>

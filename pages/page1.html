@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --primary-light: #4F75FF;
+            --primary-dark: #0B3BA8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --border-default: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 12.5%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            /* box-shadow: var(--shadow-lg); */
+            padding: 40px;
+            position: relative;
+            /* border: 1px solid var(--border-light); */
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Form */
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+            min-height: 52px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--danger);
+        }
+
+        .form-input.success {
+            border-color: var(--success);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-status {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .input-error {
+            font-size: 12px;
+            color: var(--danger);
+            margin-top: 6px;
+        }
+
+        .input-success {
+            font-size: 12px;
+            color: var(--success);
+            margin-top: 6px;
+        }
+
+        .username-preview {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            padding: 8px 12px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* AI Features */
+        .ai-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ai-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .ai-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .ai-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-ai {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-ai:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .bio-hint {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 8px;
+            border-left: 3px solid var(--warning);
+        }
+
+        .bio-hint-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .bio-hint-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-height: 52px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-default);
+        }
+
+        .btn-back:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            min-width: 140px;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .ai-buttons {
+                flex-direction: column;
+            }
+
+            .btn-ai {
+                justify-content: center;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            
+            <div class="progress-indicator">
+                <span>Step 1 of 8</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="step-badge">Personal Information</div>
+                <h1 class="card-title">Tell us about yourself</h1>
+                <p class="card-subtitle">This information will be used to create your professional profile</p>
+            </div>
+
+            <!-- Form -->
+            <form id="personalForm">
+                <!-- Basic Info -->
+                <div class="form-section">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                First Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="firstName"
+                                placeholder="Enter your first name"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Last Name <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="lastName"
+                                placeholder="Enter your last name"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Email <span class="required">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            class="form-input" 
+                            id="email"
+                            placeholder="your.email@example.com"
+                            value="john.doe@example.com"
+                            readonly
+                        >
+                        <div class="input-hint">This email remains private and is used for account security</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Username <span class="required">*</span>
+                        </label>
+                        <div class="input-group">
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="username"
+                                placeholder="your-username"
+                                required
+                            >
+                            <div class="input-status" id="usernameStatus"></div>
+                        </div>
+                        <div class="input-hint">Minimum 3 characters, lowercase letters, numbers, and hyphens only</div>
+                        <div class="username-preview" id="usernamePreview" style="display: none;">
+                            Your profile will be available at: <strong>promatch.com/</strong><span id="previewUsername"></span>
+                        </div>
+                        <div class="input-error" id="usernameError" style="display: none;"></div>
+                        <div class="input-success" id="usernameSuccess" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <!-- Bio Section -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="form-label">Bio / About (Optional)</label>
+                        <textarea 
+                            class="form-input form-textarea" 
+                            id="bio"
+                            placeholder="Write a brief bio about yourself and your expertise..."
+                        ></textarea>
+                        
+                        <div class="bio-hint">
+                            <div class="bio-hint-title">💡 Pro Tip</div>
+                            <div class="bio-hint-text">
+                                Keep it short and benefit-focused: your role → what outcomes you deliver → your tech stack
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Helper -->
+                    <div class="ai-section">
+                        <div class="ai-header">
+                            <div class="ai-icon">🤖</div>
+                            <div class="ai-title">AI Writing Assistant</div>
+                        </div>
+                        
+                        <div class="ai-buttons">
+                            <button type="button" class="btn-ai" id="generateBio">
+                                <span>✨</span>
+                                Generate bio with AI
+                            </button>
+                            <button type="button" class="btn-ai" id="pasteCV">
+                                <span>📄</span>
+                                Paste from CV
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back">
+                        <span>←</span>
+                        Back
+                    </a>
+                    
+                    <button type="submit" class="btn btn-next" id="nextBtn" disabled>
+                        <span>Continue</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation and state
+        const form = document.getElementById('personalForm');
+        const nextBtn = document.getElementById('nextBtn');
+        const usernameInput = document.getElementById('username');
+        const usernameStatus = document.getElementById('usernameStatus');
+        const usernamePreview = document.getElementById('usernamePreview');
+        const previewUsername = document.getElementById('previewUsername');
+        const usernameError = document.getElementById('usernameError');
+        const usernameSuccess = document.getElementById('usernameSuccess');
+        
+        let usernameValid = false;
+        let checkingUsername = false;
+
+        // Username validation
+        function validateUsername(username) {
+            if (username.length < 3) {
+                return { valid: false, message: 'Username must be at least 3 characters' };
+            }
+            if (!/^[a-z0-9-]+$/.test(username)) {
+                return { valid: false, message: 'Username can only contain lowercase letters, numbers, and hyphens' };
+            }
+            if (username.startsWith('-') || username.endsWith('-')) {
+                return { valid: false, message: 'Username cannot start or end with a hyphen' };
+            }
+            return { valid: true };
+        }
+
+        // Check username availability (simulated)
+        async function checkUsernameAvailability(username) {
+            checkingUsername = true;
+            usernameStatus.innerHTML = '<div class="spinner"></div>';
+            
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            // Simulate some usernames being taken
+            const takenUsernames = ['admin', 'test', 'user', 'john-doe', 'sarah-ahmed'];
+            const isAvailable = !takenUsernames.includes(username.toLowerCase());
+            
+            checkingUsername = false;
+            
+            if (isAvailable) {
+                usernameValid = true;
+                usernameInput.classList.remove('error');
+                usernameInput.classList.add('success');
+                usernameStatus.textContent = '✓';
+                usernameStatus.style.color = 'var(--success)';
+                usernameError.style.display = 'none';
+                usernameSuccess.textContent = 'Username is available!';
+                usernameSuccess.style.display = 'block';
+                usernamePreview.style.display = 'block';
+                previewUsername.textContent = username;
+                
+                // Analytics
+                gtag('event', 'username_check', {
+                    event_category: 'onboarding',
+                    event_label: 'available'
+                });
+            } else {
+                usernameValid = false;
+                usernameInput.classList.remove('success');
+                usernameInput.classList.add('error');
+                usernameStatus.textContent = '✗';
+                usernameStatus.style.color = 'var(--danger)';
+                usernameSuccess.style.display = 'none';
+                usernameError.textContent = 'Username is already taken';
+                usernameError.style.display = 'block';
+                usernamePreview.style.display = 'none';
+            }
+            
+            validateForm();
+        }
+
+        // Username input handler
+        let usernameTimeout;
+        usernameInput.addEventListener('input', function(e) {
+            const username = e.target.value.toLowerCase().trim();
+            e.target.value = username; // Force lowercase
+            
+            // Reset states
+            usernameValid = false;
+            usernameInput.classList.remove('error', 'success');
+            usernameStatus.textContent = '';
+            usernameError.style.display = 'none';
+            usernameSuccess.style.display = 'none';
+            usernamePreview.style.display = 'none';
+            
+            clearTimeout(usernameTimeout);
+            
+            if (username.length === 0) {
+                validateForm();
+                return;
+            }
+            
+            const validation = validateUsername(username);
+            
+            if (!validation.valid) {
+                usernameInput.classList.add('error');
+                usernameError.textContent = validation.message;
+                usernameError.style.display = 'block';
+                validateForm();
+                return;
+            }
+            
+            // Check availability after user stops typing
+            usernameTimeout = setTimeout(() => {
+                if (!checkingUsername) {
+                    checkUsernameAvailability(username);
+                }
+            }, 500);
+        });
+
+        // Form validation
+        function validateForm() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            const isValid = firstName && lastName && email && usernameValid && !checkingUsername;
+            
+            nextBtn.disabled = !isValid;
+            nextBtn.style.opacity = isValid ? '1' : '0.5';
+        }
+
+        // Add input listeners for real-time validation
+        ['firstName', 'lastName', 'email'].forEach(id => {
+            document.getElementById(id).addEventListener('input', validateForm);
+        });
+
+        // AI Functions
+        document.getElementById('generateBio').addEventListener('click', function() {
+            const btn = this;
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<div class="spinner"></div> Generating...';
+            btn.disabled = true;
+            
+            // Simulate AI generation
+            setTimeout(() => {
+                const firstName = document.getElementById('firstName').value;
+                const sampleBio = `${firstName ? firstName + ' is a' : 'I am a'} Full-Stack Developer with 5+ years of experience building scalable web applications. I specialize in Laravel, React, and MySQL, helping businesses streamline their operations and increase revenue by 30% on average.`;
+                
+                document.getElementById('bio').value = sampleBio;
+                
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Analytics
+                gtag('event', 'ai_bio_click', {
+                    event_category: 'onboarding',
+                    event_label: 'generated'
+                });
+            }, 2000);
+        });
+
+        document.getElementById('pasteCV').addEventListener('click', function() {
+            // Simulate CV paste functionality
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(0,0,0,0.5); display: flex; align-items: center;
+                justify-content: center; z-index: 1000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: white; padding: 24px; border-radius: 12px; max-width: 400px; text-align: center;">
+                    <h3 style="margin-bottom: 16px;">Paste CV Text</h3>
+                    <textarea placeholder="Paste your CV content here..." style="width: 100%; height: 150px; padding: 12px; border: 2px solid var(--border-light); border-radius: 8px; margin-bottom: 16px;"></textarea>
+                    <div style="display: flex; gap: 12px;">
+                        <button onclick="this.closest('div').parentElement.remove()" style="flex: 1; padding: 12px; background: var(--bg-secondary); border: none; border-radius: 8px; cursor: pointer;">Cancel</button>
+                        <button onclick="alert('CV parsed and bio updated!'); this.closest('div').parentElement.remove();" style="flex: 1; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">Parse with AI</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                username: document.getElementById('username').value,
+                bio: document.getElementById('bio').value
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('onboarding_personal', JSON.stringify(formData));
+            
+            // Analytics
+            gtag('event', 'personal_save', {
+                event_category: 'onboarding',
+                event_label: 'step_1_complete'
+            });
+            
+            // Animate progress
+            document.querySelector('.progress-fill').style.width = '25%';
+            
+            // Simulate navigation
+            nextBtn.innerHTML = '<div class="spinner"></div> Saving...';
+            setTimeout(() => {
+                alert('Information saved! Moving to next step...');
+                // In real app: window.location.href = '/onboarding/location';
+            }, 1000);
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            const saved = localStorage.getItem('onboarding_personal');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const input = document.getElementById(key);
+                    if (input && data[key]) {
+                        input.value = data[key];
+                    }
+                });
+            }
+            
+            // Initial validation
+            setTimeout(validateForm, 100);
+        });
+
+        // Analytics helper
+        function gtag(action, event, params) {
+            if (typeof gtag !== 'undefined') {
+                gtag(action, event, params);
+            }
+            console.log('Analytics:', action, event, params);
+        }
+    </script>
+</body>
+</html>

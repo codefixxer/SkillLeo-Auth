@@ -1,0 +1,3070 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Codefixxer - Professional Portfolio</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- in the <head> -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body,
+      * {
+        font-family: "Inter", -apple-system, system-ui, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      /* Apply LinkedIn-style system fonts globally */
+
+      :root {
+        --bg: #f3f2ee;
+        --card: white;
+        --ink: #1a1a1a;
+        --muted: #666;
+        --muted2: #999;
+        --border: #e5e5e5;
+        --accent: #1351d8;
+        --radius: 10px;
+      }
+      body {
+        background-color: var(--bg);
+
+        color: #333;
+      }
+      /* NAV BAR */
+
+      .top-nav {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 1000;
+        background: #fff;
+        border-bottom: 1px solid #e6e8eb;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+      }
+      .nav-inner {
+        max-width: 1400px; /* match .content-wrapper */
+        margin: 0 auto; /* center like body content */
+        padding: 10px 20px; /* same side gutters as main */
+      }
+      .nav-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* avoid extra side spacing from space-around */
+      }
+      .nav-row--desktop {
+        display: none;
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+      }
+      .brand-text {
+        font-weight: 700;
+        color: #111;
+        font-size: 18px;
+        letter-spacing: 0.2px;
+      }
+      .brand-mark {
+        width: 28px;
+        height: 14px;
+      }
+
+      .nav-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 0 0 2px #fff;
+      }
+      .share-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: 38px;
+        padding: 0 14px;
+        border: none;
+        border-radius: var(--radius);
+        background: #1351d8;
+        color: #fff;
+        font-weight: 600;
+      }
+      .search-wrap {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 40px;
+        border: 1px solid #e6e8eb;
+        border-radius: 999px;
+        padding: 0 12px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      }
+      .search-input {
+        border: none;
+        outline: none;
+        flex: 1;
+        font-size: 14px;
+        color: #111;
+        background: transparent;
+        min-width: 0;
+      }
+      .search-input::placeholder {
+        color: #9aa1a9;
+      }
+      .icon-btn {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #e6e8eb;
+        border-radius: 50%;
+        color: #444;
+        background: #fff;
+        text-decoration: none;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+      .icon-btn:hover {
+        transform: translateY(-1px);
+        border-color: #cfd5db;
+      }
+      .icon-btn i {
+        font-size: 18px;
+      }
+      .badge {
+        position: absolute;
+        right: -2px;
+        top: -2px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+      }
+      .badge-dot {
+        width: 10px;
+        height: 10px;
+        background: #ff3b30;
+        border: 2px solid #fff;
+      }
+      .badge-count {
+        min-width: 18px;
+        height: 18px;
+        padding: 0 5px;
+        background: #ff3b30;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        border: 2px solid #fff;
+      }
+
+      /* mobile two-row */
+      .nav-row--top {
+        margin-bottom: 10px;
+      }
+      .nav-row--bottom {
+        display: grid;
+        grid-template-columns: 1fr auto auto;
+        gap: 12px;
+      }
+
+      /* tablet/desktop */
+      @media (min-width: 768px) {
+        .nav-row--top,
+        .nav-row--bottom {
+          display: none;
+        }
+        .nav-row--desktop {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          gap: 16px;
+          align-items: center;
+        }
+        .search-wrap--desktop {
+          max-width: clamp(360px, 42vw, 560px);
+        }
+        .actions {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+        }
+        .brand-text {
+          font-size: 19px;
+        }
+        .brand-mark {
+          width: 30px;
+          height: 16px;
+        }
+      }
+
+      /* large desktop */
+      @media (min-width: 1200px) {
+        .nav-inner {
+          padding: 12px 20px;
+        }
+        .actions {
+          gap: 18px;
+        }
+      }
+
+      /* ultra small phones */
+      @media (max-width: 359.98px) {
+        .share-btn span {
+          display: none;
+        }
+        .brand-text {
+          font-size: 17px;
+        }
+      }
+
+      .main-container {
+        margin-top: 64px;
+        padding: 20px;
+      }
+      .content-wrapper {
+        display: grid;
+        /* gap: 2vw; */
+        grid-template-areas: "left" "main" "right";
+        grid-template-columns: 1fr;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      /* LEFT SIDEBAR */
+      .left-sidebar {
+        grid-area: left;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      /* MAIN CONTENT */
+      .main-content {
+        background: transparent !important;
+        border: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+      }
+      /* RIGHT SIDEBAR */
+      .right-sidebar {
+        grid-area: right;
+      }
+
+      /* HERO BANNER */
+      .hero-banner {
+        height: 200px;
+        background: linear-gradient(135deg, #1e1e1e 0%, #3a3a3a 100%);
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .hero-logo {
+        color: #fff;
+        font-size: 48px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+      .hero-logo span:first-child {
+        color: var(--accent);
+        margin-right: 10px;
+      }
+      .ask-leo-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* ====== PORTFOLIOS — pixel-perfect to Figma (CSS only) ====== */
+      /* Card container (section-level card; own bg + border like left sidebar) */
+      .main-content > .portfolios-section {
+        background: #fff;
+        border: 1px solid #e6e8eb;
+        border-radius: 14px;
+        padding: 24px 24px 22px !important; /* tighter, Figma spacing */
+        box-shadow: 0 1px 0 #fff inset, 0 12px 28px rgba(15, 23, 42, 0.06);
+      }
+
+      /* Header */
+      .main-content .portfolios-header {
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .main-content .portfolios-title {
+        font-size: 28px;
+        line-height: 1.1;
+        font-weight: 800;
+        letter-spacing: -0.2px;
+        color: #0f172a;
+        margin: 0;
+      }
+      .main-content .add-projects-btn {
+        height: 38px;
+        padding: 0 14px;
+        border-radius: 999px;
+        border: 1.5px solid #1967d2;
+        color: #1967d2;
+        background: #fff;
+        font-weight: 700;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      }
+
+      /* Filter pills */
+      .main-content .filter-tabs {
+        display: flex;
+        gap: 12px;
+        margin: 4px 0 18px;
+        flex-wrap: wrap;
+      }
+      .main-content .filter-tab {
+        min-height: 38px;
+        padding: 8px 1vw !important;
+        border-radius: var(--radius) !important;
+        border: 1px solid #d1d5db;
+        background: #fff;
+        color: #111827;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 1;
+        box-shadow: inset 0 1px 0 #fff;
+      }
+      .main-content .filter-tab.active {
+        background: #1d4ed8;
+        color: #fff;
+        border-color: #1d4ed8;
+      }
+
+      /* Grid (2-up like Figma; you can duplicate the card to fill) */
+      .main-content .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(340px, 1fr));
+        gap: 26px;
+      }
+
+      /* Project card */
+      .main-content .portfolio-card {
+        background: #fff;
+        border: 1px solid #e6e8eb;
+        border-radius: 14px;
+        padding: 10px 16px;
+        box-shadow: 0 1px 0 #fff inset, 0 14px 30px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+      }
+
+      /* Image sits inside with its own rounded corners */
+      .main-content .portfolio-image {
+        display: block;
+        width: 100%;
+        height: 180px;
+        border-radius: 12px;
+        object-fit: cover;
+        background: linear-gradient(135deg, #6a8bff 0%, #6a3ec8 100%);
+      }
+
+      /* Content uses grid to align link (left) and launched text (right) */
+      .main-content .portfolio-content {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px 16px;
+        padding: 14px 2px 0;
+      }
+
+      .main-content .portfolio-title {
+        grid-column: 1 / -1;
+        margin: 0px 0 4px;
+        font-size: 18px;
+        line-height: 1.35;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.1px;
+      }
+      .main-content .portfolio-tech {
+        grid-column: 1 / -1;
+        font-size: 12.5px;
+        color: #6b7280;
+        margin-bottom: 4px;
+      }
+      .main-content .portfolio-desc {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 2px;
+      }
+
+      /* Meta row */
+      .main-content .portfolio-link {
+        grid-column: 1 / 2;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12.5px;
+        color: #111827;
+        margin-bottom: 0;
+      }
+      .main-content .portfolio-link i {
+        font-size: 13px;
+      }
+      .main-content .launched-info {
+        grid-column: 2 / 3;
+        align-self: center;
+        font-size: 12.5px;
+        color: #98a2b3;
+        text-align: right;
+      }
+
+      /* CTA button */
+      .main-content .view-details-btn {
+        grid-column: 1 / -1;
+        height: 42px;
+        margin-top: 12px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 15px;
+        background: #1664f5;
+        border: 1px solid #0f56e8;
+        color: #fff;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3),
+          0 2px 6px rgba(22, 100, 245, 0.15);
+      }
+
+      /* Responsive: single column on small screens */
+      @media (max-width: 991.98px) {
+        .main-content .portfolio-grid {
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+      }
+
+      /* =========================
+         MAIN – SECTIONED CARDS
+         ========================= */
+
+      /* Make the main wrapper transparent; each section becomes its own card */
+      .main-content {
+        background: transparent !important;
+        border: 0 !important;
+        overflow: visible !important;
+        padding: 0 !important;
+      }
+
+      /* Keep hero full-width; separate it from the first card */
+      .hero-banner {
+        border-radius: var(--radius);
+        margin: 0 0 16px;
+      }
+
+      /* Every main section is its own card (like left sidebar) */
+      .portfolios-section,
+      .experience-section,
+      .reviews-section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+        padding: 20px 20px 16px !important;
+        margin: 0 0 16px;
+      }
+
+      /* Section headers (title + actions) */
+      .portfolios-header {
+        margin-bottom: 12px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+      .portfolios-title {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+      }
+      .add-projects-btn {
+        height: 34px;
+        padding: 0 12px !important;
+        /* border-radius: 3px !important; */
+        font-weight: 600;
+      }
+
+      /* =========================
+         FILTER PILLS (Figma)
+         ========================= */
+      .filter-tabs {
+        gap: 10px !important;
+        margin: 8px 0 16px !important;
+        flex-wrap: wrap;
+      }
+      .filter-tab {
+        height: 34px;
+        padding: 0 14px !important;
+        border-radius: 999px !important;
+        border: 1px solid #d7dbe3 !important;
+        background: #fff !important;
+        color: #111 !important;
+        font-weight: 600;
+      }
+      .filter-tab.active {
+        background: #0b63ff !important;
+        border-color: #0b63ff !important;
+        color: #fff !important;
+        box-shadow: 0 1px 2px rgba(11, 99, 255, 0.25);
+      }
+
+      /* =========================
+         PORTFOLIO GRID + CARD
+         ========================= */
+      .portfolio-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 16px !important;
+      }
+      @media (max-width: 768px) {
+        .portfolio-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      .portfolio-card {
+        background: #fff;
+        border: 1px solid #e6e9f0 !important;
+        border-radius: 14px !important;
+        overflow: hidden;
+        padding: 12px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+      }
+      .portfolio-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(16, 24, 40, 0.08);
+      }
+
+      /* Image with rounded corners inside the card */
+      .portfolio-image {
+        width: 100%;
+        aspect-ratio: 16/9;
+        height: auto !important;
+        border-radius: var(--radius);
+        object-fit: cover;
+        display: block;
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+        margin-bottom: 10px;
+      }
+
+      /* Text styles inside card */
+      .portfolio-content {
+        padding: 0 !important;
+      }
+      .portfolio-title {
+        font-size: 15px !important;
+        line-height: 1.35 !important;
+        margin: 2px 0 0px !important;
+        color: #0f172a;
+      }
+      .portfolio-tech {
+        color: #667085 !important;
+        font-size: 12px !important;
+        margin-bottom: 0px !important;
+      }
+      .portfolio-desc {
+        color: #475569 !important;
+        font-size: 12px !important;
+        margin-bottom: 0px !important;
+      }
+      .portfolio-link {
+        color: #0b63ff !important;
+        font-size: 12px !important;
+        gap: 6px !important;
+        margin: 0px !important;
+      }
+      .launched-info {
+        color: #98a2b3 !important;
+        font-size: 11px !important;
+        text-align: right !important;
+      }
+
+      /* Primary CTA */
+      .view-details-btn {
+        height: 36px;
+        border-radius: var(--radius);
+        font-weight: 700;
+        background: #0b63ff !important;
+        box-shadow: 0 1px 0 #fff inset, 0 6px 14px rgba(11, 99, 255, 0.25);
+      }
+
+      /* =========================
+         SKILLS – FIGMA METER
+         ========================= */
+
+      /* =========================
+         REVIEWS – CARD WITH TOP AVATAR
+         ========================= */
+      .review-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+      }
+      @media (max-width: 768px) {
+        .review-cards {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
+      .review-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid #eceff4;
+        border-radius: 12px;
+        padding: 48px 16px 16px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+        text-align: center;
+      }
+
+      /* Big circle avatar on top center */
+      .reviewer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .reviewer-avatar {
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 56px !important;
+        height: 56px !important;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+      }
+      .reviewer-details h5 {
+        font-size: 14px !ant;
+        font-weight: 700;
+        margin: 0;
+        color: #0f172a;
+      }
+      .reviewer-details span {
+        font-size: 12px !important;
+        color: #667085 !important;
+      }
+
+      /* Quote styling */
+      .quote-icon {
+        position: absolute;
+        left: 16px;
+        top: 14px;
+        font-size: 26px !important;
+        color: #e2e8f0 !important;
+      }
+      .review-text {
+        color: #475569 !important;
+        font-style: normal !important;
+        line-height: 1.6 !important;
+        margin-top: 6px;
+      }
+
+      /* =========================
+         EXPERIENCE (card polish to match)
+         ========================= */
+      .experience-item {
+        padding: 14px !important;
+        border-bottom: 1px solid var(--border) !important;
+      }
+      .experience-title {
+        color: #0f172a !important;
+      }
+      .experience-badge {
+        background: #111 !important;
+        border-radius: var(--radius);
+        font-size: 11px !important;
+      }
+      .experience-desc {
+        color: #475569 !important;
+      }
+      .experience-meta {
+        color: #98a2b3 !important;
+      }
+
+      /* Small tidy: make section links centered like Figma */
+      .portfolios-section .see-all,
+      .experience-section .see-all,
+      .reviews-section .see-all {
+        margin: 6px 0 0;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .why-choose-section,
+      .services-section {
+        background: #fff;
+        border-radius: var(--radius);
+        padding: 20px;
+        border: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+      }
+
+      .services-title,
+      .why-choose-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      .describe-textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 10px;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        resize: vertical;
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .choose-item {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+      .choose-item i {
+        color: var(--accent);
+        font-size: 12px;
+        margin-top: 3px;
+      }
+      .choose-item span {
+        font-size: 13px;
+        color: #555;
+        line-height: 1.5;
+      }
+      .service-list {
+        list-style: none;
+        padding: 0;
+      }
+      .service-list li {
+        padding: 8px 0;
+        font-size: 13px;
+        color: #555;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .service-list li:before {
+        content: "•";
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .see-all-services {
+        text-align: right;
+        font-size: 12px;
+        color: var(--accent);
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 20px;
+        min-height: 0 !important;
+        max-height: auto !important;
+      }
+      .pad24 {
+        padding: 24px;
+      }
+      .hero-mobile {
+        background: var(--card);
+        color: var(--ink);
+      }
+      .hm-banner {
+        position: relative;
+        border-bottom: 1px solid var(--border);
+      }
+      .hm-banner img {
+        display: block;
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+      }
+      .hm-generate {
+        position: absolute;
+        right: 12px;
+        bottom: -16px;
+        padding: 6px 12px;
+        font-weight: 700;
+        font-size: 12px;
+        color: #fff;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        background: linear-gradient(90deg, #7a5af8 0%, #2ed3e6 100%);
+      }
+      .hm-avatar {
+        position: absolute;
+        left: 18px;
+        bottom: -28px;
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        background: #f2f2f2;
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 1px var(--border) inset;
+        display: grid;
+        place-items: center;
+        color: #b9b9b9;
+        font-size: 11px;
+        text-align: center;
+        line-height: 1.1;
+      }
+      .hm-body {
+        padding: 34px 14px 14px;
+      }
+      .hm-name {
+        margin: 0;
+        font-weight: 800;
+        font-size: 24px;
+        color: var(--accent);
+        line-height: 1.15;
+      }
+      .hm-otw {
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        padding: 4px 10px;
+        border-radius: 14px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #2e7d32;
+        background: #e8f5e9;
+        border: 1px solid #cfe7d1;
+      }
+      .hm-title {
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.55;
+        color: #333;
+      }
+      .hm-title a {
+        font-weight: 700;
+        color: #111;
+        text-decoration: none;
+      }
+      .hm-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .hm-chip {
+        padding: 7px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #fff;
+        font-size: 12px;
+        color: #111;
+      }
+      .hm-loc {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 10px;
+      }
+      .hm-ctas {
+        display: grid;
+        grid-template-columns: 1fr 1fr 44px;
+        gap: 12px;
+        margin-top: 12px;
+      }
+      .hm-btn {
+        height: 42px;
+        border-radius: 22px;
+        font-weight: 700;
+        font-size: 14px;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: #333;
+      }
+      .hm-btn-chat {
+        background: linear-gradient(180deg, #1d66ff 0%, var(--accent) 100%);
+        border: 1px solid var(--accent);
+        color: #fff;
+      }
+      .hm-kebab {
+        border: 1px solid var(--border);
+        background: #fff;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        color: #333;
+      }
+      .hm-socials {
+        display: flex;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      .hm-social {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+        text-decoration: none;
+      }
+      .hm-cv {
+        margin-left: auto;
+        padding: 9px 14px;
+        border-radius: 22px;
+        border: 1px solid var(--border);
+        background: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        font-size: 14px;
+        color: #111;
+        text-decoration: none;
+      }
+      .hm-sep {
+        height: 1px;
+        background: var(--border);
+        margin-top: 12px;
+      }
+      .hero-merged {
+        display: none;
+      }
+
+      @media (min-width: 992px) {
+        .hero-mobile {
+          display: none;
+        }
+        .hero-merged {
+          display: block;
+          width: 100%;
+          background: var(--card);
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          padding: 18px 18px 16px;
+          position: relative;
+          color: var(--ink);
+        }
+        .hero-merged .edit-card {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          width: 26px;
+          height: 26px;
+          border: 1px solid var(--border);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #fff;
+          color: #666;
+        }
+        .photo-wrap {
+          width: 120px;
+          margin: 2px auto 10px;
+        }
+        .photo-ring {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          border: 1px solid var(--border);
+          background: #fff;
+          display: grid;
+          place-items: center;
+        }
+        .photo-circle {
+          width: 108px;
+          height: 108px;
+          border-radius: 50%;
+          background: #f6f6f6;
+          border: 2px solid #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          color: #9b9b9b;
+          font-size: 12px;
+          line-height: 1.2;
+          text-align: center;
+        }
+        .photo-circle i {
+          font-size: 22px;
+          margin-bottom: 6px;
+        }
+        .name-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          margin-top: 6px;
+        }
+        .name {
+          font-weight: 600;
+          font-size: 1.6rem;
+          line-height: 1.1;
+        }
+        .otw-pill {
+          background: #e8f5e9;
+          border: 1px solid #cfe7d1;
+          color: #2e7d32;
+          padding: 5px 12px;
+          border-radius: 16px;
+          font-size: 12px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .stack {
+          margin-top: 6px;
+          font-size: 12px;
+          color: var(--muted);
+          line-height: 1.55;
+          text-align: center.;
+        }
+        .loc {
+          margin-top: 6px;
+          font-size: 13px;
+          color: var(--muted);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+        }
+        .hr {
+          height: 1px;
+          background: var(--border);
+          margin: 14px 0 12px;
+        }
+        .about-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 10px;
+        }
+        .about-row .label {
+          font-weight: 700;
+          font-size: 15px;
+        }
+        .about-text {
+          font-size: 13px;
+          color: #555;
+          line-height: 1.7;
+        }
+        .meta-actions {
+          margin-top: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 16px;
+        }
+        .see-more {
+          font-size: 13px;
+          color: var(--accent);
+          font-weight: 600;
+          text-decoration: none;
+        }
+        .hr2 {
+          height: 1px;
+          background: var(--border);
+          margin: 12px 0;
+        }
+        .cta {
+          display: flex;
+          gap: 12px;
+        }
+        .btn-chat,
+        .btn-follow {
+          height: 40px;
+          border-radius: var(--radius);
+          font-weight: 700;
+          font-size: 14px;
+          flex: 1;
+          cursor: pointer;
+        }
+        .btn-chat {
+          border: 1px solid var(--accent);
+          color: #fff;
+          background: var(--accent);
+        }
+        .btn-follow {
+          background: #fff;
+          border: 1px solid var(--border);
+          color: #333;
+        }
+        .socials {
+          margin-top: 14px;
+          padding-top: 14px;
+          display: flex;
+          justify-content: center;
+          gap: 16px;
+        }
+        .socials a {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          border: 1px solid var(--border);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #666;
+          text-decoration: none;
+        }
+        .socials a:hover {
+          color: var(--accent);
+          border-color: var(--accent);
+        }
+      }
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 12px;
+      }
+      .title-edit {
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        cursor: pointer;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tag {
+        background: #f8f8f8;
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: 18px;
+        font-size: 12px;
+        color: #333;
+      }
+      .see-all {
+        margin-top: 8px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13px;
+        color: #333;
+        padding: 6px 0;
+      }
+      .skill-item + .skill-item {
+        border-top: 1px solid #f0f0f0;
+      }
+      .lang-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 13px;
+        padding: 10px 0;
+      }
+      .lang-row + .lang-row {
+        border-top: 1px solid #f0f0f0;
+      }
+      .edu-item {
+        padding: 14px 0;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      .edu-item:last-child {
+        border-bottom: none;
+      }
+      .edu-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+      }
+      .edu-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: #333;
+      }
+      .pill {
+        background: #2c2c2c;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 12px;
+        text-transform: uppercase;
+      }
+      .edu-sub {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 2px;
+      }
+      .edu-date,
+      .edu-loc {
+        font-size: 11px;
+        color: var(--muted2);
+      }
+      .edu-see {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 13px;
+      }
+      @media (max-width: 767.98px) {
+        :root {
+          --radius: 0px !important;
+        }
+        .top-nav .container-fluid {
+          padding: 0 10px;
+        }
+        .search-bar {
+          width: 150px;
+        }
+        .nav-icons {
+          gap: 15px;
+        }
+        .nav-icons span {
+          display: none;
+        }
+        .portfolio-grid {
+          grid-template-columns: 1fr;
+        }
+        .review-cards {
+          grid-template-columns: 1fr;
+        }
+        .hero-banner {
+          height: 150px;
+        }
+        .hero-logo {
+          font-size: 32px;
+        }
+        .filter-tabs {
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          padding-bottom: 10px;
+        }
+        .main-container {
+          padding: 0;
+        }
+        .content-wrapper {
+          padding: 0;
+        }
+        .hero-banner {
+          display: none;
+        }
+
+        :root {
+          --radius: 0px !important;
+        }
+      }
+      @media (max-width: 375.98px) {
+        :root {
+          --radius: 0px !important;
+        }
+        .hm-banner img {
+          height: 140px;
+        }
+        .hm-avatar {
+          width: 88px;
+          height: 88px;
+          bottom: -26px;
+          left: 16px;
+        }
+        .hm-body {
+          padding-top: 30px;
+        }
+        .hm-name {
+          font-size: 22px;
+        }
+        .hm-ctas {
+          grid-template-columns: 1fr 1fr 40px;
+        }
+        .hero-banner {
+          display: none;
+        }
+      }
+      @media (max-width: 330px) {
+        .hm-banner img {
+          height: 132px;
+        }
+        .hm-name {
+          font-size: 20px;
+        }
+        .hm-chip {
+          padding: 6px 10px;
+          font-size: 11px;
+        }
+        :root {
+          --radius: 0px !important;
+        }
+        .hero-banner {
+          display: none;
+        }
+      }
+      @media (min-width: 768px) and (max-width: 1199.98px) {
+        .content-wrapper {
+          grid-template-areas: "left right" "main main";
+          grid-template-columns: 68% 30%;
+          justify-content: space-around;
+        }
+        .portfolio-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .hero-mobile {
+          display: block;
+        }
+        .hero-merged {
+          display: none;
+        }
+        .hero-banner {
+          display: none;
+        }
+      }
+      @media (min-width: 1200px) {
+        .content-wrapper {
+          grid-template-areas: "left main right";
+          grid-template-columns: 20% 57% 20%;
+          justify-content: space-around;
+        }
+      }
+
+      /* TOP SKILLS — Figma-perfect (3 chips per row, higher contrast) */
+      .left-sidebar .card .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 12px; /* tighter like Figma */
+      }
+
+      .left-sidebar .card .tags {
+        gap: 12px; /* even gaps */
+        margin-bottom: 12px !important; /* override inline 8px */
+      }
+
+      .left-sidebar .card .tag {
+        justify-self: start; /* left align inside each cell */
+        width: auto; /* uniform pill width per column */
+        /* min-height: 32px; */
+        /* line-height: 32px;  */
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #111;
+        background: transparent !important; /* more contrast */
+        border: 1px solid var(--ink); /* crisp outline */
+        box-shadow: 0 1px 0 #fff inset, 0 1px 2px rgba(16, 24, 40, 0.04);
+      }
+
+      .left-sidebar .card .see-all {
+        margin-top: 10px;
+        justify-content: flex-end;
+        font-weight: 700;
+        color: #0b63ff; /* LinkedIn-like blue */
+      }
+      .left-sidebar .card .see-all i {
+        font-size: 12px;
+      }
+
+      /* ==== CARD BASE ==== */
+      .left-sidebar .card {
+        border: 1px solid #e5e5e5; /* crisp gray border */
+        border-radius: var(--radius);
+        background: #fff;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      /* ==== SECTION TITLES ==== */
+      .left-sidebar .card .section-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111; /* darker text */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 14px;
+      }
+
+      /* ==== SKILL LIST ==== */
+      .left-sidebar .card .skill-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: #111; /* high contrast */
+        padding: 12px 0;
+        border-bottom: 1px solid #e5e5e5; /* divider between skills */
+      }
+
+      .left-sidebar .card .skill-item:last-child {
+        border-bottom: none;
+      }
+
+      /* modern icons — bigger, darker */
+      .left-sidebar .card .skill-item i {
+        font-size: 18px;
+        color: #333;
+      }
+
+      /* ==== SEE ALL LINK ==== */
+      .left-sidebar .card .see-all {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #0b63ff; /* LinkedIn blue */
+        cursor: pointer;
+      }
+
+      .left-sidebar .card .see-all:hover {
+        text-decoration: underline;
+      }
+
+      /* ==== LANGUAGE LIST ==== */
+      .left-sidebar .card .lang-row {
+        display: flex;
+        justify-content: left !important;
+        font-size: 14px;
+        gap: 5px;
+        color: #111;
+        padding: 12px 0;
+        border-bottom: 1px solid #e5e5e5;
+      }
+
+      .left-sidebar .card .lang-row:last-child {
+        border-bottom: none;
+      }
+
+      /* ===== SKILLS — Figma-perfect (60/40, short divider, cap marker) ===== */
+
+      /* card shell (same look as your left cards) */
+      .skills-showcase {
+        background: #fff !important;
+        border: 1px solid #e6e8eb !important;
+        border-radius: 14px !important;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04) !important;
+        padding: 24px !important;
+        margin-bottom: 1vw;
+      }
+
+      /* header: title + circular pencil */
+      .skills-showcase .portfolios-header {
+        margin: 0 0 8px;
+        align-items: center;
+      }
+      .skills-showcase .portfolios-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .skills-showcase .add-projects-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid #cfd5db;
+        background: #fff;
+        color: #0f172a;
+        font-size: 0; /* hide text "Add Projects" */
+      }
+      .skills-showcase .add-projects-btn i {
+        font-size: 14px;
+      }
+
+      /* main 60/40 layout */
+      /* Main 60/40 layout */
+      .skills-main-content {
+        display: grid;
+        grid-template-columns: 57% 40%;
+        align-items: center; /* Ensures vertical middle alignment */
+        justify-content: space-between;
+        position: relative;
+      }
+
+      /* SHORT vertical divider = centered */
+      .skills-progress-section {
+        position: relative;
+        padding-right: 28px;
+      }
+
+      .skills-progress-section::after {
+        content: "";
+        position: absolute;
+        right: -16px; /* closer to the right section */
+        top: 50%; /* vertical middle */
+        transform: translateY(-50%);
+        height: 65%; /* smaller line height */
+        width: 1px;
+        background: var(--border, #e6e8eb);
+        border-radius: 0.5px;
+      }
+
+      /* SHORT vertical divider = tied to the left column height */
+      .skills-progress-section {
+        position: relative;
+        padding-right: 28px;
+      }
+      .skills-progress-section::after {
+        content: "";
+        position: absolute;
+        right: -27px !important;
+        top: 4px;
+        bottom: 4px; /* short */
+        width: 1px;
+        background: var(--border, #e6e8eb);
+        border-radius: 0.5px;
+      }
+
+      /* bars */
+      .skill-progress {
+        margin: 20px 0 28px;
+      }
+      .skill-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .skill-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+      .skill-percentage {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0b1527;
+      }
+
+      .progress-bar-container {
+        position: relative;
+        height: 8px;
+        border-radius: 999px;
+        overflow: visible;
+        background: #e7edf6;
+        border: 1px solid #dbe4f3;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        border-radius: 999px;
+        background: linear-gradient(
+          180deg,
+          #1d66ff 0%,
+          var(--accent, #1351d8) 100%
+        );
+        position: relative;
+        transition: width 0.9s ease;
+      }
+
+      /* graduation cap marker (no bubble, with tiny tassel) */
+      .skill-progress-icon {
+        position: absolute;
+        right: -14px;
+        top: 50%;
+        transform: translateY(-56%);
+        width: 26px;
+        height: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0b48d0;
+        font-size: 18px;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.25));
+      }
+      .skill-progress-icon::after {
+        content: "";
+        position: absolute;
+        left: 14px;
+        top: 15px;
+        width: 2px;
+        height: 8px;
+        background: #f6c544;
+        border-radius: 1px;
+        transform: rotate(16deg);
+      }
+
+      /* right column (tech lists) */
+      .tech-stack-section {
+        padding-left: 6px;
+      }
+      .tech-category {
+        margin: 0 0 26px;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+      }
+      .tech-category h4 {
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+      }
+      .tech-items {
+        font-size: 1rem;
+        line-height: 1.55;
+        color: #283548;
+      }
+      .tech-separator-line {
+        height: 1px;
+        background: var(--border, #e6e8eb);
+        margin: 12px 0 18px;
+      }
+
+      /* See more link (add the one-liner HTML at the end of the section) */
+      .skills-see-more {
+        display: block;
+        margin-top: 6px;
+        text-align: right;
+        font-size: 13px;
+        font-weight: 700;
+        color: #0b63ff;
+        text-decoration: none;
+      }
+      .skills-see-more i {
+        font-size: 10px;
+        margin-left: 4px;
+      }
+
+      /* responsive: stack; hide divider */
+      @media (max-width: 992px) {
+        .skills-main-content {
+          grid-template-columns: 1fr;
+          column-gap: 0;
+        }
+        .skills-progress-section {
+          padding-right: 0;
+        }
+        .skills-progress-section::after {
+          display: none;
+        }
+        .tech-stack-section {
+          padding-left: 0;
+          border-top: 1px solid var(--border, #e6e8eb);
+          margin-top: 8px;
+          padding-top: 22px;
+        }
+      }
+
+      .skills-showcase .skills-progress-section {
+        position: relative;
+        padding-right: 16px; /* keeps text clear of the divider */
+      }
+
+      /* short, vertically-centered divider, closer to the tech column */
+      .skills-showcase .skills-progress-section::after {
+        content: "";
+        position: absolute;
+        right: -10px; /* nudge toward the tech list */
+        top: 43%;
+        transform: translateY(-50%); /* perfect vertical centering */
+        height: 68%; /* SHORT height like Figma */
+        width: 1px;
+        background: var(--border, #b6b8bb);
+        border-radius: 1px;
+      }
+
+      /* slight left padding so text doesn't touch divider */
+      .skills-showcase .tech-stack-section {
+        padding: 0 22px;
+      }
+
+      /* optional: See more link styling (if you add the anchor) */
+      .skills-see-more {
+        display: block;
+        margin-top: 6px;
+        text-align: right;
+        font-size: 13px;
+        font-weight: 700;
+        color: #0b63ff;
+        text-decoration: none;
+      }
+      .skills-see-more i {
+        font-size: 10px;
+        margin-left: 4px;
+      }
+
+      /* mobile keeps previous behavior (no divider) */
+      @media (max-width: 992px) {
+        .skills-showcase .skills-main-content {
+          grid-template-columns: 1fr;
+          column-gap: 0;
+        }
+        .skills-showcase .skills-progress-section {
+          padding-right: 0;
+        }
+        .skills-showcase .skills-progress-section::after {
+          display: none;
+        }
+        .skills-showcase .tech-stack-section {
+          padding-left: 0;
+        }
+      }
+
+      /* ===== EXPERIENCE — Figma-perfect list (no outer border) ===== */
+
+      /* Section shell */
+      .experience-section {
+        background: #fff;
+        border: 0 !important; /* no outer border */
+        border-radius: 14px;
+        box-shadow: none !important; /* no outer shadow */
+        padding: 24px 24px 12px !important;
+      }
+
+      /* Header row (title + circular pencil) */
+      .experience-section .portfolios-header {
+        margin: 0 0 6px;
+        align-items: center;
+        gap: 12px;
+      }
+      .experience-section .portfolios-title {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .experience-section .add-projects-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 1px solid #cfd5db;
+        background: #fff;
+        color: #0f172a;
+        font-size: 0; /* hide button text */
+      }
+      .experience-section .add-projects-btn i {
+        font-size: 14px;
+      }
+
+      /* Title + pill inline (not pushed to far right) */
+      .experience-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 6px;
+      }
+      .experience-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: #0f172a;
+      }
+      .experience-badge {
+        background: #0f172a;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      /* Body + meta */
+      .experience-desc {
+        margin: 4px 0 12px;
+        font-size: 15px;
+        line-height: 1.65;
+        color: #475569;
+      }
+      .experience-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 14px;
+        color: #667085;
+      }
+      .experience-meta span:last-child {
+        margin-left: auto;
+        color: #94a3b8;
+      }
+
+      /* Footer: centered “See all Experiences” with top rule */
+      .experience-section > div:last-child {
+        margin: 8px -24px -12px; /* reach edges of section */
+        padding: 12px 24px 14px;
+        border-top: 1px solid #e6e8eb;
+        text-align: center !important;
+      }
+      .experience-section > div:last-child a {
+        color: #0b63ff !important;
+        font-weight: 700;
+        font-size: 13px !important;
+        text-decoration: none !important;
+      }
+      .experience-section > div:last-child a i {
+        font-size: 10px;
+        margin-left: 4px;
+      }
+      /* Client Reviews Section - 100% Figma Perfect */
+      .reviews-section {
+        background: #fff;
+        border: 1px solid #e6e8eb;
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+      }
+
+      /* Header */
+      .reviews-section .portfolios-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-bottom: 2vw !important;
+      }
+
+      .reviews-section .portfolios-title {
+        font-size: 28px;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+      }
+
+      /* Review Cards Grid */
+      .review-cards {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 24px;
+      }
+
+      /* Individual Review Card */
+      .review-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid #e6e8eb;
+        border-radius: 12px;
+        padding: 60px 20px 24px 20px;
+        text-align: center;
+        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+      }
+
+      /* Large Avatar at Top */
+      .reviewer-avatar-large {
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 80px;
+      }
+
+      .avatar-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Reviewer Info - Centered */
+      .reviewer-info-center {
+        margin-bottom: 16px;
+      }
+
+      .reviewer-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: #0f172a;
+        margin: 0 0 4px 0;
+      }
+
+      .reviewer-location {
+        font-size: 13px;
+        color: #6b7280;
+        font-style: italic;
+      }
+
+      /* Professional Quote Icons - FontAwesome */
+      .review-content {
+        position: relative;
+        display: block;
+        margin: 16px 0;
+      }
+
+      .quote-left {
+        color: var(--ink);
+        font-size: 16px;
+        vertical-align: top;
+        margin-right: 4px;
+        line-height: 1.6;
+      }
+
+      .quote-right {
+        color: var(--ink);
+        font-size: 16px;
+        vertical-align: bottom;
+        margin-left: 4px;
+        line-height: 1.6;
+      }
+
+      /* Review Text - Inline with quotes */
+      .review-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #475569;
+        margin: 0;
+        display: inline;
+        text-align: left;
+      }
+
+      /* Footer with See All Link */
+      .reviews-footer {
+        text-align: center;
+        border-top: 1px solid #e6e8eb;
+        padding-top: 16px;
+        margin-top: 8px;
+      }
+
+      .see-all-reviews {
+        color: #4285f4;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .see-all-reviews:hover {
+        text-decoration: underline;
+      }
+
+      .see-all-reviews i {
+        font-size: 10px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .review-cards {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .reviews-section {
+          padding: 20px;
+        }
+
+        .review-card {
+          padding: 50px 16px 20px 16px;
+        }
+
+        .reviewer-avatar-large {
+          width: 70px;
+          height: 70px;
+          top: -25px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .reviews-section .portfolios-title {
+          font-size: 24px;
+        }
+
+        .quote-left,
+        .quote-right {
+          font-size: 20px;
+        }
+
+        .review-text {
+          font-size: 13px;
+        }
+      }
+
+      /* === AI Profile Creator — Figma-perfect gradients, spacing & divider === */
+      /* Palette pulled from the mock (purple → cyan) */
+      :root {
+        --apc-g1: #a855f7; /* purple */
+        --apc-g2: #2dd4ea; /* cyan  */
+        --apc-bg: #f5f6f8; /* light fill inside gradient borders */
+      }
+
+      /* Card shell */
+      .ai-profile-creator {
+        background: #fff !important;
+        border: 1px solid #e6e8eb !important;
+        border-radius: 20px !important;
+        box-shadow: 0 1px 0 #fff inset, 0 8px 18px rgba(2, 6, 23, 0.06);
+        padding: 1.2vw !important;
+        text-align: center;
+        margin-bottom: 1vw;
+      }
+
+      /* Heading + sub */
+      .ai-profile-creator .ai-creator-title {
+        font-size: 1em;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0 0 8px;
+      }
+      .ai-profile-creator .ai-creator-desc {
+        font-size: 0.7em !important;
+        line-height: 1.5;
+        color: #1f2937;
+        margin: 0 0 18px;
+      }
+      .upload-btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* ===== Gradient border helper (upload + textarea) ===== */
+      .ai-profile-creator .upload-btn,
+      .ai-profile-creator .describe-textarea {
+        border: 2px solid transparent !important;
+        background: linear-gradient(var(--apc-bg), var(--apc-bg)) padding-box,
+          linear-gradient(90deg, var(--apc-g1) 0%, var(--apc-g2) 100%)
+            border-box !important;
+        border-radius: 16px !important;
+        box-shadow: 0 6px 14px rgba(17, 88, 245, 0.1);
+      }
+
+      /* Upload button (large, pill-ish) */
+      .ai-profile-creator .upload-btn {
+        padding: 8px !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: #0f172a;
+        font-size: 0.8rem !important;
+        font-weight: 500;
+        background-clip: padding-box;
+        border-radius: var(--radius) !important;
+      }
+      .ai-profile-creator .upload-btn i {
+        font-size: 1rem;
+        background: linear-gradient(90deg, var(--apc-g1), var(--apc-g2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .or-divider {
+        display: flex;
+        align-items: center;
+        margin: 1vw 0;
+      }
+      .or-line {
+        flex: 1;
+        height: 1px;
+        background: #d1d5db;
+      }
+
+      .or-text {
+        padding: 0 20px;
+        font-size: 14px;
+        color: #9ca3af;
+        font-weight: 500;
+      }
+      /* Textarea with gradient border */
+      .ai-profile-creator .describe-textarea {
+        width: 100%;
+        min-height: 8vw;
+        padding: 8px 10px !important;
+        background-color: var(--apc-bg) !important;
+        resize: vertical;
+        font-size: 0.8rem;
+        color: #0f172a;
+        border-radius: var(--radius) !important;
+      }
+
+      /* CTA button with gradient fill */
+      .ai-profile-creator .generate-profile-btn {
+        padding: 5px 10px;
+        border-radius: var(--radius) !important;
+        border: none;
+        width: auto;
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        color: #fff;
+        cursor: pointer;
+        background: linear-gradient(
+          90deg,
+          #1d66ff 0%,
+          #1351d8 40%,
+          var(--apc-g1) 75%,
+          var(--apc-g2) 100%
+        );
+        box-shadow: 0 10px 22px rgba(22, 100, 245, 0.18);
+      }
+      .ai-profile-creator .generate-profile-btn:active {
+        transform: translateY(1px);
+      }
+
+      /* Small tweaks on very narrow screens */
+      @media (max-width: 420px) {
+        .ai-profile-creator {
+          padding: 22px 16px !important;
+        }
+        .ai-profile-creator .ai-creator-title {
+          font-size: 22px;
+        }
+        .ai-profile-creator .generate-profile-btn {
+          height: 54px;
+          font-size: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navigation -->
+
+    <nav class="top-nav">
+      <div class="nav-inner">
+        <div class="nav-row nav-row--top">
+          <img
+            class="nav-avatar"
+            src="https://i.pravatar.cc/64?img=13"
+            alt="Me"
+          />
+          <a class="brand" href="#" aria-label="Codefixxer">
+            <svg class="brand-mark" viewBox="0 0 48 24" aria-hidden="true">
+              <path
+                d="M18 3 6 12l12 9"
+                fill="none"
+                stroke="#1351d8"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M30 3 18 12l12 9"
+                fill="none"
+                stroke="#0a6bff"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="brand-text">Codefixxer</span>
+          </a>
+          <button class="share-btn">
+            <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+          </button>
+        </div>
+
+        <div class="nav-row nav-row--bottom">
+          <div class="search-wrap">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input class="search-input" type="text" placeholder="Search" />
+          </div>
+          <a class="icon-btn" href="#" aria-label="Messages">
+            <i class="fa-regular fa-message"></i>
+            <span class="badge badge-count">2</span>
+          </a>
+          <a class="icon-btn" href="#" aria-label="Notifications">
+            <i class="fa-regular fa-bell"></i>
+            <span class="badge badge-dot"></span>
+          </a>
+        </div>
+
+        <div class="nav-row nav-row--desktop">
+          <a class="brand" href="#">
+            <svg class="brand-mark" viewBox="0 0 48 24" aria-hidden="true">
+              <path
+                d="M18 3 6 12l12 9"
+                fill="none"
+                stroke="#1351d8"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M30 3 18 12l12 9"
+                fill="none"
+                stroke="#0a6bff"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="brand-text">Codefixxer</span>
+          </a>
+          <div class="search-wrap search-wrap--desktop">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              class="search-input"
+              type="text"
+              placeholder="Graphic Designer, Web Developer etc."
+            />
+          </div>
+          <div class="actions">
+            <a class="icon-btn" href="#" aria-label="Messages">
+              <i class="fa-regular fa-message"></i>
+              <span class="badge badge-count">2</span>
+            </a>
+            <a class="icon-btn" href="#" aria-label="Notifications">
+              <i class="fa-regular fa-bell"></i>
+              <span class="badge badge-dot"></span>
+            </a>
+            <button class="share-btn">
+              <i class="fa-solid fa-share-nodes"></i><span>Share</span>
+            </button>
+            <img
+              class="nav-avatar"
+              src="https://i.pravatar.cc/64?img=13"
+              alt="Me"
+            />
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <div class="content-wrapper">
+        <!-- Left Sidebar -->
+        <!-- ASIDE: Left Sidebar (hero + sections) -->
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
+        <aside class="left-sidebar">
+          <!-- MOBILE/TABLET HERO (shows < 992px) -->
+          <section class="hero-mobile">
+            <div class="hm-banner">
+              <img
+                src="https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=1400&auto=format&fit=crop"
+                alt="Banner"
+              />
+              <div class="hm-avatar">
+                <i
+                  class="fa-solid fa-camera"
+                  style="font-size: 16px; margin-bottom: 4px"
+                ></i>
+              </div>
+              <span class="hm-generate"
+                ><i
+                  class="fa-solid fa-wand-magic-sparkles"
+                  style="margin-right: 6px"
+                ></i
+                >Generate</span
+              >
+            </div>
+
+            <div class="hm-body">
+              <h2 class="hm-name">
+                Hassam Mehmood <span class="hm-otw">Open to work</span>
+              </h2>
+
+              <div class="hm-title">
+                Full-Stack Laravel & React Developer | AI & Chatbot Integration
+                Expert | SaaS, API & Payment Gateway Specialist | Founder @ Code
+                Fixxer | Web & Mobile (Flutter/React Native) App Specialist...
+                <a href="#"
+                  >See more
+                  <i
+                    class="fa-solid fa-chevron-down"
+                    style="font-size: 10px; margin-left: 4px"
+                  ></i
+                ></a>
+              </div>
+
+              <div class="hm-chips">
+                <span class="hm-chip">Web Develop</span>
+                <span class="hm-chip">Web Develop</span>
+                <span class="hm-chip">HTML</span>
+                <span class="hm-chip">Web Develop</span>
+                <span class="hm-chip">HTML</span>
+              </div>
+
+              <div class="hm-loc">
+                <i class="fa-solid fa-location-dot" style="font-size: 12px"></i>
+                Sargodha, Pakistan
+              </div>
+
+              <div class="hm-ctas">
+                <button class="hm-btn hm-btn-chat">Let’s Chat!</button>
+                <button class="hm-btn">Follow</button>
+                <button class="hm-kebab" aria-label="More">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </div>
+
+              <div class="hm-socials">
+                <a class="hm-social" href="#"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+                <a class="hm-social" href="#"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+                <a class="hm-social" href="#"
+                  ><i class="fa-brands fa-x-twitter"></i
+                ></a>
+                <a class="hm-social" href="#"
+                  ><i class="fa-brands fa-linkedin-in"></i
+                ></a>
+                <a class="hm-cv" href="#"
+                  ><i class="fa-solid fa-download"></i> Download CV</a
+                >
+              </div>
+
+              <div class="hm-sep"></div>
+            </div>
+          </section>
+
+          <!-- DESKTOP HERO (shows >= 992px) -->
+          <section class="hero-merged">
+            <button class="edit-card" aria-label="Edit card">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <div class="photo-wrap">
+              <div class="photo-ring">
+                <div class="photo-circle">
+                  <i class="fa-solid fa-camera"></i>
+                  Upload your<br />profile photo
+                </div>
+              </div>
+            </div>
+
+            <div class="name-row">
+              <h2 class="name">Hassam Mehmood</h2>
+              <!-- <span class="otw-pill">Open to work</span> -->
+            </div>
+
+            <div class="stack">
+              PHP · Laravel · React Js · Node Js · Express<br />Js · Mongo DB ·
+              Tailwind CSS
+            </div>
+            <div class="loc">
+              <i class="fa-solid fa-location-dot" style="font-size: 12px"></i>
+              Sargodha, Pakistan
+            </div>
+
+            <div class="hr"></div>
+
+            <div class="about-row"><span class="label">About:</span></div>
+            <p class="about-text">
+              I am a problem solver who writes and maintains the code that
+              powers websites, applications, ...
+            </p>
+
+            <div class="meta-actions">
+              <a class="see-more" href="#"
+                >See more
+                <i
+                  class="fa-solid fa-chevron-down"
+                  style="font-size: 10px; margin-left: 4px"
+                ></i
+              ></a>
+              <i class="fa-solid fa-ellipsis kebab"></i>
+            </div>
+
+            <div class="hr2"></div>
+
+            <div class="cta">
+              <button class="btn-chat">Let’s Chat!</button>
+              <button class="btn-follow">Follow</button>
+            </div>
+
+            <div class="socials" style="border-top: 1px solid var(--border)">
+              <a href="#" aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a href="#" aria-label="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="#" aria-label="Twitter"
+                ><i class="fa-brands fa-x-twitter"></i
+              ></a>
+              <a href="#" aria-label="LinkedIn"
+                ><i class="fa-brands fa-linkedin-in"></i
+              ></a>
+            </div>
+          </section>
+
+          <!-- TOP SKILLS -->
+          <section class="card pad24">
+            <div class="section-title">
+              <span>Top Skills</span>
+              <span class="title-edit" title="Edit"
+                ><i class="fa-solid fa-pen"></i
+              ></span>
+            </div>
+            <div class="tags" style="margin-bottom: 8px">
+              <span class="tag">Web Develop</span>
+              <span class="tag">Web Develop</span>
+              <span class="tag">HTML</span>
+            </div>
+            <a class="see-all"
+              >See all
+              <i class="fa-solid fa-chevron-down" style="font-size: 10px"></i
+            ></a>
+          </section>
+
+          <!-- SOFT SKILLS -->
+          <section class="card pad24">
+            <div class="section-title">
+              <span>Soft Skills</span>
+              <span class="title-edit" title="Edit"
+                ><i class="fa-solid fa-pen"></i
+              ></span>
+            </div>
+            <div class="skill-item">
+              <span
+                style="
+                  color: var(--accent);
+                  width: 20px;
+                  display: flex;
+                  justify-content: center;
+                "
+                ><i class="fa-solid fa-lightbulb"></i
+              ></span>
+              <span>Problem-solving</span>
+            </div>
+            <div class="skill-item">
+              <span
+                style="
+                  color: #666;
+                  width: 20px;
+                  display: flex;
+                  justify-content: center;
+                "
+                ><i class="fa-solid fa-mobile-screen"></i
+              ></span>
+              <span>Communication skills</span>
+            </div>
+            <div class="skill-item">
+              <span
+                style="
+                  color: #666;
+                  width: 20px;
+                  display: flex;
+                  justify-content: center;
+                "
+                ><i class="fa-solid fa-clock"></i
+              ></span>
+              <span>Time management</span>
+            </div>
+            <a class="see-all"
+              >See all Soft Skills
+              <i class="fa-solid fa-arrow-right" style="font-size: 10px"></i
+            ></a>
+          </section>
+
+          <!-- LANGUAGE -->
+          <section class="card pad24">
+            <div class="section-title">
+              <span>Language</span>
+              <span class="title-edit" title="Edit"
+                ><i class="fa-solid fa-pen"></i
+              ></span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">English</span
+              ><span class="lang-level">— Professional</span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">Urdu</span
+              ><span class="lang-level">— Native</span>
+            </div>
+            <div class="lang-row">
+              <span class="lang-name">Arabic</span
+              ><span class="lang-level">— Basic</span>
+            </div>
+          </section>
+
+          <!-- EDUCATION -->
+          <section class="card pad24">
+            <div class="section-title">
+              <span>Education</span>
+              <span class="title-edit" title="Edit"
+                ><i class="fa-solid fa-pen"></i
+              ></span>
+            </div>
+            <div class="edu-item">
+              <div class="edu-head">
+                <div class="edu-title">Lorem ipsum</div>
+                <span class="pill">Recent</span>
+              </div>
+              <div class="edu-sub">Lorem ipsum is placeholder</div>
+              <div class="edu-date">Jul 2024 - Jul 2025</div>
+              <div class="edu-loc">Sargodha, Pakistan</div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-head">
+                <div class="edu-title">Lorem ipsum</div>
+                <span class="pill">Recent</span>
+              </div>
+              <div class="edu-sub">Lorem ipsum is placeholder</div>
+              <div class="edu-date">Jul 2024 - Jul 2025</div>
+              <div class="edu-loc">Sargodha, Pakistan</div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-head">
+                <div class="edu-title">Lorem ipsum</div>
+                <span class="pill">Recent</span>
+              </div>
+              <div class="edu-sub">Lorem ipsum is placeholder</div>
+              <div class="edu-date">Jul 2024 - Jul 2025</div>
+              <div class="edu-loc">Sargodha, Pakistan</div>
+            </div>
+            <div class="edu-item">
+              <div class="edu-head">
+                <div class="edu-title">Lorem ipsum</div>
+                <span class="pill">Recent</span>
+              </div>
+              <div class="edu-sub">Lorem ipsum is placeholder</div>
+              <div class="edu-date">Jul 2024 - Jul 2025</div>
+              <div class="edu-loc">Sargodha, Pakistan</div>
+            </div>
+            <a class="edu-see"
+              >See all Education
+              <i class="fa-solid fa-arrow-right" style="font-size: 10px"></i
+            ></a>
+          </section>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+          <!-- Hero Banner -->
+          <div class="hero-banner">
+            <div class="hero-logo">
+              <span>&lt;&lt;&lt;</span>
+              <span>Codefixxer</span>
+            </div>
+            <button class="ask-leo-btn">
+              <i class="fas fa-sparkles"></i>
+              Ask Leo Ai
+            </button>
+          </div>
+
+          <!-- Portfolios Section -->
+          <section class="portfolios-section">
+            <div class="portfolios-header">
+              <h2 class="portfolios-title">Portfolios</h2>
+              <button class="add-projects-btn">
+                Add Projects
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+
+            <div class="filter-tabs">
+              <button class="filter-tab active">All</button>
+              <button class="filter-tab">Laravel</button>
+              <button class="filter-tab">React Js</button>
+              <button class="filter-tab">Node Js</button>
+              <button class="filter-tab">Ai</button>
+              <button class="filter-tab">Mern Stack</button>
+            </div>
+
+            <div class="portfolio-grid">
+              <div class="portfolio-card">
+                <img
+                  src="https://via.placeholder.com/400x200/667eea/ffffff?text=Laravel+AI"
+                  alt="Portfolio"
+                  class="portfolio-image"
+                />
+                <div class="portfolio-content">
+                  <h3 class="portfolio-title">
+                    How Laravel + AI Can Transform Your Business: A Client's
+                    Guide
+                  </h3>
+                  <div class="portfolio-tech">
+                    PHP+ | CSS3 | HTML | Laravel | Python
+                  </div>
+                  <p class="portfolio-desc">
+                    A productivity tool for organizing tasks, setting deadlines,
+                    and tracking progress.setting deadlines, and tracking
+                    progress.
+                  </p>
+                  <div class="portfolio-link">
+                    <i class="fas fa-link"></i>
+                    www.codefixxer.com
+                  </div>
+                  <div class="launched-info">Launched in 3 Weeks</div>
+                  <button class="view-details-btn">View Details</button>
+                </div>
+              </div>
+              <div class="portfolio-card">
+                <img
+                  src="https://via.placeholder.com/400x200/667eea/ffffff?text=Laravel+AI"
+                  alt="Portfolio"
+                  class="portfolio-image"
+                />
+                <div class="portfolio-content">
+                  <h3 class="portfolio-title">
+                    How Laravel + AI Can Transform Your Business: A Client's
+                    Guide
+                  </h3>
+                  <div class="portfolio-tech">
+                    PHP+ | CSS3 | HTML | Laravel | Python
+                  </div>
+                  <p class="portfolio-desc">
+                    A productivity tool for organizing tasks, setting deadlines,
+                    and tracking progress.setting deadlines, and tracking
+                    progress.
+                  </p>
+                  <div class="portfolio-link">
+                    <i class="fas fa-link"></i>
+                    www.codefixxer.com
+                  </div>
+                  <div class="launched-info">Launched in 3 Weeks</div>
+                  <button class="view-details-btn">View Details</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Replace your Skills section with this code -->
+
+          <!-- Skills Section - Properly Integrated -->
+          <section class="skills-showcase">
+            <div class="portfolios-header">
+              <h2 class="portfolios-title">Skills</h2>
+              <button
+                class="add-projects-btn"
+                style="
+                  background: transparent;
+                  color: #333;
+                  border: 1px solid #e0e0e0;
+                "
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+
+            <!-- Main Content -->
+            <div class="skills-main-content">
+              <!-- Progress Bars Section (60%) -->
+              <div class="skills-progress-section">
+                <div class="skill-progress">
+                  <div class="skill-header">
+                    <span class="skill-name">Laravel</span>
+                    <span class="skill-percentage">90%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div
+                      class="progress-bar-fill"
+                      data-width="90%"
+                      style="width: 90%"
+                    >
+                      <div class="skill-progress-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="skill-progress">
+                  <div class="skill-header">
+                    <span class="skill-name">React Js</span>
+                    <span class="skill-percentage">95%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div
+                      class="progress-bar-fill"
+                      data-width="95%"
+                      style="width: 95%"
+                    >
+                      <div class="skill-progress-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="skill-progress">
+                  <div class="skill-header">
+                    <span class="skill-name">Machine Learning</span>
+                    <span class="skill-percentage">100%</span>
+                  </div>
+                  <div class="progress-bar-container">
+                    <div
+                      class="progress-bar-fill"
+                      data-width="100%"
+                      style="width: 100%"
+                    >
+                      <div class="skill-progress-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Divider Line -->
+              <!-- <div class="skills-divider"></div> -->
+
+              <!-- Tech Stack Section (40%) -->
+              <div class="tech-stack-section">
+                <div class="tech-category">
+                  <h4>Backend</h4>
+                  <div class="tech-items">
+                    PHP Core | Laravel | Node Js. |<br />
+                    My SQL | Sql Queries | Mongo DB
+                  </div>
+                </div>
+
+                <div class="tech-separator-line"></div>
+
+                <div class="tech-category">
+                  <h4>Frontend</h4>
+                  <div class="tech-items">
+                    HTML 5 | CSS 3 | Vanilla Js. |<br />
+                    React Js. | Ajax | Tailwind CSS
+                  </div>
+                </div>
+              </div>
+              <a class="skills-see-more" href="#"
+                >See all Skills <i class="fa-solid fa-arrow-right"></i
+              ></a>
+            </div>
+          </section>
+
+          <!-- Experience Section -->
+          <section class="experience-section">
+            <div class="portfolios-header">
+              <h2 class="portfolios-title">Experience</h2>
+              <button class="add-projects-btn">
+                <i class="fas fa-edit"></i>
+              </button>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <h4 class="experience-title">Lorem ipsum</h4>
+                <span class="experience-badge">Current</span>
+              </div>
+              <p class="experience-desc">
+                Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem
+                ipsum is plaLorem ipsum is placeholder, Lorem ipsum is
+                placeholder Lorem ipsum is placeholder, Lorem ipsum is
+                placeholder , Lorem ipsum is placeholder
+              </p>
+              <div class="experience-meta">
+                <span>Jul 2024 - Jul 2025</span>
+                <span>Sargodha, Pakistan</span>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-header">
+                <h4 class="experience-title">Lorem ipsum</h4>
+                <span class="experience-badge dark">2019-2021</span>
+              </div>
+              <p class="experience-desc">
+                Lorem ipsum is placeholder, Lorem ipsum is placeholder, Lorem
+                ipsum is plaLorem ipsum is placeholder, Lorem ipsum is
+                placeholder Lorem ipsum is placeholder, Lorem ipsum is
+                placeholder , Lorem ipsum is placeholder
+              </p>
+              <div class="experience-meta">
+                <span>Jul 2024 - Jul 2025</span>
+                <span>Sargodha, Pakistan</span>
+              </div>
+            </div>
+
+            <a href="#" class="see-more"
+              >See all Experiences <i class="fas fa-arrow-right"></i
+            ></a>
+          </section>
+
+          <section class="reviews-section">
+            <div class="portfolios-header">
+              <h2 class="portfolios-title">Client Reviews</h2>
+            </div>
+
+            <div class="review-cards">
+              <div class="review-card">
+                <!-- Large Avatar at Top -->
+                <div class="reviewer-avatar-large">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                    alt="James Bennett"
+                    class="avatar-image"
+                  />
+                </div>
+
+                <!-- Reviewer Info -->
+                <div class="reviewer-info-center">
+                  <h5 class="reviewer-name">James Bennett</h5>
+                  <span class="reviewer-location">Toronto, Canada</span>
+                </div>
+
+                <!-- Review Text with Quote Icons -->
+                <div class="review-content">
+                  <i class="fas fa-quote-left quote-left"></i>
+                  <p class="review-text">
+                    Lorem ipsum is placeholder text commonly used in the
+                    graphic, print, and publishing industries for previewing
+                    layouts and visual mockups.
+                  </p>
+                  <i class="fas fa-quote-right quote-right"></i>
+                </div>
+              </div>
+              <div class="review-card">
+                <!-- Large Avatar at Top -->
+                <div class="reviewer-avatar-large">
+                  <img
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+                    alt="James Bennett"
+                    class="avatar-image"
+                  />
+                </div>
+
+                <!-- Reviewer Info -->
+                <div class="reviewer-info-center">
+                  <h5 class="reviewer-name">James Bennett</h5>
+                  <span class="reviewer-location">Toronto, Canada</span>
+                </div>
+
+                <!-- Review Text with Quote Icons -->
+                <div class="review-content">
+                  <i class="fas fa-quote-left quote-left"></i>
+                  <p class="review-text">
+                    Lorem ipsum is placeholder text commonly used in the
+                    graphic, print, and publishing industries for previewing
+                    layouts and visual mockups.
+                  </p>
+                  <i class="fas fa-quote-right quote-right"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- See All Reviews Link -->
+            <div class="reviews-footer">
+              <a href="#" class="see-all-reviews"
+                >See all Reviews <i class="fas fa-arrow-right"></i
+              ></a>
+            </div>
+          </section>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+          <!-- AI Profile Creator -->
+          <!-- AI Profile Creator Section - 100% Pixel Perfect -->
+          <div class="ai-profile-creator">
+            <h3 class="ai-creator-title">AI Profile Creator</h3>
+            <p class="ai-creator-desc">
+              Upload your CV or describe yourself<br />
+              — AI will build your profile.
+            </p>
+
+            <!-- Upload Button with Gradient Border -->
+            <div class="upload-btn-container">
+              <button class="upload-btn">
+                <i class="fas fa-upload"></i>
+                Upload your CV
+              </button>
+            </div>
+
+            <!-- OR Divider -->
+            <div class="or-divider">
+              <span class="or-line"></span>
+              <span class="or-text">OR</span>
+              <span class="or-line"></span>
+            </div>
+
+            <!-- Textarea with Gradient Border -->
+            <div class="textarea-container">
+              <textarea
+                class="describe-textarea"
+                placeholder="Describe yourself here...."
+              ></textarea>
+            </div>
+
+            <!-- Generate Button with Gradient -->
+            <button class="generate-profile-btn">Generate Profile</button>
+          </div>
+
+          <!-- Why Choose Me -->
+          <div class="why-choose-section">
+            <h3 class="why-choose-title">Why Choose Me</h3>
+            <div class="choose-item">
+              <i class="fas fa-check-square"></i>
+              <span>Lorem ipsum is placeholder</span>
+            </div>
+            <div class="choose-item">
+              <i class="fas fa-check-square"></i>
+              <span>Lorem ipsum is placeholder</span>
+            </div>
+            <div class="choose-item">
+              <i class="fas fa-check-square"></i>
+              <span>Lorem ipsum is placeholder</span>
+            </div>
+            <div class="choose-item">
+              <i class="fas fa-check-square"></i>
+              <span>Lorem ipsum is placeholder</span>
+            </div>
+            <div class="choose-item">
+              <i class="fas fa-check-square"></i>
+              <span>Lorem ipsum is placeholder</span>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <div class="services-section">
+            <h3 class="services-title">Services</h3>
+            <ul class="service-list">
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+              <li>Lorem ipsum is placeholder</li>
+            </ul>
+            <div class="see-all-services">See all Services →</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Animate progress bars on scroll
+      const animateProgressBars = () => {
+        const progressBars = document.querySelectorAll(".progress-bar-fill");
+        progressBars.forEach((bar) => {
+          const rect = bar.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            const width =
+              bar.parentElement.parentElement.querySelector(
+                ".skill-percentage"
+              ).textContent;
+            bar.style.width = width;
+          }
+        });
+      };
+
+      window.addEventListener("scroll", animateProgressBars);
+      window.addEventListener("load", animateProgressBars);
+
+      // Filter tabs functionality
+      document.querySelectorAll(".filter-tab").forEach((tab) => {
+        tab.addEventListener("click", function () {
+          document
+            .querySelectorAll(".filter-tab")
+            .forEach((t) => t.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+
+      // Mobile menu toggle
+      const mobileMenuToggle = () => {
+        if (window.innerWidth <= 768) {
+          document.querySelector(".nav-icons").style.flexWrap = "wrap";
+        } else {
+          document.querySelector(".nav-icons").style.flexWrap = "nowrap";
+        }
+      };
+
+      window.addEventListener("resize", mobileMenuToggle);
+      window.addEventListener("load", mobileMenuToggle);
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animate skills progress bars
+        const skillsProgressBars = document.querySelectorAll(
+          ".skills-showcase .progress-bar-fill"
+        );
+
+        skillsProgressBars.forEach((bar) => {
+          const targetWidth = bar.getAttribute("data-width");
+          bar.style.width = "0%";
+
+          setTimeout(() => {
+            bar.style.width = targetWidth;
+            bar.classList.add("animate");
+          }, 500);
+        });
+
+        // Add hover effects
+        document.querySelectorAll(".skill-progress").forEach((item) => {
+          item.addEventListener("mouseenter", function () {
+            const icon = this.querySelector(".skill-progress-icon");
+            if (icon) {
+              icon.style.transform = "translateY(-50%) scale(1.1)";
+            }
+          });
+
+          item.addEventListener("mouseleave", function () {
+            const icon = this.querySelector(".skill-progress-icon");
+            if (icon) {
+              icon.style.transform = "translateY(-50%) scale(1)";
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Information - ProMatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --primary-light: #4F75FF;
+            --primary-dark: #0B3BA8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --border-default: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .progress-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 3px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 25%;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            position: relative;
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .step-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .card-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Benefit Banner */
+        .benefit-banner {
+            background: var(--bg-tertiary);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 32px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .benefit-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .benefit-example {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-style: italic;
+        }
+
+        /* Form */
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+            min-height: 52px;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Languages Section */
+        .languages-section {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .languages-header {
+            margin-bottom: 16px;
+        }
+
+        .languages-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .languages-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .languages-input {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .languages-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-height: 52px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-color: var(--border-default);
+        }
+
+        .btn-back:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+
+        .btn-next {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+            min-width: 140px;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .main-card {
+                padding: 24px;
+            }
+
+            .card-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">P</div>
+                ProMatch
+            </a>
+            
+            <div class="progress-indicator">
+                <span>Step 2 of 8</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="main-card">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="step-badge">Location & Languages</div>
+                <h1 class="card-title">Where are you based?</h1>
+                <p class="card-subtitle">Help clients find you and set the right timezone for collaborations</p>
+            </div>
+
+            <!-- Benefit Banner -->
+            <div class="benefit-banner">
+                <div class="benefit-text">
+                    City helps clients find you in skill-based searches
+                </div>
+                <div class="benefit-example">
+                    Example: /skills/laravel/karachi
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="locationForm">
+                <!-- Location Fields -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="form-label">
+                            Country <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="country" required>
+                            <option value="">Select your country</option>
+                            <option value="pk">Pakistan</option>
+                            <option value="us">United States</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="ca">Canada</option>
+                            <option value="in">India</option>
+                            <option value="bd">Bangladesh</option>
+                            <option value="ae">United Arab Emirates</option>
+                            <option value="sa">Saudi Arabia</option>
+                            <option value="au">Australia</option>
+                            <option value="de">Germany</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">State/Province</label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="state"
+                                placeholder="e.g., Punjab, California"
+                            >
+                            <div class="input-hint">Optional - helps with local discovery</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                City <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="city"
+                                placeholder="e.g., Karachi, New York"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            Timezone <span class="required">*</span>
+                        </label>
+                        <select class="form-select" id="timezone" required>
+                            <option value="">Select your timezone</option>
+                            <option value="Asia/Karachi">Pakistan Standard Time (PKT)</option>
+                            <option value="Asia/Dubai">Gulf Standard Time (GST)</option>
+                            <option value="Asia/Kolkata">India Standard Time (IST)</option>
+                            <option value="Asia/Dhaka">Bangladesh Standard Time (BST)</option>
+                            <option value="Europe/London">Greenwich Mean Time (GMT)</option>
+                            <option value="Europe/Berlin">Central European Time (CET)</option>
+                            <option value="America/New_York">Eastern Standard Time (EST)</option>
+                            <option value="America/Chicago">Central Standard Time (CST)</option>
+                            <option value="America/Denver">Mountain Standard Time (MST)</option>
+                            <option value="America/Los_Angeles">Pacific Standard Time (PST)</option>
+                            <option value="Australia/Sydney">Australian Eastern Standard Time (AEST)</option>
+                        </select>
+                        <div class="input-hint">Used for scheduling meetings and project deadlines</div>
+                    </div>
+                </div>
+
+                <!-- Languages Section -->
+                <div class="languages-section">
+                    <div class="languages-header">
+                        <div class="languages-title">Languages</div>
+                        <div class="languages-subtitle">Which languages do you speak?</div>
+                    </div>
+                    
+                    <input 
+                        type="text" 
+                        class="languages-input" 
+                        id="languages"
+                        placeholder="e.g., English, Urdu, Arabic"
+                    >
+                    <div class="input-hint" style="margin-top: 8px;">
+                        Separate multiple languages with commas
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="#" class="btn btn-back" onclick="goBack()">
+                        <span>←</span>
+                        Back
+                    </a>
+                    
+                    <button type="submit" class="btn btn-next" id="nextBtn" disabled>
+                        <span>Continue</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Form validation and state
+        const form = document.getElementById('locationForm');
+        const nextBtn = document.getElementById('nextBtn');
+        const countrySelect = document.getElementById('country');
+        const cityInput = document.getElementById('city');
+        const timezoneSelect = document.getElementById('timezone');
+
+        // Country-specific data
+        const countryData = {
+            'pk': {
+                states: ['Punjab', 'Sindh', 'Khyber Pakhtunkhwa', 'Balochistan', 'Gilgit-Baltistan'],
+                cities: ['Karachi', 'Lahore', 'Islamabad', 'Rawalpindi', 'Faisalabad', 'Multan', 'Peshawar', 'Quetta'],
+                timezone: 'Asia/Karachi',
+                languages: 'Urdu, English'
+            },
+            'us': {
+                states: ['California', 'Texas', 'Florida', 'New York', 'Pennsylvania'],
+                cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia'],
+                timezone: 'America/New_York',
+                languages: 'English'
+            },
+            'uk': {
+                states: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
+                cities: ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Leeds', 'Sheffield'],
+                timezone: 'Europe/London',
+                languages: 'English'
+            },
+            'in': {
+                states: ['Maharashtra', 'Karnataka', 'Tamil Nadu', 'Gujarat', 'Rajasthan'],
+                cities: ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Hyderabad', 'Pune'],
+                timezone: 'Asia/Kolkata',
+                languages: 'Hindi, English'
+            }
+        };
+
+        // Auto-populate based on country selection
+        countrySelect.addEventListener('change', function() {
+            const selectedCountry = this.value;
+            const data = countryData[selectedCountry];
+            
+            if (data) {
+                // Set timezone
+                timezoneSelect.value = data.timezone;
+                
+                // Set default languages if not already filled
+                const languagesInput = document.getElementById('languages');
+                if (!languagesInput.value.trim()) {
+                    languagesInput.value = data.languages;
+                }
+                
+                // Show city suggestions
+                showCitySuggestions(data.cities);
+            }
+            
+            validateForm();
+        });
+
+        // City suggestions
+        function showCitySuggestions(cities) {
+            // Create datalist for autocomplete
+            let datalist = document.getElementById('cityDatalist');
+            if (!datalist) {
+                datalist = document.createElement('datalist');
+                datalist.id = 'cityDatalist';
+                document.body.appendChild(datalist);
+                cityInput.setAttribute('list', 'cityDatalist');
+            }
+            
+            datalist.innerHTML = '';
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                datalist.appendChild(option);
+            });
+        }
+
+        // Form validation
+        function validateForm() {
+            const country = countrySelect.value;
+            const city = cityInput.value.trim();
+            const timezone = timezoneSelect.value;
+            
+            const isValid = country && city && timezone;
+            
+            nextBtn.disabled = !isValid;
+            nextBtn.style.opacity = isValid ? '1' : '0.5';
+        }
+
+        // Add input listeners for real-time validation
+        [countrySelect, cityInput, timezoneSelect].forEach(element => {
+            element.addEventListener('change', validateForm);
+            element.addEventListener('input', validateForm);
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                country: countrySelect.value,
+                state: document.getElementById('state').value,
+                city: cityInput.value,
+                timezone: timezoneSelect.value,
+                languages: document.getElementById('languages').value
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('onboarding_location', JSON.stringify(formData));
+            
+            // Analytics
+            gtag('event', 'location_save', {
+                event_category: 'onboarding',
+                event_label: 'step_2_complete',
+                custom_parameters: {
+                    country: formData.country,
+                    city: formData.city
+                }
+            });
+            
+            // Animate progress
+            document.querySelector('.progress-fill').style.width = '37.5%';
+            
+            // Simulate navigation
+            nextBtn.innerHTML = '<div class="spinner"></div> Saving...';
+            setTimeout(() => {
+                alert('Location saved! Moving to skills step...');
+                // In real app: window.location.href = '/onboarding/skills';
+            }, 1000);
+        });
+
+        // Back button
+        function goBack() {
+            // In real app: window.location.href = '/onboarding/personal';
+            alert('Going back to Personal Information...');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data
+            const saved = localStorage.getItem('onboarding_location');
+            if (saved) {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const input = document.getElementById(key);
+                    if (input && data[key]) {
+                        input.value = data[key];
+                    }
+                });
+            }
+            
+            // Initial validation
+            setTimeout(validateForm, 100);
+        });
+
+        // Analytics helper
+        function gtag(action, event, params) {
+            if (typeof gtag !== 'undefined') {
+                gtag(action, event, params);
+            }
+            console.log('Analytics:', action, event, params);
+        }
+    </script>
+</body>
+</html>

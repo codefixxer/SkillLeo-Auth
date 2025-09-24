@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProMatch - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1351D8;
+            --primary-light: #4F75FF;
+            --primary-dark: #0B3BA8;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --bg-tertiary: #F1F5F9;
+            --text-primary: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #64748B;
+            --border-light: #E2E8F0;
+            --border-default: #CBD5E1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-bg: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gradient-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        .onboarding-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .onboarding-card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+        }
+
+        .onboarding-header {
+            padding: 40px 40px 0;
+            text-align: center;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: width 0.5s ease;
+            border-radius: 2px;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-default);
+            transition: all 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.5);
+        }
+
+        .step-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .step-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .onboarding-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(19, 81, 216, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 2px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: space-between;
+            margin-top: 32px;
+        }
+
+        /* Workspace Setup */
+        .workspace-options {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .workspace-option {
+            padding: 24px;
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-primary);
+        }
+
+        .workspace-option:hover {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.05);
+        }
+
+        .workspace-option.selected {
+            border-color: var(--primary);
+            background: rgba(19, 81, 216, 0.1);
+        }
+
+        .option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+
+        .option-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .option-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Skills Input */
+        .skills-input-container {
+            position: relative;
+        }
+
+        .skills-input {
+            padding-right: 48px;
+        }
+
+        .add-skill-btn {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .skill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(19, 81, 216, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .skill-remove {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        .skill-remove:hover {
+            opacity: 1;
+        }
+
+        /* Avatar Upload */
+        .avatar-upload {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .avatar-preview {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: var(--text-muted);
+            overflow: hidden;
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-btn {
+            background: var(--bg-secondary);
+            border: 2px dashed var(--border-default);
+            border-radius: 8px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .upload-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Experience Form */
+        .experience-item {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border-light);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .experience-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .remove-experience {
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .date-range {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .bullets-list {
+            margin-top: 16px;
+        }
+
+        .bullet-input {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .bullet-input input {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+
+        .remove-bullet {
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 6px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        /* Portfolio */
+        .portfolio-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-light);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        /* Review Page */
+        .profile-preview {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border-light);
+        }
+
+        .preview-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .preview-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: var(--text-muted);
+        }
+
+        .preview-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .preview-info p {
+            color: var(--text-secondary);
+        }
+
+        .preview-section {
+            margin-bottom: 24px;
+        }
+
+        .preview-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin-bottom: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border-default);
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Success Page */
+        .success-animation {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            margin-bottom: 24px;
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .success-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .success-actions {
+            display: grid;
+            gap: 12px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .onboarding-container {
+                padding: 16px;
+            }
+
+            .onboarding-header,
+            .onboarding-body {
+                padding: 24px;
+            }
+
+            .step-title {
+                font-size: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-actions {
+                flex-direction: column;
+            }
+
+            .avatar-upload {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .date-range {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .workspace-options {
+                gap: 12px;
+            }
+
+            .workspace-option {
+                padding: 20px;
+            }
+        }
+
+        /* Hide/Show Steps */
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        /* Validation States */
+        .form-input.error {
+            border-color: var(--danger);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        .success-message {
+            color: var(--success);
+            font-size: 12px;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <div class="onboarding-card">
+            <!-- Header -->
+            <div class="onboarding-header">
+                <div class="logo">
+                    <div class="logo-icon">P</div>
+                    ProMatch
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                
+                <div class="step-indicator" id="stepIndicator"></div>
+            </div>
+
+            <!-- Step A2: Tenant & Role Bootstrap -->
+            <div class="step active" id="step1">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Welcome to ProMatch!</h2>
+                    <p class="step-subtitle">Let's set up your workspace to get you started</p>
+                    
+                    <div class="workspace-options">
+                        <div class="workspace-option" onclick="selectWorkspace('create')">
+                            <div class="option-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <div class="option-title">Create My Workspace</div>
+                            <div class="option-description">Start fresh with your own professional workspace</div>
+                        </div>
+                        
+                        <div class="workspace-option" onclick="selectWorkspace('join')">
+                            <div class="option-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="option-title">Join Existing Workspace</div>
+                            <div class="option-description">Join a team or organization workspace</div>
+                        </div>
+                    </div>
+
+                    <div id="workspaceForm" class="hidden">
+                        <div class="form-group">
+                            <label class="form-label">Workspace Name</label>
+                            <input type="text" class="form-input" id="workspaceName" placeholder="e.g., Ahmed's Studio">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Workspace URL</label>
+                            <div style="position: relative;">
+                                <input type="text" class="form-input" id="workspaceSlug" placeholder="ahmeds-studio" style="padding-left: 140px;">
+                                <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px;">promatch.com/</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()" disabled>Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()" id="workspaceNext" disabled>Continue</button>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-full" onclick="addExperience()">
+                        <i class="fas fa-plus"></i> Add Another Experience
+                    </button>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C5: Education & Languages -->
+            <div class="step" id="step7">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Education & Languages</h2>
+                    <p class="step-subtitle">Share your educational background and language skills</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Education</label>
+                        <div class="form-row">
+                            <input type="text" class="form-input" id="school" placeholder="University/School">
+                            <input type="text" class="form-input" id="degree" placeholder="Degree">
+                        </div>
+                        <div class="date-range">
+                            <div class="form-group">
+                                <input type="month" class="form-input" id="eduStart" placeholder="Start">
+                            </div>
+                            <div class="form-group">
+                                <input type="month" class="form-input" id="eduEnd" placeholder="End">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Languages</label>
+                        <div id="languagesList">
+                            <div class="form-row">
+                                <input type="text" class="form-input" placeholder="Language" id="language1">
+                                <select class="form-input" id="proficiency1">
+                                    <option value="">Proficiency</option>
+                                    <option value="native">Native</option>
+                                    <option value="fluent">Fluent</option>
+                                    <option value="conversational">Conversational</option>
+                                    <option value="basic">Basic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addLanguage()">
+                            <i class="fas fa-plus"></i> Add Language
+                        </button>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C6: Portfolio -->
+            <div class="step" id="step8">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Portfolio Projects</h2>
+                    <p class="step-subtitle">Showcase your best work (optional - you can add more later)</p>
+                    
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <div class="project-card" id="project0">
+                            <div class="project-header">
+                                <span class="experience-title">Project #1</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Project Title</label>
+                                <input type="text" class="form-input" placeholder="e.g., E-commerce Website Redesign">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">One-line Summary</label>
+                                <input type="text" class="form-input" placeholder="Brief description of the project">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Challenge</label>
+                                <textarea class="form-input form-textarea" placeholder="What problem did you solve?"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Solution</label>
+                                <textarea class="form-input form-textarea" placeholder="How did you solve it?"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Outcome & Metrics</label>
+                                <textarea class="form-input form-textarea" placeholder="What were the results? Include numbers if possible."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Technologies Used</label>
+                                <input type="text" class="form-input" placeholder="e.g., Laravel, React, MySQL">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-full" onclick="addProject()">
+                        <i class="fas fa-plus"></i> Add Another Project
+                    </button>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C7: Work Preferences -->
+            <div class="step" id="step9">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Work Preferences</h2>
+                    <p class="step-subtitle">Let clients know your availability and preferences</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="openToWork">
+                                <span class="slider"></span>
+                            </label>
+                            I'm open to new work opportunities
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Preferred Project Types</label>
+                        <div class="skills-list">
+                            <span class="skill-tag">
+                                Web Development
+                                <button class="skill-remove">&times;</button>
+                            </span>
+                            <span class="skill-tag">
+                                Mobile Apps
+                                <button class="skill-remove">&times;</button>
+                            </span>
+                        </div>
+                        <input type="text" class="form-input" placeholder="Add project types..." style="margin-top: 12px;">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Contract Types</label>
+                            <select class="form-input" multiple>
+                                <option value="fixed">Fixed Price</option>
+                                <option value="hourly">Hourly Rate</option>
+                                <option value="retainer">Retainer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Preferred Rate</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select class="form-input" style="width: 80px;">
+                                    <option>₨</option>
+                                    <option>$</option>
+                                    <option>€</option>
+                                </select>
+                                <input type="number" class="form-input" placeholder="50" style="flex: 1;">
+                                <select class="form-input" style="width: 100px;">
+                                    <option>/hour</option>
+                                    <option>/day</option>
+                                    <option>/project</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Availability</label>
+                            <select class="form-input">
+                                <option>Available now</option>
+                                <option>Available in 1-2 weeks</option>
+                                <option>Available in 1 month</option>
+                                <option>Available part-time</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hours per week</label>
+                            <select class="form-input">
+                                <option>Full-time (40+ hours)</option>
+                                <option>Part-time (20-30 hours)</option>
+                                <option>Contract (10-20 hours)</option>
+                                <option>Project-based</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Work Location Preference</label>
+                        <div style="display: flex; gap: 16px; margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" checked> Remote
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox"> On-site
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox"> Hybrid
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C8: Review & Publish -->
+            <div class="step" id="step10">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Review Your Profile</h2>
+                    <p class="step-subtitle">Review your information and publish your profile</p>
+                    
+                    <div class="profile-preview">
+                        <div class="preview-header">
+                            <div class="preview-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="preview-info">
+                                <h3 id="previewName">John Doe</h3>
+                                <p id="previewLocation">Full-Stack Developer • Karachi, Pakistan</p>
+                                <div class="skills-list" style="margin-top: 12px;">
+                                    <span class="skill-tag">Laravel</span>
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">PHP</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Experience</h4>
+                            <p>Senior Developer at TechCorp (2022-Present)</p>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Education</h4>
+                            <p>Computer Science, University of Karachi</p>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Portfolio</h4>
+                            <p>E-commerce Website Redesign • Mobile App Development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="text-align: center;">
+                        <label class="form-label">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="publishProfile" checked>
+                                <span class="slider"></span>
+                            </label>
+                            Publish my profile publicly
+                        </label>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                            Your profile will be visible at promatch.com/your-username
+                        </p>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="completeOnboarding()">Complete Setup</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Page -->
+            <div class="step" id="stepSuccess">
+                <div class="onboarding-body">
+                    <div class="success-animation">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="success-title">Welcome to ProMatch!</h2>
+                        <p class="success-subtitle">Your professional profile is now live and ready to attract clients</p>
+                    </div>
+                    
+                    <div class="success-actions">
+                        <button class="btn btn-primary btn-full" onclick="goToDashboard()">
+                            <i class="fas fa-chart-line"></i> Go to Dashboard
+                        </button>
+                        <button class="btn btn-secondary btn-full" onclick="viewProfile()">
+                            <i class="fas fa-eye"></i> View My Profile
+                        </button>
+                        <button class="btn btn-secondary btn-full" onclick="exploreFeatures()">
+                            <i class="fas fa-compass"></i> Explore Features
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 10;
+        let workspaceType = '';
+        let skills = [];
+        let languages = 1;
+        let experiences = 1;
+        let projects = 1;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            updateStepIndicator();
+            
+            // Pre-fill email from OAuth (simulated)
+            document.getElementById('email').value = 'user@example.com';
+            
+            // Add event listeners
+            document.getElementById('skillInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill();
+                }
+            });
+            
+            document.getElementById('username').addEventListener('input', validateUsername);
+            document.getElementById('workspaceName').addEventListener('input', generateSlug);
+        });
+
+        function selectWorkspace(type) {
+            workspaceType = type;
+            document.querySelectorAll('.workspace-option').forEach(el => el.classList.remove('selected'));
+            event.target.closest('.workspace-option').classList.add('selected');
+            
+            if (type === 'create') {
+                document.getElementById('workspaceForm').classList.remove('hidden');
+                document.getElementById('workspaceNext').disabled = false;
+            } else {
+                document.getElementById('workspaceForm').classList.add('hidden');
+                document.getElementById('workspaceNext').disabled = false;
+            }
+        }
+
+        function generateSlug() {
+            const name = document.getElementById('workspaceName').value;
+            const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            document.getElementById('workspaceSlug').value = slug;
+        }
+
+        function validateUsername() {
+            const username = document.getElementById('username').value;
+            const nextBtn = document.getElementById('usernameNext');
+            const successMsg = document.getElementById('usernameSuccess');
+            const errorMsg = document.getElementById('usernameError');
+            
+            if (username.length >= 3) {
+                // Simulate validation
+                setTimeout(() => {
+                    if (username !== 'admin' && username !== 'api') {
+                        successMsg.classList.remove('hidden');
+                        errorMsg.classList.add('hidden');
+                        nextBtn.disabled = false;
+                    } else {
+                        successMsg.classList.add('hidden');
+                        errorMsg.classList.remove('hidden');
+                        nextBtn.disabled = true;
+                    }
+                }, 500);
+            } else {
+                successMsg.classList.add('hidden');
+                errorMsg.classList.add('hidden');
+                nextBtn.disabled = true;
+            }
+        }
+
+        function addSkill() {
+            const input = document.getElementById('skillInput');
+            const skill = input.value.trim();
+            
+            if (skill && !skills.includes(skill)) {
+                skills.push(skill);
+                renderSkills();
+                input.value = '';
+            }
+        }
+
+        function renderSkills() {
+            const container = document.getElementById('skillsList');
+            container.innerHTML = skills.map(skill => `
+                <span class="skill-tag">
+                    ${skill}
+                    <button class="skill-remove" onclick="removeSkill('${skill}')">&times;</button>
+                </span>
+            `).join('');
+        }
+
+        function removeSkill(skill) {
+            skills = skills.filter(s => s !== skill);
+            renderSkills();
+        }
+
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').innerHTML = 
+                        `<img src="${e.target.result}" alt="Avatar">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addExperience() {
+            experiences++;
+            const experienceList = document.getElementById('experienceList');
+            const newExperience = document.createElement('div');
+            newExperience.className = 'experience-item';
+            newExperience.id = `experience${experiences - 1}`;
+            newExperience.innerHTML = `
+                <div class="experience-header">
+                    <span class="experience-title">Experience #${experiences}</span>
+                    <button class="remove-experience" onclick="removeExperience(${experiences - 1})">Remove</button>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Company</label>
+                        <input type="text" class="form-input" placeholder="Company name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Role/Title</label>
+                        <input type="text" class="form-input" placeholder="Your job title">
+                    </div>
+                </div>
+                <div class="date-range">
+                    <div class="form-group">
+                        <label class="form-label">Start Date</label>
+                        <input type="month" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">End Date</label>
+                        <input type="month" class="form-input">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Key Achievements</label>
+                    <div class="bullets-list">
+                        <div class="bullet-input">
+                            <input type="text" class="form-input" placeholder="• Achievement or impact">
+                        </div>
+                    </div>
+                </div>
+            `;
+            experienceList.appendChild(newExperience);
+        }
+
+        function removeExperience(index) {
+            document.getElementById(`experience${index}`).remove();
+        }
+
+        function addLanguage() {
+            languages++;
+            const languagesList = document.getElementById('languagesList');
+            const newLanguage = document.createElement('div');
+            newLanguage.className = 'form-row';
+            newLanguage.innerHTML = `
+                <input type="text" class="form-input" placeholder="Language" id="language${languages}">
+                <select class="form-input" id="proficiency${languages}">
+                    <option value="">Proficiency</option>
+                    <option value="native">Native</option>
+                    <option value="fluent">Fluent</option>
+                    <option value="conversational">Conversational</option>
+                    <option value="basic">Basic</option>
+                </select>
+            `;
+            languagesList.appendChild(newLanguage);
+        }
+
+        function addProject() {
+            projects++;
+            const portfolioGrid = document.getElementById('portfolioGrid');
+            const newProject = document.createElement('div');
+            newProject.className = 'project-card';
+            newProject.id = `project${projects - 1}`;
+            newProject.innerHTML = `
+                <div class="project-header">
+                    <span class="experience-title">Project #${projects}</span>
+                    <button class="remove-experience" onclick="removeProject(${projects - 1})">Remove</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Title</label>
+                    <input type="text" class="form-input" placeholder="e.g., E-commerce Website Redesign">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">One-line Summary</label>
+                    <input type="text" class="form-input" placeholder="Brief description of the project">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Challenge</label>
+                    <textarea class="form-input form-textarea" placeholder="What problem did you solve?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Solution</label>
+                    <textarea class="form-input form-textarea" placeholder="How did you solve it?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Outcome & Metrics</label>
+                    <textarea class="form-input form-textarea" placeholder="What were the results? Include numbers if possible."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Technologies Used</label>
+                    <input type="text" class="form-input" placeholder="e.g., Laravel, React, MySQL">
+                </div>
+            `;
+            portfolioGrid.appendChild(newProject);
+        }
+
+        function removeProject(index) {
+            document.getElementById(`project${index}`).remove();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateStepIndicator();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateStepIndicator();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function updateStepIndicator() {
+            const indicator = document.getElementById('stepIndicator');
+            const dots = Array.from({length: totalSteps}, (_, i) => 
+                `<div class="step-dot ${i + 1 <= currentStep ? 'active' : ''}"></div>`
+            ).join('');
+            indicator.innerHTML = dots;
+        }
+
+        function completeOnboarding() {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById('stepSuccess').classList.add('active');
+            
+            // Hide progress bar and indicators for success page
+            document.querySelector('.progress-bar').style.display = 'none';
+            document.querySelector('.step-indicator').style.display = 'none';
+        }
+
+        function goToDashboard() {
+            // Simulate navigation to dashboard
+            alert('Redirecting to your dashboard...');
+            window.location.href = '/dashboard';
+        }
+
+        function viewProfile() {
+            // Simulate opening profile in new tab
+            const username = document.getElementById('username').value || 'your-username';
+            alert(`Opening profile: promatch.com/${username}`);
+            window.open(`/profile/${username}`, '_blank');
+        }
+
+        function exploreFeatures() {
+            // Simulate feature tour
+            alert('Starting feature tour...');
+        }
+
+        // Add utility class toggle
+        function toggleClass(element, className) {
+            element.classList.toggle(className);
+        }
+
+        // Hidden class utility
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .hidden { display: none !important; }
+            </style>
+        `);
+    </script>
+</body>
+</html>
+
+            <!-- Step B1: Username Selection -->
+            <div class="step" id="step2">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Choose Your Username</h2>
+                    <p class="step-subtitle">This will be your public profile URL</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <div style="position: relative;">
+                            <input type="text" class="form-input" id="username" placeholder="your-username" style="padding-left: 140px;">
+                            <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 14px;">promatch.com/</span>
+                        </div>
+                        <div class="success-message hidden" id="usernameSuccess">Username is available!</div>
+                        <div class="error-message hidden" id="usernameError">Username is already taken</div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()" id="usernameNext" disabled>Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C1: Profile Basics -->
+            <div class="step" id="step3">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Basic Information</h2>
+                    <p class="step-subtitle">Let's start with your basic profile information</p>
+                    
+                    <div class="avatar-upload">
+                        <div class="avatar-preview" id="avatarPreview">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="upload-btn" onclick="document.getElementById('avatarInput').click()">
+                                <i class="fas fa-camera"></i> Upload Photo
+                            </div>
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="handleAvatarUpload(event)">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-input" id="fullName" placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" id="email" placeholder="your@email.com" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Location</label>
+                            <input type="text" class="form-input" id="location" placeholder="City, Country">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Timezone</label>
+                            <select class="form-input" id="timezone">
+                                <option value="PKT">PKT (UTC+5)</option>
+                                <option value="EST">EST (UTC-5)</option>
+                                <option value="GMT">GMT (UTC+0)</option>
+                                <option value="CET">CET (UTC+1)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C2: Links & IDs -->
+            <div class="step" id="step4">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Professional Links</h2>
+                    <p class="step-subtitle">Connect your professional profiles and portfolio</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="url" class="form-input" id="linkedinUrl" placeholder="https://linkedin.com/in/yourprofile">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Personal Website</label>
+                        <input type="url" class="form-input" id="websiteUrl" placeholder="https://yourwebsite.com">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">GitHub</label>
+                            <input type="url" class="form-input" id="githubUrl" placeholder="https://github.com/username">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Behance/Dribbble</label>
+                            <input type="url" class="form-input" id="portfolioUrl" placeholder="Portfolio URL">
+                        </div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C3: Skills -->
+            <div class="step" id="step5">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Your Skills</h2>
+                    <p class="step-subtitle">Add your key skills and expertise levels</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Add Skills</label>
+                        <div class="skills-input-container">
+                            <input type="text" class="form-input skills-input" id="skillInput" placeholder="Type a skill and press Enter">
+                            <button class="add-skill-btn" onclick="addSkill()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="skills-list" id="skillsList"></div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C4: Experience -->
+            <div class="step" id="step6">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Work Experience</h2>
+                    <p class="step-subtitle">Add your professional experience and achievements</p>
+                    
+                    <div id="experienceList">
+                        <div class="experience-item" id="experience0">
+                            <div class="experience-header">
+                                <span class="experience-title">Experience #1</span>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Company</label>
+                                    <input type="text" class="form-input" placeholder="Company name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Role/Title</label>
+                                    <input type="text" class="form-input" placeholder="Your job title">
+                                </div>
+                            </div>
+                            
+                            <div class="date-range">
+                                <div class="form-group">
+                                    <label class="form-label">Start Date</label>
+                                    <input type="month" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">End Date</label>
+                                    <input type="month" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Key Achievements</label>
+                                <div class="bullets-list">
+                                    <div class="bullet-input">
+                                        <input type="text" class="form-input" placeholder="• Achievement or impact">
+                                    </div>
+                                    <div class="bullet-input">
+                                        <input type="text" class="form-input" placeholder="• Another achievement">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-full" onclick="addExperience()">
+                        <i class="fas fa-plus"></i> Add Another Experience
+                    </button>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C5: Education & Languages -->
+            <div class="step" id="step7">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Education & Languages</h2>
+                    <p class="step-subtitle">Share your educational background and language skills</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Education</label>
+                        <div class="form-row">
+                            <input type="text" class="form-input" id="school" placeholder="University/School">
+                            <input type="text" class="form-input" id="degree" placeholder="Degree">
+                        </div>
+                        <div class="date-range">
+                            <div class="form-group">
+                                <input type="month" class="form-input" id="eduStart" placeholder="Start">
+                            </div>
+                            <div class="form-group">
+                                <input type="month" class="form-input" id="eduEnd" placeholder="End">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Languages</label>
+                        <div id="languagesList">
+                            <div class="form-row">
+                                <input type="text" class="form-input" placeholder="Language" id="language1">
+                                <select class="form-input" id="proficiency1">
+                                    <option value="">Proficiency</option>
+                                    <option value="native">Native</option>
+                                    <option value="fluent">Fluent</option>
+                                    <option value="conversational">Conversational</option>
+                                    <option value="basic">Basic</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" style="margin-top: 12px;" onclick="addLanguage()">
+                            <i class="fas fa-plus"></i> Add Language
+                        </button>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C6: Portfolio -->
+            <div class="step" id="step8">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Portfolio Projects</h2>
+                    <p class="step-subtitle">Showcase your best work (optional - you can add more later)</p>
+                    
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <div class="project-card" id="project0">
+                            <div class="project-header">
+                                <span class="experience-title">Project #1</span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Project Title</label>
+                                <input type="text" class="form-input" placeholder="e.g., E-commerce Website Redesign">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">One-line Summary</label>
+                                <input type="text" class="form-input" placeholder="Brief description of the project">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Challenge</label>
+                                <textarea class="form-input form-textarea" placeholder="What problem did you solve?"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Solution</label>
+                                <textarea class="form-input form-textarea" placeholder="How did you solve it?"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Outcome & Metrics</label>
+                                <textarea class="form-input form-textarea" placeholder="What were the results? Include numbers if possible."></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Technologies Used</label>
+                                <input type="text" class="form-input" placeholder="e.g., Laravel, React, MySQL">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-full" onclick="addProject()">
+                        <i class="fas fa-plus"></i> Add Another Project
+                    </button>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C7: Work Preferences -->
+            <div class="step" id="step9">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Work Preferences</h2>
+                    <p class="step-subtitle">Let clients know your availability and preferences</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="openToWork">
+                                <span class="slider"></span>
+                            </label>
+                            I'm open to new work opportunities
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Preferred Project Types</label>
+                        <div class="skills-list">
+                            <span class="skill-tag">
+                                Web Development
+                                <button class="skill-remove">&times;</button>
+                            </span>
+                            <span class="skill-tag">
+                                Mobile Apps
+                                <button class="skill-remove">&times;</button>
+                            </span>
+                        </div>
+                        <input type="text" class="form-input" placeholder="Add project types..." style="margin-top: 12px;">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Contract Types</label>
+                            <select class="form-input" multiple>
+                                <option value="fixed">Fixed Price</option>
+                                <option value="hourly">Hourly Rate</option>
+                                <option value="retainer">Retainer</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Preferred Rate</label>
+                            <div style="display: flex; gap: 8px;">
+                                <select class="form-input" style="width: 80px;">
+                                    <option>₨</option>
+                                    <option>$</option>
+                                    <option>€</option>
+                                </select>
+                                <input type="number" class="form-input" placeholder="50" style="flex: 1;">
+                                <select class="form-input" style="width: 100px;">
+                                    <option>/hour</option>
+                                    <option>/day</option>
+                                    <option>/project</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Availability</label>
+                            <select class="form-input">
+                                <option>Available now</option>
+                                <option>Available in 1-2 weeks</option>
+                                <option>Available in 1 month</option>
+                                <option>Available part-time</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Hours per week</label>
+                            <select class="form-input">
+                                <option>Full-time (40+ hours)</option>
+                                <option>Part-time (20-30 hours)</option>
+                                <option>Contract (10-20 hours)</option>
+                                <option>Project-based</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Work Location Preference</label>
+                        <div style="display: flex; gap: 16px; margin-top: 8px;">
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox" checked> Remote
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox"> On-site
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 8px;">
+                                <input type="checkbox"> Hybrid
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="nextStep()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step C8: Review & Publish -->
+            <div class="step" id="step10">
+                <div class="onboarding-body">
+                    <h2 class="step-title">Review Your Profile</h2>
+                    <p class="step-subtitle">Review your information and publish your profile</p>
+                    
+                    <div class="profile-preview">
+                        <div class="preview-header">
+                            <div class="preview-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="preview-info">
+                                <h3 id="previewName">John Doe</h3>
+                                <p id="previewLocation">Full-Stack Developer • Karachi, Pakistan</p>
+                                <div class="skills-list" style="margin-top: 12px;">
+                                    <span class="skill-tag">Laravel</span>
+                                    <span class="skill-tag">React</span>
+                                    <span class="skill-tag">PHP</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Experience</h4>
+                            <p>Senior Developer at TechCorp (2022-Present)</p>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Education</h4>
+                            <p>Computer Science, University of Karachi</p>
+                        </div>
+                        
+                        <div class="preview-section">
+                            <h4>Portfolio</h4>
+                            <p>E-commerce Website Redesign • Mobile App Development</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="text-align: center;">
+                        <label class="form-label">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="publishProfile" checked>
+                                <span class="slider"></span>
+                            </label>
+                            Publish my profile publicly
+                        </label>
+                        <p style="font-size: 14px; color: var(--text-secondary); margin-top: 8px;">
+                            Your profile will be visible at promatch.com/your-username
+                        </p>
+                    </div>
+
+                    <div class="btn-actions">
+                        <button class="btn btn-secondary" onclick="previousStep()">Back</button>
+                        <button class="btn btn-primary" onclick="completeOnboarding()">Complete Setup</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Success Page -->
+            <div class="step" id="stepSuccess">
+                <div class="onboarding-body">
+                    <div class="success-animation">
+                        <div class="success-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <h2 class="success-title">Welcome to ProMatch!</h2>
+                        <p class="success-subtitle">Your professional profile is now live and ready to attract clients</p>
+                    </div>
+                    
+                    <div class="success-actions">
+                        <button class="btn btn-primary btn-full" onclick="goToDashboard()">
+                            <i class="fas fa-chart-line"></i> Go to Dashboard
+                        </button>
+                        <button class="btn btn-secondary btn-full" onclick="viewProfile()">
+                            <i class="fas fa-eye"></i> View My Profile
+                        </button>
+                        <button class="btn btn-secondary btn-full" onclick="exploreFeatures()">
+                            <i class="fas fa-compass"></i> Explore Features
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 10;
+        let workspaceType = '';
+        let skills = [];
+        let languages = 1;
+        let experiences = 1;
+        let projects = 1;
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateProgress();
+            updateStepIndicator();
+            
+            // Pre-fill email from OAuth (simulated)
+            if(document.getElementById('email')) {
+                document.getElementById('email').value = 'user@example.com';
+            }
+            
+            // Add event listeners
+            if(document.getElementById('skillInput')) {
+                document.getElementById('skillInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addSkill();
+                    }
+                });
+            }
+            
+            if(document.getElementById('username')) {
+                document.getElementById('username').addEventListener('input', validateUsername);
+            }
+            
+            if(document.getElementById('workspaceName')) {
+                document.getElementById('workspaceName').addEventListener('input', generateSlug);
+            }
+        });
+
+        function selectWorkspace(type) {
+            workspaceType = type;
+            document.querySelectorAll('.workspace-option').forEach(el => el.classList.remove('selected'));
+            event.target.closest('.workspace-option').classList.add('selected');
+            
+            if (type === 'create') {
+                document.getElementById('workspaceForm').classList.remove('hidden');
+                document.getElementById('workspaceNext').disabled = false;
+            } else {
+                document.getElementById('workspaceForm').classList.add('hidden');
+                document.getElementById('workspaceNext').disabled = false;
+            }
+        }
+
+        function generateSlug() {
+            const name = document.getElementById('workspaceName').value;
+            const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            document.getElementById('workspaceSlug').value = slug;
+        }
+
+        function validateUsername() {
+            const username = document.getElementById('username').value;
+            const nextBtn = document.getElementById('usernameNext');
+            const successMsg = document.getElementById('usernameSuccess');
+            const errorMsg = document.getElementById('usernameError');
+            
+            if (username.length >= 3) {
+                // Simulate validation
+                setTimeout(() => {
+                    if (username !== 'admin' && username !== 'api') {
+                        successMsg.classList.remove('hidden');
+                        errorMsg.classList.add('hidden');
+                        nextBtn.disabled = false;
+                    } else {
+                        successMsg.classList.add('hidden');
+                        errorMsg.classList.remove('hidden');
+                        nextBtn.disabled = true;
+                    }
+                }, 500);
+            } else {
+                successMsg.classList.add('hidden');
+                errorMsg.classList.add('hidden');
+                nextBtn.disabled = true;
+            }
+        }
+
+        function addSkill() {
+            const input = document.getElementById('skillInput');
+            const skill = input.value.trim();
+            
+            if (skill && !skills.includes(skill)) {
+                skills.push(skill);
+                renderSkills();
+                input.value = '';
+            }
+        }
+
+        function renderSkills() {
+            const container = document.getElementById('skillsList');
+            if(container) {
+                container.innerHTML = skills.map(skill => `
+                    <span class="skill-tag">
+                        ${skill}
+                        <button class="skill-remove" onclick="removeSkill('${skill}')">&times;</button>
+                    </span>
+                `).join('');
+            }
+        }
+
+        function removeSkill(skill) {
+            skills = skills.filter(s => s !== skill);
+            renderSkills();
+        }
+
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('avatarPreview').innerHTML = 
+                        `<img src="${e.target.result}" alt="Avatar">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function addExperience() {
+            experiences++;
+            const experienceList = document.getElementById('experienceList');
+            if(experienceList) {
+                const newExperience = document.createElement('div');
+                newExperience.className = 'experience-item';
+                newExperience.id = `experience${experiences - 1}`;
+                newExperience.innerHTML = `
+                    <div class="experience-header">
+                        <span class="experience-title">Experience #${experiences}</span>
+                        <button class="remove-experience" onclick="removeExperience(${experiences - 1})">Remove</button>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Company</label>
+                            <input type="text" class="form-input" placeholder="Company name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Role/Title</label>
+                            <input type="text" class="form-input" placeholder="Your job title">
+                        </div>
+                    </div>
+                    <div class="date-range">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input type="month" class="form-input">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Key Achievements</label>
+                        <div class="bullets-list">
+                            <div class="bullet-input">
+                                <input type="text" class="form-input" placeholder="• Achievement or impact">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                experienceList.appendChild(newExperience);
+            }
+        }
+
+        function removeExperience(index) {
+            const element = document.getElementById(`experience${index}`);
+            if(element) {
+                element.remove();
+            }
+        }
+
+        function addLanguage() {
+            languages++;
+            const languagesList = document.getElementById('languagesList');
+            if(languagesList) {
+                const newLanguage = document.createElement('div');
+                newLanguage.className = 'form-row';
+                newLanguage.innerHTML = `
+                    <input type="text" class="form-input" placeholder="Language" id="language${languages}">
+                    <select class="form-input" id="proficiency${languages}">
+                        <option value="">Proficiency</option>
+                        <option value="native">Native</option>
+                        <option value="fluent">Fluent</option>
+                        <option value="conversational">Conversational</option>
+                        <option value="basic">Basic</option>
+                    </select>
+                `;
+                languagesList.appendChild(newLanguage);
+            }
+        }
+
+        function addProject() {
+            projects++;
+            const portfolioGrid = document.getElementById('portfolioGrid');
+            if(portfolioGrid) {
+                const newProject = document.createElement('div');
+                newProject.className = 'project-card';
+                newProject.id = `project${projects - 1}`;
+                newProject.innerHTML = `
+                    <div class="project-header">
+                        <span class="experience-title">Project #${projects}</span>
+                        <button class="remove-experience" onclick="removeProject(${projects - 1})">Remove</button>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Project Title</label>
+                        <input type="text" class="form-input" placeholder="e.g., E-commerce Website Redesign">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">One-line Summary</label>
+                        <input type="text" class="form-input" placeholder="Brief description of the project">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Challenge</label>
+                        <textarea class="form-input form-textarea" placeholder="What problem did you solve?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Solution</label>
+                        <textarea class="form-input form-textarea" placeholder="How did you solve it?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Outcome & Metrics</label>
+                        <textarea class="form-input form-textarea" placeholder="What were the results? Include numbers if possible."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Technologies Used</label>
+                        <input type="text" class="form-input" placeholder="e.g., Laravel, React, MySQL">
+                    </div>
+                `;
+                portfolioGrid.appendChild(newProject);
+            }
+        }
+
+        function removeProject(index) {
+            const element = document.getElementById(`project${index}`);
+            if(element) {
+                element.remove();
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep++;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateStepIndicator();
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateStepIndicator();
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        function updateStepIndicator() {
+            const indicator = document.getElementById('stepIndicator');
+            const dots = Array.from({length: totalSteps}, (_, i) => 
+                `<div class="step-dot ${i + 1 <= currentStep ? 'active' : ''}"></div>`
+            ).join('');
+            indicator.innerHTML = dots;
+        }
+
+        function completeOnboarding() {
+            document.getElementById(`step${currentStep}`).classList.remove('active');
+            document.getElementById('stepSuccess').classList.add('active');
+            
+            // Hide progress bar and indicators for success page
+            document.querySelector('.progress-bar').style.display = 'none';
+            document.querySelector('.step-indicator').style.display = 'none';
+        }
+
+        function goToDashboard() {
+            alert('Redirecting to your dashboard...');
+            // window.location.href = '/dashboard';
+        }
+
+        function viewProfile() {
+            const username = document.getElementById('username') ? document.getElementById('username').value : 'your-username';
+            alert(`Opening profile: promatch.com/${username}`);
+            // window.open(`/profile/${username}`, '_blank');
+        }
+
+        function exploreFeatures() {
+            alert('Starting feature tour...');
+        }
+
+        // Hidden class utility
+        if (!document.querySelector('style[data-hidden-utility]')) {
+            document.head.insertAdjacentHTML('beforeend', `
+                <style data-hidden-utility>
+                    .hidden { display: none !important; }
+                </style>
+            `);
+        }
+    </script>
+</body>
+</html>

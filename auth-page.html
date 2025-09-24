@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SkillLeo · From Profile to Paid — Onboarding Flow Demo</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#1351D8;             /* Primary brand */
+      --brand-600:#0B3BA8;         /* Darker */
+      --ink:#0F172A;               /* text primary */
+      --ink-2:#475569;             /* text secondary */
+      --border:#E2E8F0;            /* subtle border */
+      --bg:#FFFFFF;                /* white surface */
+      --bg-2:#F8FAFC;             /* soft gray */
+      --radius:12px;
+      --shadow:0 8px 24px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,#F8FAFC 0%,#E2E8F0 100%);}  
+    a{color:var(--brand);text-decoration:none}
+
+    /* Shell */
+    .header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.98);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);} 
+    .container-narrow{max-width:860px}
+    .card-surface{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .btn-brand{--bs-btn-bg:var(--brand);--bs-btn-border-color:var(--brand);--bs-btn-hover-bg:#2c66dd;--bs-btn-hover-border-color:#2c66dd;--bs-btn-focus-shadow-rgb:19,81,216}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .6rem;border:1px solid var(--border);border-radius:999px;background:#fff}
+    .chip .remove{cursor:pointer;font-weight:700;opacity:.7}
+    .muted{color:var(--ink-2)}
+
+    /* Route visibility */
+    [data-route]{display:none}
+    [data-route].active{display:block}
+
+    /* Simple stepper dots */
+    .steps{display:flex;gap:.4rem;align-items:center}
+    .steps .dot{width:10px;height:10px;border-radius:50%;background:#cbd5e1}
+    .steps .dot.active{background:var(--brand)}
+
+    /* Public profile style (simple) */
+    .profile-hero{border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;background:#fff}
+    .tag{display:inline-block;padding:.2rem .5rem;border:1px solid var(--border);border-radius:999px;background:#fff;margin:.2rem .3rem 0 0;font-size:.825rem}
+
+    /* Responsive helpers */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+    @media (max-width: 768px){.grid-2{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <!-- Topbar -->
+  <nav class="header navbar navbar-expand-lg">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#/auth">SkillLeo</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#/auth">Auth</a></li>
+          <li class="nav-item"><a class="nav-link" href="#/tenant">Workspace</a></li>
+          <li class="nav-item"><a class="nav-link" href="#/username">Username</a></li>
+          <li class="nav-item"><a class="nav-link" href="#/onboarding/basics">Onboarding</a></li>
+          <li class="nav-item"><a class="nav-link" href="#/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" target="_blank" id="publicProfileLink" href="#">View Profile</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="py-5">
+    <div class="container container-narrow">
+
+      <!-- A1: Sign in / Create account (OAuth chooser) -->
+      <section data-route="#/auth" class="active">
+        <div class="p-4 p-md-5 card-surface">
+          <h1 class="h3 mb-2">Sign in / Create account</h1>
+          <p class="muted mb-4">Use your preferred provider. We only request the minimum scopes needed.</p>
+          <div class="grid-2">
+            <div>
+              <button class="btn btn-brand w-100 mb-2" onclick="fakeOAuth('google')">Continue with Google</button>
+              <button class="btn btn-outline-secondary w-100 mb-2" onclick="fakeOAuth('linkedin')">Continue with LinkedIn</button>
+              <button class="btn btn-outline-secondary w-100" onclick="fakeOAuth('github')">Continue with GitHub</button>
+              <p class="small text-muted mt-3">By continuing you agree to our Terms and Privacy.</p>
+            </div>
+            <div class="">
+              <div class="p-3 border rounded-3 bg-light">
+                <div class="d-flex align-items-center mb-2"><span class="badge text-bg-primary me-2">Why OAuth?</span> Security & speed</div>
+                <ul class="small text-muted mb-0">
+                  <li>Fetch verified email & avatar</li>
+                  <li>Reduce password risk</li>
+                  <li>Faster onboarding completion</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- A2: Tenant & role bootstrap -->
+      <section data-route="#/tenant">
+        <div class="p-4 p-md-5 card-surface">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Your workspace</h2>
+            <div class="steps"><span class="dot active"></span><span class="dot active"></span><span class="dot"></span></div>
+          </div>
+          <div class="grid-2">
+            <div>
+              <h6>Create my workspace</h6>
+              <div class="mb-3">
+                <label class="form-label">Workspace name</label>
+                <input id="wsName" type="text" class="form-control" placeholder="e.g., PixelCraft Studio">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Workspace URL</label>
+                <div class="input-group">
+                  <span class="input-group-text">skilleo.com/w/</span>
+                  <input id="wsSlug" type="text" class="form-control" placeholder="pixelcraft">
+                </div>
+                <div id="wsSlugHelp" class="form-text">Lowercase letters, numbers and hyphens. Must be unique.</div>
+              </div>
+              <button class="btn btn-brand" onclick="createWorkspace()">Create workspace</button>
+            </div>
+            <div>
+              <h6>Join existing workspace</h6>
+              <p class="muted">Use an invite link sent by an Admin. (Magic links arrive via email.)</p>
+              <div class="input-group">
+                <span class="input-group-text">Invite code</span>
+                <input id="inviteCode" type="text" class="form-control" placeholder="paste code">
+                <button class="btn btn-outline-secondary" onclick="joinWorkspace()">Join</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- B1: Choose username (public URL) -->
+      <section data-route="#/username">
+        <div class="p-4 p-md-5 card-surface">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Choose your username</h2>
+            <div class="steps"><span class="dot active"></span><span class="dot active"></span><span class="dot active"></span></div>
+          </div>
+          <p class="muted">This becomes your public URL: <code>skilleo.com/<span id="urlPreview">username</span></code>. Keep it short and professional.</p>
+          <div class="row g-3 align-items-end">
+            <div class="col-12 col-md-8">
+              <label class="form-label">Username</label>
+              <input id="username" type="text" class="form-control" placeholder="e.g., sarah-ahmed" oninput="usernamePreview()">
+              <div id="usernameHelp" class="form-text">3–30 chars, a–z, 0–9, hyphen; no leading/trailing hyphen.</div>
+            </div>
+            <div class="col-12 col-md-4 d-grid">
+              <button class="btn btn-brand" onclick="claimUsername()">Reserve URL</button>
+            </div>
+          </div>
+          <div id="usernameStatus" class="small mt-2"></div>
+        </div>
+      </section>
+
+      <!-- C1: Basics -->
+      <section data-route="#/onboarding/basics">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Basics</h2>
+          <div class="row g-3 mt-1">
+            <div class="col-12 col-md-6">
+              <label class="form-label">Full name</label>
+              <input id="fullName" type="text" class="form-control" placeholder="Your full name">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Primary email</label>
+              <input id="primaryEmail" type="email" class="form-control" placeholder="your@email.com" readonly>
+              <div class="form-text">From your OAuth provider</div>
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Location</label>
+              <input id="location" type="text" class="form-control" placeholder="City, Country">
+            </div>
+            <div class="col-12 col-md-6">
+              <label class="form-label">Timezone</label>
+              <select id="timezone" class="form-select"></select>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Avatar (optional)</label>
+              <input id="avatar" type="file" class="form-control" accept="image/*" onchange="previewAvatar(event)">
+              <div class="mt-2" id="avatarPreview"></div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/username')">Back</button>
+            <button class="btn btn-brand" onclick="saveBasics()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C2: Links & IDs -->
+      <section data-route="#/onboarding/links">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Links & IDs</h2>
+          <div class="row g-3 mt-1">
+            <div class="col-12 col-md-6"><label class="form-label">LinkedIn URL</label><input id="linkLinkedin" type="url" class="form-control" placeholder="https://www.linkedin.com/in/username"></div>
+            <div class="col-12 col-md-6"><label class="form-label">Website</label><input id="linkWebsite" type="url" class="form-control" placeholder="https://your-site.com"></div>
+            <div class="col-12 col-md-6"><label class="form-label">GitHub</label><input id="linkGithub" type="url" class="form-control" placeholder="https://github.com/username"></div>
+            <div class="col-12 col-md-6"><label class="form-label">Behance</label><input id="linkBehance" type="url" class="form-control" placeholder="https://www.behance.net/username"></div>
+            <div class="col-12 col-md-6"><label class="form-label">Dribbble</label><input id="linkDribbble" type="url" class="form-control" placeholder="https://dribbble.com/username"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/basics')">Back</button>
+            <button class="btn btn-brand" onclick="saveLinks()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C3: Skills -->
+      <section data-route="#/onboarding/skills">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Skills</h2>
+          <div class="row g-3 mt-1">
+            <div class="col-12 col-lg-6">
+              <label class="form-label">Skill</label>
+              <input id="skillInput" type="text" class="form-control" placeholder="e.g., Laravel, React, UI/UX" onkeydown="if(event.key==='Enter'){event.preventDefault();addSkill()}">
+            </div>
+            <div class="col-6 col-lg-3">
+              <label class="form-label">Level</label>
+              <select id="skillLevel" class="form-select">
+                <option value="1">1 - Novice</option>
+                <option value="2">2</option>
+                <option value="3" selected>3 - Pro</option>
+                <option value="4">4</option>
+                <option value="5">5 - Expert</option>
+              </select>
+            </div>
+            <div class="col-6 col-lg-3">
+              <label class="form-label">Years</label>
+              <input id="skillYears" type="number" class="form-control" min="0" max="50" value="3">
+            </div>
+            <div class="col-12 d-grid d-lg-block">
+              <button class="btn btn-outline-secondary" onclick="addSkill()">Add skill</button>
+            </div>
+          </div>
+          <div id="skillsList" class="mt-3"></div>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/links')">Back</button>
+            <button class="btn btn-brand" onclick="saveSkills()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C4: Experience -->
+      <section data-route="#/onboarding/experience">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Experience</h2>
+          <div id="expList" class="mb-3"></div>
+          <div class="border rounded-3 p-3 mb-3">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Company</label><input id="expCompany" class="form-control" placeholder="Company"></div>
+              <div class="col-md-6"><label class="form-label">Title</label><input id="expTitle" class="form-control" placeholder="Role/Title"></div>
+              <div class="col-md-6"><label class="form-label">Start date</label><input id="expStart" type="month" class="form-control"></div>
+              <div class="col-md-6"><label class="form-label">End date</label><input id="expEnd" type="month" class="form-control" placeholder="Present"></div>
+              <div class="col-12"><label class="form-label">Impact bullets (each on new line)</label><textarea id="expBullets" class="form-control" rows="3" placeholder="Shipped X; Improved Y by Z%"></textarea></div>
+            </div>
+            <div class="mt-3 d-grid d-md-flex gap-2">
+              <button class="btn btn-outline-secondary" onclick="addExperience()">Add experience</button>
+              <button class="btn btn-light" onclick="clearExperienceForm()">Clear</button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/skills')">Back</button>
+            <button class="btn btn-brand" onclick="saveExperience()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C5: Education & Languages -->
+      <section data-route="#/onboarding/edu-lang">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Education & Languages <span class="badge text-bg-secondary">Optional</span></h2>
+          <div class="row g-3 align-items-end">
+            <div class="col-md-6"><label class="form-label">School</label><input id="eduSchool" class="form-control" placeholder="University"></div>
+            <div class="col-md-6"><label class="form-label">Degree</label><input id="eduDegree" class="form-control" placeholder="BS, MS, Diploma"></div>
+            <div class="col-md-6"><label class="form-label">Start</label><input id="eduStart" type="month" class="form-control"></div>
+            <div class="col-md-6"><label class="form-label">End</label><input id="eduEnd" type="month" class="form-control"></div>
+            <div class="col-12 d-grid d-md-block"><button class="btn btn-outline-secondary" onclick="addEducation()">Add education</button></div>
+          </div>
+          <div id="eduList" class="mt-3"></div>
+
+          <hr class="my-4">
+          <div class="row g-3 align-items-end">
+            <div class="col-md-6"><label class="form-label">Language</label><input id="langName" class="form-control" placeholder="e.g., English"></div>
+            <div class="col-md-6"><label class="form-label">Proficiency</label>
+              <select id="langLevel" class="form-select">
+                <option>Basic</option><option>Conversational</option><option>Fluent</option><option>Native</option>
+              </select>
+            </div>
+            <div class="col-12 d-grid d-md-block"><button class="btn btn-outline-secondary" onclick="addLanguage()">Add language</button></div>
+          </div>
+          <div id="langList" class="mt-3"></div>
+
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/experience')">Back</button>
+            <button class="btn btn-brand" onclick="saveEduLang()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C6: Portfolio (Case study) -->
+      <section data-route="#/onboarding/portfolio">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Portfolio (Case Study) <span class="badge text-bg-secondary">Optional</span></h2>
+          <div class="row g-3">
+            <div class="col-md-6"><label class="form-label">Title</label><input id="caseTitle" class="form-control" placeholder="E-commerce Redesign"></div>
+            <div class="col-md-6"><label class="form-label">1‑line summary</label><input id="caseSummary" class="form-control" placeholder="Boosted conversion by 32%"></div>
+            <div class="col-12"><label class="form-label">Challenge</label><textarea id="caseChallenge" class="form-control" rows="2"></textarea></div>
+            <div class="col-12"><label class="form-label">Solution</label><textarea id="caseSolution" class="form-control" rows="2"></textarea></div>
+            <div class="col-md-6"><label class="form-label">Outcome metric</label><input id="caseOutcome" class="form-control" placeholder="+32% conversion"></div>
+            <div class="col-md-6"><label class="form-label">Tech stack (comma‑sep)</label><input id="caseStack" class="form-control" placeholder="Laravel, MySQL, Bootstrap"></div>
+            <div class="col-12"><label class="form-label">Cover image</label><input id="caseCover" type="file" class="form-control" accept="image/*"></div>
+          </div>
+          <div class="d-grid d-md-flex gap-2 mt-3">
+            <button class="btn btn-outline-secondary" onclick="addCaseStudy()">Add case study</button>
+            <button class="btn btn-light" onclick="clearCaseStudyForm()">Clear</button>
+          </div>
+          <div id="caseList" class="mt-3"></div>
+
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/edu-lang')">Back</button>
+            <button class="btn btn-brand" onclick="savePortfolio()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C7: Work Preferences -->
+      <section data-route="#/onboarding/preferences">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Work Preferences</h2>
+          <div class="row g-3">
+            <div class="col-md-4"><label class="form-label">Open to Work</label><select id="prefOpen" class="form-select"><option value="true">Yes</option><option value="false">No</option></select></div>
+            <div class="col-md-8"><label class="form-label">Desired roles</label><input id="prefRoles" class="form-control" placeholder="e.g., Laravel Dev, UI/UX Designer"></div>
+            <div class="col-md-6"><label class="form-label">Contract types</label><input id="prefContracts" class="form-control" placeholder="Fixed, T&M"></div>
+            <div class="col-md-6"><label class="form-label">Rate range (hour/day)</label><input id="prefRates" class="form-control" placeholder="$25–$50/hr or PKR ranges"></div>
+            <div class="col-md-6"><label class="form-label">Availability</label><input id="prefAvailability" class="form-control" placeholder="20 hrs/week"></div>
+            <div class="col-md-6"><label class="form-label">Remote/Onsite & Cities</label><input id="prefLocation" class="form-control" placeholder="Remote, Karachi, Dubai"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/portfolio')">Back</button>
+            <button class="btn btn-brand" onclick="savePreferences()">Save & continue</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- C8: Review & Publish -->
+      <section data-route="#/onboarding/review">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Review & Publish</h2>
+          <p class="muted">Confirm details below. You can edit anytime later.</p>
+          <div id="reviewBlock" class="mb-3"></div>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="publishToggle">
+            <label class="form-check-label" for="publishToggle">Publish my profile now</label>
+          </div>
+          <div class="d-flex justify-content-between mt-4">
+            <button class="btn btn-outline-secondary" onclick="go('#/onboarding/preferences')">Back</button>
+            <button class="btn btn-brand" onclick="finalizePublish()">Finish</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- D2: Dashboard -->
+      <section data-route="#/dashboard">
+        <div class="p-4 p-md-5 card-surface">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Dashboard</h2>
+            <a class="btn btn-outline-secondary" href="#/settings">Settings</a>
+          </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 bg-white h-100">
+                <h6 class="mb-2">Getting started</h6>
+                <ul class="mb-0 small">
+                  <li>Create a second case study</li>
+                  <li>Answer 1 question in Q&A</li>
+                  <li>Invite a client to start an order</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="p-3 border rounded-3 bg-white h-100">
+                <h6 class="mb-2">At a glance</h6>
+                <div class="row g-2 small">
+                  <div class="col-6">Profile views: <strong id="kpiViews">0</strong></div>
+                  <div class="col-6">Invites: <strong id="kpiInvites">0</strong></div>
+                  <div class="col-6">Active orders: <strong id="kpiOrders">0</strong></div>
+                  <div class="col-6">Invoices due: <strong id="kpiInvoices">0</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-3">
+            <a class="btn btn-brand" href="#/orders/new">Create Order</a>
+            <a class="btn btn-outline-secondary" href="#/onboarding/portfolio">Add Case Study</a>
+            <a class="btn btn-outline-secondary" target="_blank" id="dashPublicLink" href="#">View Public Profile</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- D1: Public Profile (read-only preview) -->
+      <section data-route="#/profile">
+        <div class="profile-hero mb-3">
+          <div class="d-flex align-items-center gap-3">
+            <img id="pubAvatar" src="" alt="avatar" class="rounded-circle" width="64" height="64" style="object-fit:cover;display:none">
+            <div>
+              <h3 id="pubName" class="h5 mb-1">Your Name</h3>
+              <div id="pubTitle" class="muted">Professional headline</div>
+              <div class="mt-2"><span id="pubOTW" class="badge text-bg-success" style="display:none">Open to Work</span></div>
+            </div>
+            <div class="ms-auto"><a href="#/onboarding/basics" class="btn btn-outline-secondary btn-sm">Edit profile</a></div>
+          </div>
+        </div>
+        <div class="card-surface p-3 mb-3">
+          <h6 class="mb-2">Skills</h6>
+          <div id="pubSkills"></div>
+        </div>
+        <div class="card-surface p-3 mb-3">
+          <h6 class="mb-2">Experience</h6>
+          <div id="pubExp"></div>
+        </div>
+        <div class="card-surface p-3 mb-3">
+          <h6 class="mb-2">Case Studies</h6>
+          <div id="pubCases"></div>
+        </div>
+        <div class="text-end"><a href="#/dashboard" class="btn btn-outline-secondary">Back to Dashboard</a></div>
+      </section>
+
+      <!-- D4: Settings (skeleton) -->
+      <section data-route="#/settings">
+        <div class="p-4 p-md-5 card-surface">
+          <h2 class="h4">Settings</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Connected accounts</label>
+              <div class="p-3 border rounded-3">Google ✓ · LinkedIn × · GitHub ×</div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Notifications</label>
+              <div class="p-3 border rounded-3">Email ✓ · In‑app ✓ · WhatsApp (opt‑in)</div>
+            </div>
+          </div>
+          <div class="mt-3"><a href="#/dashboard" class="btn btn-outline-secondary">Back</a></div>
+        </div>
+      </section>
+
+      <!-- Fallback route -->
+      <section data-route="#/404">
+        <div class="p-4 p-md-5 card-surface text-center">
+          <h2 class="h4">Not found</h2>
+          <p class="muted">The page you’re looking for doesn’t exist.</p>
+          <a class="btn btn-brand" href="#/auth">Go to Auth</a>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script>
+    // --- Minimal state store (simulates records written by each page) ---
+    const state = {
+      user: { email: '', name: '', avatar: '', timezone: '', provider: '' },
+      tenant: { id: null, name: '', slug: '' },
+      profile: {
+        username: '', title: '', location: '', openToWork: false, links: {},
+        skills: [], experiences: [], educations: [], languages: [], cases: [],
+        preferences: {}, published: false
+      }
+    }
+
+    const takenUsernames = new Set(['admin','api','support','help','login','signup']); // demo collisions
+
+    // --- Router ---
+    const routes = Array.from(document.querySelectorAll('[data-route]'));
+    function go(hash){ location.hash = hash; }
+    function renderRoute(){
+      const h = location.hash || '#/auth';
+      let match = routes.find(s => s.getAttribute('data-route') === h);
+      routes.forEach(s => s.classList.remove('active'));
+      (match || document.querySelector('[data-route="#/404"]').classList.add('active'));
+      if(match) match.classList.add('active');
+      // Update public profile links
+      const link = document.getElementById('publicProfileLink');
+      const dashLink = document.getElementById('dashPublicLink');
+      if(link) link.href = '#/profile';
+      if(dashLink) dashLink.href = '#/profile';
+      if(h === '#/onboarding/review') buildReview();
+      if(h === '#/profile') renderPublicProfile();
+      if(h === '#/onboarding/basics') populateTimezones();
+      if(h === '#/auth') scrollTo(0,0);
+    }
+    window.addEventListener('hashchange', renderRoute);
+
+    // --- A1: Fake OAuth (demo only) ---
+    function fakeOAuth(provider){
+      state.user.provider = provider;
+      state.user.email = `demo@${provider}.user`;
+      state.user.name = provider === 'linkedin' ? 'Demo Professional' : 'Demo User';
+      document.getElementById('primaryEmail').value = state.user.email;
+      go('#/tenant');
+    }
+
+    // --- A2: Workspace create/join ---
+    function slugify(s){return s.toLowerCase().trim().replace(/[^a-z0-9-]/g,'-').replace(/--+/g,'-').replace(/^-|-$/g,'');}
+    document.getElementById('wsName').addEventListener('input', e => {
+      const val = e.target.value; document.getElementById('wsSlug').value = slugify(val);
+    });
+    function createWorkspace(){
+      const name = document.getElementById('wsName').value.trim();
+      const slug = slugify(document.getElementById('wsSlug').value);
+      const help = document.getElementById('wsSlugHelp');
+      if(!name || !slug){help.textContent='Name and slug are required.';help.classList.add('text-danger');return}
+      help.textContent='Looks good. Slug reserved.';help.classList.remove('text-danger');
+      state.tenant = { id: Date.now(), name, slug };
+      go('#/username');
+    }
+    function joinWorkspace(){
+      const code = document.getElementById('inviteCode').value.trim();
+      if(!code){alert('Paste invite code');return}
+      state.tenant = { id: Date.now(), name:'Invited Workspace', slug:'invited' };
+      go('#/username');
+    }
+
+    // --- B1: Username ---
+    function usernamePreview(){
+      const v = document.getElementById('username').value.toLowerCase();
+      document.getElementById('urlPreview').textContent = v || 'username';
+    }
+    function claimUsername(){
+      const raw = document.getElementById('username').value.trim().toLowerCase();
+      const valid = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(raw) && raw.length>=3 && raw.length<=30 && !/^(-)|(-)$/.test(raw);
+      const status = document.getElementById('usernameStatus');
+      if(!valid){status.innerHTML = '<span class="text-danger">Invalid format.</span>';return}
+      if(takenUsernames.has(raw)){status.innerHTML = '<span class="text-danger">Username taken.</span>';return}
+      state.profile.username = raw; status.innerHTML = '<span class="text-success">Reserved!</span>';
+      go('#/onboarding/basics');
+    }
+
+    // --- C1: Basics ---
+    function previewAvatar(e){
+      const f = e.target.files[0]; if(!f) return;
+      const url = URL.createObjectURL(f); state.user.avatar = url;
+      document.getElementById('avatarPreview').innerHTML = `<img src="${url}" class="rounded-circle" width="72" height="72" style="object-fit:cover">`;
+    }
+    function populateTimezones(){
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      const select = document.getElementById('timezone');
+      if(select.options.length) return; // once
+      const common = ['UTC','Asia/Karachi','Asia/Dubai','Europe/London','America/New_York'];
+      common.forEach(z=>{ const o = document.createElement('option'); o.value=o.textContent=z; if(z===tz) o.selected=true; select.appendChild(o); });
+    }
+    function saveBasics(){
+      const name = document.getElementById('fullName').value.trim();
+      const loc  = document.getElementById('location').value.trim();
+      const tz   = document.getElementById('timezone').value;
+      if(!name){alert('Name is required');return}
+      state.user.name = name; state.user.timezone = tz; state.profile.location = loc;
+      go('#/onboarding/links');
+    }
+
+    // --- C2: Links ---
+    function saveLinks(){
+      const norm = u => u && u.startsWith('http') ? u : (u ? 'https://' + u : '');
+      state.profile.links = {
+        linkedin: norm(document.getElementById('linkLinkedin').value.trim()),
+        website:  norm(document.getElementById('linkWebsite').value.trim()),
+        github:   norm(document.getElementById('linkGithub').value.trim()),
+        behance:  norm(document.getElementById('linkBehance').value.trim()),
+        dribbble: norm(document.getElementById('linkDribbble').value.trim())
+      };
+      go('#/onboarding/skills');
+    }
+
+    // --- C3: Skills ---
+    function renderSkills(){
+      const box = document.getElementById('skillsList');
+      box.innerHTML = state.profile.skills.map((s,i)=>
+        `<span class="chip me-2 mb-2">${s.name} · L${s.level} · ${s.years}y <span class="remove" onclick="removeSkill(${i})">×</span></span>`
+      ).join('');
+    }
+    function addSkill(){
+      const name = document.getElementById('skillInput').value.trim();
+      const level = +document.getElementById('skillLevel').value;
+      const years = +document.getElementById('skillYears').value;
+      if(!name) return; if(state.profile.skills.some(s=>s.name.toLowerCase()===name.toLowerCase())) return;
+      state.profile.skills.push({name, level, years});
+      document.getElementById('skillInput').value=''; renderSkills();
+    }
+    function removeSkill(i){ state.profile.skills.splice(i,1); renderSkills(); }
+    function saveSkills(){ if(state.profile.skills.length===0){alert('Add at least one skill');return} go('#/onboarding/experience'); }
+
+    // --- C4: Experience ---
+    function clearExperienceForm(){ expCompany.value='';expTitle.value='';expStart.value='';expEnd.value='';expBullets.value=''; }
+    function addExperience(){
+      const c=expCompany.value.trim(), t=expTitle.value.trim(); if(!c||!t){alert('Company and Title are required');return}
+      const bullets = expBullets.value.split('\n').map(b=>b.trim()).filter(Boolean).slice(0,4);
+      state.profile.experiences.push({company:c,title:t,start:expStart.value,end:expEnd.value,bullets});
+      renderExperiences(); clearExperienceForm();
+    }
+    function renderExperiences(){
+      const wrap = document.getElementById('expList');
+      wrap.innerHTML = state.profile.experiences.map((e,i)=>`
+        <div class="p-3 mb-2 border rounded-3"><div class="d-flex justify-content-between"><strong>${e.title}</strong><button class="btn btn-sm btn-link text-danger" onclick="delExp(${i})">Remove</button></div>
+        <div class="muted">${e.company} · ${e.start || ''} – ${e.end || 'Present'}</div>
+        <ul class="mb-0 small">${e.bullets.map(b=>`<li>${b}</li>`).join('')}</ul></div>`).join('');
+    }
+    function delExp(i){ state.profile.experiences.splice(i,1); renderExperiences(); }
+    function saveExperience(){ if(state.profile.experiences.length===0){alert('Add at least one experience');return} go('#/onboarding/edu-lang'); }
+
+    // --- C5: Education & Languages ---
+    function addEducation(){
+      const s=eduSchool.value.trim(), d=eduDegree.value.trim(); if(!s||!d){alert('School and Degree required');return}
+      state.profile.educations.push({school:s,degree:d,start:eduStart.value,end:eduEnd.value});
+      eduList.innerHTML = state.profile.educations.map((e,i)=>`<div class="chip">${e.degree} @ ${e.school} <span class="remove" onclick="rmEdu(${i})">×</span></div>`).join(' ');
+      eduSchool.value='';eduDegree.value='';eduStart.value='';eduEnd.value='';
+    }
+    function rmEdu(i){ state.profile.educations.splice(i,1); eduList.innerHTML=''; state.profile.educations.forEach((e,j)=>{eduList.innerHTML += `<div class=\"chip\">${e.degree} @ ${e.school} <span class=\"remove\" onclick=\"rmEdu(${j})\">×</span></div> `}); }
+    function addLanguage(){
+      const n=langName.value.trim(); if(!n) return; const level=langLevel.value;
+      state.profile.languages.push({name:n,level});
+      langList.innerHTML = state.profile.languages.map((l,i)=>`<div class="chip">${l.name} · ${l.level} <span class="remove" onclick="rmLang(${i})">×</span></div>`).join(' ');
+      langName.value='';
+    }
+    function rmLang(i){ state.profile.languages.splice(i,1); langList.innerHTML=''; state.profile.languages.forEach((l,j)=>{langList.innerHTML += `<div class=\"chip\">${l.name} · ${l.level} <span class=\"remove\" onclick=\"rmLang(${j})\">×</span></div> `}); }
+    function saveEduLang(){ go('#/onboarding/portfolio'); }
+
+    // --- C6: Portfolio (Case Study) ---
+    function addCaseStudy(){
+      const title = caseTitle.value.trim(); if(!title){alert('Title required');return}
+      const summary = caseSummary.value.trim();
+      const challenge = caseChallenge.value.trim();
+      const solution = caseSolution.value.trim();
+      const outcome = caseOutcome.value.trim();
+      const stack = caseStack.value.split(',').map(s=>s.trim()).filter(Boolean);
+      state.profile.cases.push({title,summary,challenge,solution,outcome,stack});
+      renderCases(); clearCaseStudyForm();
+    }
+    function renderCases(){
+      caseList.innerHTML = state.profile.cases.map((c,i)=>`
+        <div class="p-3 mb-2 border rounded-3"><div class="d-flex justify-content-between"><strong>${c.title}</strong><button class="btn btn-sm btn-link text-danger" onclick="delCase(${i})">Remove</button></div>
+        <div class="muted">${c.summary}</div>
+        <div class="small mt-2"><strong>Outcome:</strong> ${c.outcome || '—'}</div>
+        <div class="small"><strong>Stack:</strong> ${c.stack.join(', ')}</div></div>`).join('');
+    }
+    function delCase(i){ state.profile.cases.splice(i,1); renderCases(); }
+    function clearCaseStudyForm(){ caseTitle.value='';caseSummary.value='';caseChallenge.value='';caseSolution.value='';caseOutcome.value='';caseStack.value='';caseCover.value=''; }
+    function savePortfolio(){ go('#/onboarding/preferences'); }
+
+    // --- C7: Preferences ---
+    function savePreferences(){
+      state.profile.openToWork = document.getElementById('prefOpen').value === 'true';
+      state.profile.preferences = {
+        roles: document.getElementById('prefRoles').value,
+        contracts: document.getElementById('prefContracts').value,
+        rates: document.getElementById('prefRates').value,
+        availability: document.getElementById('prefAvailability').value,
+        location: document.getElementById('prefLocation').value
+      };
+      go('#/onboarding/review');
+    }
+
+    // --- C8: Review & Publish ---
+    function buildReview(){
+      const p = state.profile, u = state.user;
+      const html = `
+        <div class="row g-3">
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Name</strong><div>${u.name||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Username</strong><div>${p.username||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Location</strong><div>${p.location||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Links</strong><div class="small">${Object.entries(p.links).filter(([,v])=>v).map(([k,v])=>`${k}: ${v}`).join('<br>')||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Skills</strong><div class="small">${p.skills.map(s=>`${s.name} (L${s.level}, ${s.years}y)`).join(', ')||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Experience</strong><div class="small">${p.experiences.map(e=>`${e.title}@${e.company}`).join(', ')||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Education</strong><div class="small">${p.educations.map(e=>`${e.degree}@${e.school}`).join(', ')||'—'}</div></div></div>
+          <div class="col-md-6"><div class="p-3 border rounded-3"><strong>Languages</strong><div class="small">${p.languages.map(l=>`${l.name} (${l.level})`).join(', ')||'—'}</div></div></div>
+          <div class="col-12"><div class="p-3 border rounded-3"><strong>Cases</strong><div class="small">${p.cases.map(c=>c.title).join(', ')||'—'}</div></div></div>
+          <div class="col-12"><div class="p-3 border rounded-3"><strong>Preferences</strong><div class="small">${JSON.stringify(p.preferences)||'—'}</div></div></div>
+        </div>`;
+      document.getElementById('reviewBlock').innerHTML = html;
+    }
+    function finalizePublish(){
+      const publish = document.getElementById('publishToggle').checked;
+      state.profile.published = publish;
+      alert(publish? 'Profile published!' : 'Saved as draft.');
+      renderPublicProfile();
+      go('#/dashboard');
+    }
+
+    // --- D1: Public Profile render ---
+    function renderPublicProfile(){
+      document.getElementById('pubName').textContent = state.user.name || 'Your Name';
+      document.getElementById('pubTitle').textContent = state.profile.title || '—';
+      const av = document.getElementById('pubAvatar');
+      if(state.user.avatar){ av.src = state.user.avatar; av.style.display='block'; }
+      document.getElementById('pubOTW').style.display = state.profile.openToWork ? 'inline-block' : 'none';
+      document.getElementById('pubSkills').innerHTML = state.profile.skills.map(s=>`<span class="tag">${s.name}</span>`).join('');
+      document.getElementById('pubExp').innerHTML = state.profile.experiences.map(e=>`
+        <div class="mb-2"><strong>${e.title}</strong> · ${e.company}<br><span class="small muted">${e.start||''} – ${e.end||'Present'}</span><ul class="small mb-0">${e.bullets.map(b=>`<li>${b}</li>`).join('')}</ul></div>`).join('');
+      document.getElementById('pubCases').innerHTML = state.profile.cases.map(c=>`
+        <div class="p-3 mb-2 border rounded-3"><strong>${c.title}</strong><div class="muted">${c.summary}</div><div class="small mt-1"><em>${c.outcome||''}</em></div><div class="small">${c.stack.map(s=>`<span class='tag'>${s}</span>`).join('')}</div></div>`).join('');
+    }
+
+    // Init
+    renderRoute();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
