@@ -1,586 +1,1250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Projects - ProMatch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1351D8;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-muted: #64748B;
-            --border-light: #E2E8F0;
-            --success: #10B981;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio Projects - ProMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root{
+      --primary: #0066CC;
+      --primary-hover: #0052A3;
+      --secondary: #F3F6FF;
+      --accent: #00A0DC;
+      --text-primary: #1D2129;
+      --text-secondary: #65676B;
+      --text-muted: #8A8D91;
+      --bg: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --border: #DADDE1;
+      --border-light: #E4E6EA;
+      --success: #42B883;
+      --danger: #EF4444;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+      --gradient: linear-gradient(135deg, #0066CC 0%, #00A0DC 100%);
+      --gradient-light: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 160, 220, 0.1) 100%);
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        .header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Animated Background */
+    .bg-decoration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gradient-light);
+      animation: float 8s ease-in-out infinite;
+    }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
+    .floating-shape:nth-child(1) {
+      width: 120px;
+      height: 120px;
+      top: 30%;
+      right: 15%;
+      animation-delay: 0s;
+    }
 
-        .progress-indicator {
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
+    .floating-shape:nth-child(2) {
+      width: 80px;
+      height: 80px;
+      bottom: 40%;
+      left: 12%;
+      animation-delay: 3s;
+    }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
+    .floating-shape:nth-child(3) {
+      width: 50px;
+      height: 50px;
+      top: 70%;
+      right: 40%;
+      animation-delay: 6s;
+    }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            width: 62.5%;
-            transition: width 0.3s ease;
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      25% { transform: translateY(-8px) rotate(90deg); opacity: 0.5; }
+      50% { transform: translateY(-4px) rotate(180deg); opacity: 0.3; }
+      75% { transform: translateY(-12px) rotate(270deg); opacity: 0.4; }
+    }
 
-        .main-card {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-            padding: 40px;
-        }
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .step-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(19, 81, 216, 0.1);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
 
-        .card-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+    .brand__mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
 
-        .card-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
+    .brand__mark:hover {
+      transform: scale(1.05);
+    }
 
-        .skip-section {
-            text-align: center;
-            margin-bottom: 24px;
-            padding: 16px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-        }
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
 
-        .skip-text {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
+    .progress-bar {
+      width: 160px;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
 
-        .btn-skip {
-            padding: 8px 16px;
-            background: var(--bg-primary);
-            border: 2px solid var(--border-light);
-            color: var(--text-secondary);
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .progress-fill {
+      height: 100%;
+      width: 62.5%;
+      background: var(--gradient);
+      border-radius: 4px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .btn-skip:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-        }
+    /* Main Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        .projects-container {
-            margin-bottom: 32px;
-        }
+    .main-card {
+      background: var(--bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      animation: slideUp 0.8s ease-out;
+    }
 
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 14px;
-        }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .project-card {
-            border: 2px solid var(--border-light);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
-            position: relative;
-        }
+    /* Header Section */
+    .form-header {
+      text-align: center;
+      padding: 48px 48px 32px;
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.03) 0%, rgba(0, 160, 220, 0.03) 100%);
+      border-bottom: 1px solid var(--border-light);
+    }
 
-        .remove-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background: #ef4444;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-        }
+    .step-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid rgba(0, 102, 204, 0.15);
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .step-indicator::before {
+      content: '🎨';
+      font-size: 14px;
+    }
 
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
+    .form-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
+    .form-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+    }
 
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
+    /* Form Section */
+    .form-content {
+      padding: 48px;
+    }
 
-        .form-textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
+    /* Skip Option */
+    .skip-section {
+      background: var(--secondary);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
 
-        .char-count {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-align: right;
-            margin-top: 4px;
-        }
+    .skip-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
 
-        .ai-section {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
+    .skip-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
 
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+    .skip-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--secondary);
+    }
 
-        .ai-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--gradient-primary);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 32px;
+      border: 2px dashed var(--border-light);
+      border-radius: 16px;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+    }
 
-        .btn-ai {
-            padding: 10px 16px;
-            background: var(--bg-primary);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
+    .empty-state:hover {
+      border-color: var(--primary);
+      background: rgba(0, 102, 204, 0.02);
+    }
 
-        .btn-ai:hover {
-            background: var(--primary);
-            color: white;
-        }
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
 
-        .btn-add {
-            width: 100%;
-            padding: 16px;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 24px;
-            transition: transform 0.2s ease;
-        }
+    .empty-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
 
-        .btn-add:hover {
-            transform: translateY(-1px);
-        }
+    .empty-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: space-between;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-light);
-        }
+    /* Project Cards */
+    .projects-list {
+      margin-bottom: 32px;
+    }
 
-        .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+      animation: cardAppear 0.5s ease;
+    }
 
-        .btn-back {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border-color: var(--border-light);
-        }
+    /* Display Card */
+    .display-card {
+      background: var(--bg-secondary);
+      padding: 24px;
+    }
 
-        .btn-next {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
+    .display-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
 
-        .btn-next:hover {
-            transform: translateY(-2px);
-        }
+    .card-actions {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
+    .card-edit {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--secondary);
+      color: var(--primary);
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
 
-            .main-card {
-                padding: 24px;
-            }
+    .card-edit:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
 
-            .card-title {
-                font-size: 24px;
-            }
+    .card-remove {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
 
-            .action-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
+    .card-remove:hover {
+      background: var(--danger);
+      color: white;
+      transform: scale(1.05);
+    }
 
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+    .card-header {
+      margin-right: 80px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .card-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .card-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+    }
+
+    .card-tech {
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 4px 8px;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+    }
+
+    /* Edit Form */
+    .edit-card {
+      border: 2px solid var(--primary);
+      background: var(--bg);
+    }
+
+    .form-header-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .save-btn {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .save-btn:hover {
+      background: #0F9A6D;
+      transform: translateY(-1px);
+    }
+
+    .cancel-btn {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .cancel-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .required {
+      color: var(--primary);
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: 400;
+      background: var(--bg);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 48px;
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-input:hover:not(:focus), .form-textarea:hover:not(:focus) {
+      border-color: var(--border);
+    }
+
+    .char-count {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Add Project Button */
+    .add-project-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .add-project-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* AI Helper */
+    .ai-helper {
+      background: var(--secondary);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ai-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
+
+    .ai-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ai-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .ai-button {
+      background: var(--bg);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 8px;
+      margin-top: 8px;
+    }
+
+    .ai-button:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .ai-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Action Buttons */
+    .form-actions {
+      padding: 32px 48px;
+      background: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      min-height: 52px;
+    }
+
+    .btn-back {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-back:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: var(--shadow-md);
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .form-header {
+        padding: 32px 24px;
+      }
+
+      .form-content {
+        padding: 32px 24px;
+      }
+
+      .form-actions {
+        padding: 24px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-title {
+        font-size: 28px;
+      }
+
+      .project-card {
+        padding: 24px;
+      }
+
+      .floating-shape {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-card {
+        border-radius: 16px;
+        margin: 0 -8px;
+      }
+
+      .form-header {
+        padding: 24px 20px;
+      }
+
+      .form-content {
+        padding: 24px 20px;
+      }
+
+      .form-actions {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <div class="logo-icon">P</div>
-                ProMatch
-            </a>
-            <div class="progress-indicator">Step 5 of 8</div>
+  <!-- Animated Background -->
+  <div class="bg-decoration">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="brand" href="#">
+        <div class="brand__mark">P</div>
+        <span>ProMatch</span>
+      </a>
+      
+      <div class="progress-container" aria-live="polite">
+        <span id="stepText">Step 5 of 8</span>
+        <div class="progress-bar" aria-hidden="true">
+          <div class="progress-fill"></div>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-
-        <div class="main-card">
-            <div class="card-header">
-                <div class="step-badge">Portfolio Projects</div>
-                <h1 class="card-title">Showcase your work</h1>
-                <p class="card-subtitle">Add case studies to demonstrate your expertise</p>
-            </div>
-
-            <div class="skip-section">
-                <div class="skip-text">Portfolio is optional but recommended for better visibility</div>
-                <button class="btn-skip" onclick="skipPortfolio()">Skip for now</button>
-            </div>
-
-            <form id="portfolioForm">
-                <div class="projects-container" id="projectsContainer">
-                    <div class="empty-state" id="emptyState">
-                        No projects added yet. Click "Add Project" to get started.
-                    </div>
-                </div>
-
-                <button type="button" class="btn-add" onclick="addProject()">+ Add Project</button>
-
-                <div class="ai-section">
-                    <div class="ai-header">
-                        <div class="ai-icon">🤖</div>
-                        <span style="font-weight: 600; font-size: 14px;">AI Assistant</span>
-                    </div>
-                    <button type="button" class="btn-ai" onclick="draftFromURL()">Draft from URL</button>
-                    <button type="button" class="btn-ai" onclick="compressToBullets()">Compress to bullets</button>
-                </div>
-
-                <div class="action-buttons">
-                    <a href="#" class="btn btn-back" onclick="goBack()">
-                        <span>←</span> Back
-                    </a>
-                    <button type="submit" class="btn btn-next">
-                        Continue <span>→</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <script>
-        let projects = [];
-        let projectCounter = 0;
+  <!-- Main -->
+  <div class="container">
+    <div class="main-card">
+      <!-- Header -->
+      <div class="form-header">
+        <div class="step-indicator">
+          Portfolio Projects
+        </div>
+        <h1 class="form-title">Showcase your best work</h1>
+        <p class="form-subtitle">
+          Add projects that demonstrate your skills and expertise to potential clients
+        </p>
+      </div>
 
-        function addProject() {
-            projectCounter++;
-            const project = {
-                id: projectCounter,
-                title: '',
-                summary: '',
-                challenge: '',
-                solution: '',
-                outcome: '',
-                techStack: ''
-            };
-            
-            projects.push(project);
-            renderProjects();
-            
-            gtag('event', 'portfolio_add', {
-                event_category: 'onboarding',
-                event_label: 'project_added'
-            });
-        }
+      <!-- Form -->
+      <form id="portfolioForm" class="form-content">
+        <!-- Skip Section -->
+        <div class="skip-section">
+          <div class="skip-text">Portfolio is optional but highly recommended for better visibility</div>
+          <button type="button" class="skip-btn" onclick="skipPortfolio()">Skip for now</button>
+        </div>
 
-        function removeProject(id) {
-            projects = projects.filter(p => p.id !== id);
-            renderProjects();
-        }
+        <!-- Projects List -->
+        <div class="projects-list" id="projectsList">
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon">🎯</div>
+            <div class="empty-title">Add your first project</div>
+            <div class="empty-subtitle">Showcase work that demonstrates your expertise</div>
+          </div>
+        </div>
 
-        function renderProjects() {
-            const container = document.getElementById('projectsContainer');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (projects.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            }
-            
-            emptyState.style.display = 'none';
-            container.innerHTML = '';
-            
-            projects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'project-card';
-                projectCard.innerHTML = `
-                    <button type="button" class="remove-btn" onclick="removeProject(${project.id})">×</button>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Project Title</label>
-                        <input type="text" class="form-input" placeholder="e.g., E-commerce Platform" 
-                               value="${project.title}" onchange="updateProject(${project.id}, 'title', this.value)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">One-line Summary</label>
-                        <input type="text" class="form-input" placeholder="Brief description of the project" 
-                               value="${project.summary}" onchange="updateProject(${project.id}, 'summary', this.value)">
-                        <div class="char-count">${project.summary.length}/100</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Challenge</label>
-                        <textarea class="form-textarea" placeholder="What problem did you solve?" 
-                                  onchange="updateProject(${project.id}, 'challenge', this.value)">${project.challenge}</textarea>
-                        <div class="char-count">${project.challenge.length}/200</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Solution</label>
-                        <textarea class="form-textarea" placeholder="How did you solve it?" 
-                                  onchange="updateProject(${project.id}, 'solution', this.value)">${project.solution}</textarea>
-                        <div class="char-count">${project.solution.length}/200</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Outcome & Metrics</label>
-                        <textarea class="form-textarea" placeholder="What were the results? Include numbers if possible" 
-                                  onchange="updateProject(${project.id}, 'outcome', this.value)">${project.outcome}</textarea>
-                        <div class="char-count">${project.outcome.length}/150</div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Tech Stack</label>
-                        <input type="text" class="form-input" placeholder="Laravel, React, MySQL (comma-separated)" 
-                               value="${project.techStack}" onchange="updateProject(${project.id}, 'techStack', this.value)">
-                    </div>
-                `;
-                container.appendChild(projectCard);
-            });
-        }
+        <!-- Add Project Button -->
+        <button type="button" class="add-project-btn" onclick="addProject()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add Project
+        </button>
 
-        function updateProject(id, field, value) {
-            const project = projects.find(p => p.id === id);
-            if (project) {
-                project[field] = value;
-            }
-        }
+        <!-- AI Helper -->
+        <div class="ai-helper">
+          <div class="ai-header">
+            <div class="ai-icon">🤖</div>
+            <div>
+              <div class="ai-title">AI Project Assistant</div>
+              <div class="ai-desc">Get help creating compelling project descriptions</div>
+            </div>
+          </div>
+          <button type="button" class="ai-button" id="generateBtn" onclick="generateFromURL()">
+            <span>🔗</span>
+            <span>Generate from URL</span>
+          </button>
+          <button type="button" class="ai-button" id="enhanceBtn" onclick="enhanceDescription()">
+            <span>✨</span>
+            <span>Enhance Description</span>
+          </button>
+        </div>
+      </form>
 
-        function draftFromURL() {
-            const url = prompt('Enter GitHub URL or live project link:');
-            if (url) {
-                alert('AI would analyze the URL and draft a case study. Feature coming soon!');
-                
-                gtag('event', 'ai_case_study_click', {
-                    event_category: 'onboarding',
-                    event_label: 'draft_from_url'
-                });
-            }
-        }
+      <!-- Actions -->
+      <div class="form-actions">
+        <a href="#" class="btn btn-back" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </a>
+        
+        <button type="submit" class="btn btn-primary" id="continueBtn">
+          <span id="btnText">Continue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
-        function compressToBullets() {
-            if (projects.length === 0) {
-                alert('Add a project first to use this feature.');
-                return;
-            }
-            
-            alert('AI would compress your case studies to 3 key bullets for the card view.');
-            
-            gtag('event', 'ai_case_study_click', {
-                event_category: 'onboarding',
-                event_label: 'compress_bullets'
-            });
-        }
+  <script>
+   /* ===== Portfolio Projects – Full JS (no HTML/CSS) ===== */
 
-        function skipPortfolio() {
-            document.querySelector('.progress-fill').style.width = '75%';
-            setTimeout(() => {
-                alert('Skipping portfolio. Moving to next step...');
-            }, 300);
-        }
+/* State */
+let projects = [];
+let projectIdCounter = 0;
+let editingId = null;
 
-        function goBack() {
-            alert('Going back to Experience...');
-        }
+/* DOM */
+const projectsList = document.getElementById('projectsList');
+const emptyState = document.getElementById('emptyState');
+const continueBtn = document.getElementById('continueBtn');
+const btnText = document.getElementById('btnText');
 
-        document.getElementById('portfolioForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            localStorage.setItem('onboarding_portfolio', JSON.stringify(projects));
-            
-            document.querySelector('.progress-fill').style.width = '75%';
-            
-            setTimeout(() => {
-                alert('Portfolio saved! Moving to next step...');
-            }, 500);
-        });
+/* Config */
+const TITLE_MAX = 80;
+const DESC_MAX = 280;
 
-        function gtag(action, event, params) {
-            console.log('Analytics:', action, event, params);
-        }
+/* Utils */
+const track = (name, data={}) => {
+  if (typeof gtag !== 'undefined') gtag('event', name, data);
+};
+const escapeHTML = s => (s || '').replace(/[&<>"']/g, m => ({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[m]));
+const normalizeURL = (url='') => {
+  const v = url.trim();
+  if (!v) return '';
+  if (/^https?:\/\//i.test(v)) return v;
+  return 'https://' + v.replace(/^\/+/, '');
+};
+const hostnameFrom = url => {
+  try { return new URL(normalizeURL(url)).hostname.replace(/^www\./,''); }
+  catch { return ''; }
+};
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            const saved = localStorage.getItem('onboarding_portfolio');
-            if (saved) {
-                projects = JSON.parse(saved);
-                renderProjects();
-            }
-        });
-    </script>
-</body>
-</html>
+/* Persistence */
+function saveToStorage(){
+  try {
+    const toSave = projects.filter(p => (p.title || p.description || p.link));
+    localStorage.setItem('onboarding_portfolio', JSON.stringify(toSave));
+  } catch(e){}
+}
+function loadFromStorage(){
+  try{
+    const raw = localStorage.getItem('onboarding_portfolio');
+    if (!raw) return;
+    const arr = JSON.parse(raw);
+    if (Array.isArray(arr)) {
+      projects = arr.map(p => ({
+        id: p.id || ++projectIdCounter,
+        title: p.title || '',
+        description: p.description || '',
+        link: p.link || ''
+      }));
+      projectIdCounter = projects.reduce((m,p)=>Math.max(m,p.id), projectIdCounter);
+    }
+  }catch(e){}
+}
+
+/* Rendering */
+function renderProjects(){
+  projectsList.innerHTML = '';
+  if (projects.length === 0){
+    emptyState.style.display = 'block';
+    projectsList.appendChild(emptyState);
+  } else {
+    emptyState.style.display = 'none';
+    projects.forEach(p => {
+      const html = (editingId === p.id) ? renderEditForm(p) : renderDisplayCard(p);
+      projectsList.insertAdjacentHTML('beforeend', html);
+    });
+  }
+  updateContinueState();
+}
+
+function renderDisplayCard(project){
+  const link = project.link ? normalizeURL(project.link) : '';
+  const hasLink = !!link;
+  return `
+    <div class="project-card display-card" id="proj-${project.id}">
+      <div class="card-actions">
+        <button type="button" class="card-edit" onclick="editProject(${project.id})" title="Edit project">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" class="card-remove" onclick="removeProject(${project.id})" title="Remove project">×</button>
+      </div>
+
+      <div class="card-header">
+        <h3 class="card-title">${escapeHTML(project.title) || 'Untitled project'}</h3>
+      </div>
+
+      ${project.description ? `<p class="card-description">${escapeHTML(project.description)}</p>` : ''}
+
+      <div class="card-footer">
+        ${hasLink ? `<a class="card-link" href="${link}" target="_blank" rel="noopener">View project →</a>`
+                   : `<span class="card-link" style="opacity:.6;pointer-events:none;">No link added</span>`}
+        ${hasLink ? `<span class="card-tech">${escapeHTML(hostnameFrom(link))}</span>` : `<span></span>`}
+      </div>
+    </div>
+  `;
+}
+
+function renderEditForm(project){
+  return `
+    <div class="project-card edit-card" id="proj-${project.id}">
+      <div class="form-header-actions">
+        <button type="button" class="save-btn" onclick="saveProject(${project.id})">✓ Save</button>
+        <button type="button" class="cancel-btn" onclick="cancelEdit(${project.id})">Cancel</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Project title <span class="required">*</span></label>
+        <input class="form-input"
+               maxlength="${TITLE_MAX}"
+               data-id="${project.id}" data-field="title"
+               value="${escapeHTML(project.title)}"
+               placeholder="e.g., Analytics Dashboard for E-commerce" />
+        <div class="char-count" id="ct-title-${project.id}">${(project.title||'').length}/${TITLE_MAX}</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Short description <span class="required">*</span></label>
+        <textarea class="form-textarea"
+                  maxlength="${DESC_MAX}"
+                  data-id="${project.id}" data-field="description"
+                  placeholder="What was the goal, what did you build, and what was the impact?">${escapeHTML(project.description)}</textarea>
+        <div class="char-count" id="ct-desc-${project.id}">${(project.description||'').length}/${DESC_MAX}</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Project link (optional)</label>
+        <input class="form-input"
+               data-id="${project.id}" data-field="link"
+               value="${escapeHTML(project.link)}"
+               placeholder="https://example.com/project" />
+      </div>
+    </div>
+  `;
+}
+
+/* CRUD */
+function addProject(){
+  const id = ++projectIdCounter;
+  projects.unshift({ id, title:'', description:'', link:'' });
+  editingId = id;
+  renderProjects();
+  setTimeout(() => {
+    const firstInput = document.querySelector(`#proj-${id} .form-input[data-field="title"]`);
+    if (firstInput) firstInput.focus();
+  }, 0);
+  track('portfolio_add_click');
+}
+
+function editProject(id){
+  editingId = id;
+  renderProjects();
+}
+
+function saveProject(id){
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+
+  if (!p.title.trim() || !p.description.trim()){
+    alert('Please fill in both title and description.');
+    return;
+  }
+  p.link = normalizeURL(p.link);
+  editingId = null;
+  saveToStorage();
+  renderProjects();
+  track('portfolio_save', { id });
+}
+
+function cancelEdit(id){
+  const p = projects.find(x => x.id === id);
+  if (p && !p.title && !p.description && !p.link){
+    removeProject(id);
+    return;
+  }
+  editingId = null;
+  renderProjects();
+}
+
+function removeProject(id){
+  projects = projects.filter(p => p.id !== id);
+  if (editingId === id) editingId = null;
+  saveToStorage();
+  renderProjects();
+  track('portfolio_remove', { id });
+}
+
+/* Form interactivity (delegated) */
+projectsList.addEventListener('input', (e) => {
+  const t = e.target;
+  if (!t.dataset || !t.dataset.field) return;
+  const id = parseInt(t.dataset.id, 10);
+  const field = t.dataset.field;
+  let value = t.value;
+
+  if (field === 'link') value = value.trim();
+  updateProject(id, field, value);
+
+  // live char counters
+  if (field === 'title'){
+    const el = document.getElementById(`ct-title-${id}`);
+    if (el) el.textContent = `${value.length}/${TITLE_MAX}`;
+  }
+  if (field === 'description'){
+    const el = document.getElementById(`ct-desc-${id}`);
+    if (el) el.textContent = `${value.length}/${DESC_MAX}`;
+  }
+  saveToStorage();
+});
+
+projectsList.addEventListener('blur', (e) => {
+  const t = e.target;
+  if (t.dataset?.field === 'link'){
+    const id = parseInt(t.dataset.id, 10);
+    const p = projects.find(x => x.id === id);
+    if (p){
+      p.link = normalizeURL(p.link);
+      t.value = p.link;
+      saveToStorage();
+    }
+  }
+}, true);
+
+projectsList.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's'){
+    e.preventDefault();
+    if (editingId != null) saveProject(editingId);
+  }
+});
+
+/* Update field programmatically */
+function updateProject(id, field, value){
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  p[field] = value;
+}
+
+/* AI helpers (simulated) */
+function generateFromURL(){
+  const btn = document.getElementById('generateBtn');
+  btn.disabled = true;
+  const prev = btn.innerHTML;
+  btn.innerHTML = '<span class="loading-spinner"></span> Fetching…';
+
+  const ensureEdit = () => {
+    if (editingId != null) return editingId;
+    if (projects.length === 0){ addProject(); return editingId; }
+    editingId = projects[0].id; renderProjects(); return editingId;
+  };
+
+  setTimeout(() => {
+    const id = ensureEdit();
+    const linkInput = document.querySelector(`#proj-${id} .form-input[data-field="link"]`);
+    let url = (linkInput && linkInput.value.trim()) || prompt('Paste a project URL to extract details:','https://');
+    if (!url){ btn.disabled = false; btn.innerHTML = prev; return; }
+
+    url = normalizeURL(url);
+    if (linkInput){ linkInput.value = url; }
+    updateProject(id, 'link', url);
+
+    const host = hostnameFrom(url) || 'your site';
+    const baseTitle = host.split('.')[0].replace(/[-_]/g,' ').replace(/\b\w/g,m=>m.toUpperCase());
+    const p = projects.find(x => x.id === id);
+    if (p){
+      if (!p.title) p.title = `${baseTitle} – Project`;
+      if (!p.description) {
+        p.description = `Designed and built a responsive ${baseTitle.toLowerCase()} experience. Implemented optimized UI, analytics, and SEO, improving engagement by ~25%.`;
+      }
+    }
+    saveToStorage();
+    renderProjects();
+    btn.disabled = false;
+    btn.innerHTML = prev;
+    track('portfolio_ai_from_url');
+  }, 900);
+}
+
+function enhanceDescription(){
+  const btn = document.getElementById('enhanceBtn');
+  btn.disabled = true;
+  const prev = btn.innerHTML;
+  btn.innerHTML = '<span class="loading-spinner"></span> Enhancing…';
+
+  const id = editingId ?? (projects[0]?.id);
+  if (!id){ addProject(); btn.disabled = false; btn.innerHTML = prev; return; }
+
+  setTimeout(() => {
+    const p = projects.find(x => x.id === id);
+    const base = (p?.description || '').trim();
+    const improved = base
+      ? `${base.replace(/\.*\s*$/,'')}. Delivered measurable results: cut load time by 35%, increased conversions by 18%, and reduced support tickets by 22%.`
+      : `Led end-to-end delivery: scoped requirements, designed UI, built features, and shipped on time. Results: +18% conversions, −35% load time, A11y AA.`;
+    p.description = improved.slice(0, DESC_MAX);
+    saveToStorage();
+    renderProjects();
+    btn.disabled = false;
+    btn.innerHTML = prev;
+    track('portfolio_ai_enhance');
+  }, 800);
+}
+
+/* Skip / Nav / Continue */
+function skipPortfolio(){
+  track('portfolio_skip_click');
+  try { localStorage.setItem('onboarding_portfolio_skipped','1'); } catch(e){}
+  advanceToNextStep();
+}
+
+function goBack(){
+  track('portfolio_back_click');
+  alert('Going back to Experience…');
+  // window.location.href = '/onboarding/experience';
+}
+
+continueBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (editingId != null){
+    const ok = confirm('You have unsaved changes. Discard and continue?');
+    if (!ok) return;
+  }
+  saveToStorage();
+  advanceToNextStep();
+});
+
+function updateContinueState(){
+  continueBtn.disabled = (editingId != null);
+}
+
+/* Progress + Next step (mock) */
+function advanceToNextStep(){
+  const fill = document.querySelector('.progress-fill');
+  const stepText = document.getElementById('stepText');
+  if (fill) fill.style.width = '75%'; // step 6 of 8
+  if (stepText) stepText.textContent = 'Step 6 of 8';
+  btnText.innerHTML = '<span class="loading-spinner"></span>';
+  continueBtn.disabled = true;
+  setTimeout(() => {
+    alert('Saved! Moving to Education…');
+    // window.location.href = '/onboarding/education';
+  }, 700);
+}
+
+/* Init */
+document.addEventListener('DOMContentLoaded', () => {
+  loadFromStorage();
+  renderProjects();
+});
+</script>
+
+</body></html>

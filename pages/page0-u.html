@@ -1,0 +1,533 @@
+
+<!-- page 0 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Your Profile - ProMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root{
+      --primary: #0066CC;
+      --primary-hover: #0052A3;
+      --secondary: #F3F6FF;
+      --accent: #00A0DC;
+      --text-primary: #1D2129;
+      --text-secondary: #65676B;
+      --text-muted: #8A8D91;
+      --bg: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --border: #DADDE1;
+      --border-light: #E4E6EA;
+      --success: #42B883;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+      --gradient: linear-gradient(135deg, #0066CC 0%, #00A0DC 100%);
+      --gradient-light: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 160, 220, 0.08) 100%);
+    }
+
+    /* Reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6; font-size: 14px;
+      overflow-x: hidden;
+    }
+
+    /* Subtle animated background */
+    .bg-decoration {
+      position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    }
+    .floating-shape {
+      position: absolute; border-radius: 50%;
+      background: var(--gradient-light);
+      filter: blur(2px); opacity: .7; will-change: transform, opacity;
+      animation: float 10s ease-in-out infinite;
+    }
+    .floating-shape:nth-child(1){ width:120px; height:120px; top:18%; right:14%; animation-delay:0s; }
+    .floating-shape:nth-child(2){ width:80px; height:80px; bottom:22%; left:12%; animation-delay:2.2s; }
+    .floating-shape:nth-child(3){ width:48px; height:48px; top:72%; right:40%; animation-delay:4.4s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    /* Header */
+    .header {
+      background: rgba(255,255,255,.95);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px);
+    }
+    .header__inner {
+      max-width: 1200px; margin: 0 auto; padding: 12px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px;
+    }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
+    .logo-img img { height: 30px; width: auto; display: block; }
+    .logo:hover { transform: translateY(-1px); transition: transform .2s ease; }
+
+    .progress-container {
+      display:flex; flex-direction:column; align-items:flex-end; gap:6px; min-width:140px; font-weight: 500;
+      color: var(--text-secondary); font-size: 12px;
+    }
+    #stepText { white-space: nowrap; }
+    .progress-bar { width: 180px; height: 8px; background: var(--border-light); border-radius: 4px; overflow:hidden; }
+    .progress-fill { height:100%; width:0; background: var(--gradient); border-radius:4px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+
+    /* Main container */
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .main-card {
+      background: var(--bg); border-radius: 20px; border: 1px solid var(--border-light);
+   overflow: hidden; animation: slideUp .6s ease-out both;
+    }
+    @keyframes slideUp { from{opacity:0; transform:translateY(18px)} to{opacity:1; transform:none} }
+
+    /* Hero */
+    .hero { display:grid; grid-template-columns: 1fr 480px; min-height: 520px; }
+    .hero__content { padding: 48px; display:flex; flex-direction:column; justify-content:center; }
+    .status-badge {
+      display:inline-flex; align-items:center; gap:8px; background: var(--secondary); color: var(--primary);
+      padding:8px 16px; border-radius: 24px; font-size:12px; font-weight:700; width:fit-content;
+      border: 1px solid rgba(0,102,204,.15); margin-bottom: 20px;
+    }
+    .status-badge::before { content:''; width:8px; height:8px; background: var(--primary); border-radius:50%; animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+
+    .hero__title { font-size: 36px; font-weight: 800; letter-spacing:-.02em; line-height:1.25; margin-bottom: 12px; }
+    .hero__subtitle { font-size: 16px; color: var(--text-secondary); max-width: 480px; margin-bottom: 24px; }
+
+    .cta-buttons { display:flex; flex-wrap:wrap; gap: 12px; align-items:center; margin-bottom: 18px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding: 12px 20px; border-radius: 10px; font-weight: 700; font-size: 14px;
+      border: 1px solid transparent; cursor: pointer; text-decoration: none; transition: all .2s ease; font-family: inherit;
+    }
+    .btn--primary { background: var(--gradient); color:#fff; box-shadow: var(--shadow-sm); }
+    .btn--primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn--secondary { background: #fff; color: var(--text-primary); border-color: var(--border); }
+    .btn--secondary:hover { background: var(--bg-secondary); border-color: var(--primary); color: var(--primary); }
+
+    .link-secondary {
+      color: var(--text-muted); text-decoration:none; font-size:13px; font-weight:600; width: fit-content;
+      border-bottom: 1px dotted var(--text-muted);
+    }
+    .link-secondary:hover { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* CV Dropzone */
+    .dropzone {
+      margin-top: 16px; border: 2px dashed var(--border-light); border-radius: 14px; background: var(--bg-secondary);
+      padding: 16px; transition: all .2s ease;
+    }
+    .dropzone:hover { border-color: var(--primary); background: rgba(0,102,204,.06); }
+    .dropzone.dragover { border-color: var(--primary); background: rgba(0,102,204,.08); }
+    .dropzone__inner { display:flex; align-items:center; gap: 14px; }
+    .dz-icon { width:42px; height:42px; border-radius:10px; background: var(--gradient); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .dz-text { font-size: 13px; color: var(--text-secondary); }
+    .dz-text strong { color: var(--text-primary); }
+    .dz-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Visual */
+    .hero__visual { background: linear-gradient(135deg, #F8FAFF 0%, #EEF4FF 100%); position:relative; display:flex; align-items:center; justify-content:center; padding: 40px; }
+    .visual-container { position:relative; width: 100%; max-width: 360px; }
+    .profile-mockup { background:#fff; border-radius: 14px; padding: 22px; border:1px solid var(--border-light); box-shadow: var(--shadow-md); }
+    .mockup-header { display:flex; align-items:center; gap: 14px; margin-bottom: 14px; }
+    .avatar-placeholder {
+      width:60px; height:60px; border-radius:50%; background: var(--gradient); color:#fff; font-weight:800; display:flex; align-items:center; justify-content:center; font-size: 22px;
+      position:relative; isolation:isolate;
+    }
+    .avatar-placeholder::after {
+      content:''; position:absolute; inset:-6px; border-radius:inherit; background: radial-gradient(closest-side, rgba(0,160,220,.25), transparent);
+      z-index:-1; animation: halo 2.5s ease-in-out infinite;
+    }
+    @keyframes halo { 0%,100%{transform: scale(1)} 50%{transform: scale(1.06)} }
+
+    .mockup-info h3 { font-size:16px; font-weight:700; margin-bottom:2px; }
+    .mockup-info p { font-size:13px; color: var(--text-secondary); }
+    .mockup-stats { display:flex; gap: 18px; padding-top: 12px; border-top:1px solid var(--border-light); }
+    .stat { text-align:center; flex:1; }
+    .stat-number { font-size:18px; font-weight:800; color: var(--primary); }
+    .stat-label { font-size:11px; color: var(--text-muted); margin-top:2px; }
+
+    .floating-elements { position:absolute; inset:0; pointer-events:none; }
+    .floating-card {
+      position:absolute; background:#fff; border:1px solid var(--border-light); border-radius: 10px; padding: 10px 12px;
+      font-size:12px; font-weight:600; color: var(--text-primary); box-shadow: var(--shadow-sm);
+      animation: bob 6s ease-in-out infinite; transform: translateZ(0);
+    }
+    .floating-card:nth-child(1){ top:18%; right:-10%; animation-delay: 0s; }
+    .floating-card:nth-child(2){ bottom:26%; left:-14%; animation-delay: 1.6s; }
+    .floating-card:nth-child(3){ top:58%; right:-6%; animation-delay: 3.2s; }
+    @keyframes bob { 0%,100%{ transform: translateY(0)} 50%{ transform: translateY(-10px)} }
+
+    /* Steps nav */
+    .steps-nav { background:#fff; border-top:1px solid var(--border-light); padding: 22px 48px; }
+    .steps-header { font-size:12px; font-weight:800; color: var(--text-muted); text-transform:uppercase; letter-spacing:.5px; margin-bottom: 12px; }
+    .steps-list { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .step-item {
+      padding:8px 12px; background: var(--bg-secondary); border-radius: 20px; border:1px solid var(--border-light);
+      font-size:12px; font-weight:600; color: var(--text-secondary);
+    }
+    .step-item.active { background: var(--secondary); color: var(--primary); border-color: rgba(0,102,204,.25); }
+    .step-separator { color: var(--text-muted); font-size: 12px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; top: 20px; right: 20px; background: var(--text-primary); color:#fff; padding: 12px 16px; border-radius: 10px;
+      box-shadow: var(--shadow-lg); font-size:13px; font-weight:600; z-index: 9999; animation: toastIn .25s ease;
+    }
+    @keyframes toastIn { from{opacity:0; transform: translateY(-6px)} to{opacity:1; transform:none} }
+
+    /* A11y focus */
+    :focus-visible { outline: 3px solid rgba(0,102,204,.28); outline-offset: 2px; border-radius: 6px; }
+
+    /* Responsive */
+    @media (max-width: 968px){
+      .hero { grid-template-columns: 1fr; }
+      .hero__visual { order: -1; padding: 28px 22px; }
+      .hero__content { padding: 28px 22px; }
+      .steps-nav { padding: 20px 22px; }
+      .container { padding: 24px 16px; }
+      .hero__title { font-size: 30px; }
+      .progress-container { display:flex; visibility:visible; opacity:1; }
+    }
+    @media (max-width: 640px){
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; justify-content:center; }
+      .steps-list { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg-decoration" aria-hidden="true">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="logo" href="#">
+        <picture class="logo-img">
+          <source media="(max-width: 768px)" srcset="../logos/rm-bg/icon1.png">
+          <img src="../logos/rm-bg/logo1.png" alt="ProMatch Logo">
+        </picture>
+      </a>
+
+      <div class="progress-container" aria-live="polite">
+        <span id="stepText">Step 0 of 8</span>
+        <div class="progress-bar" aria-hidden="true">
+          <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <div class="main-card">
+      <section class="hero" aria-labelledby="title">
+        <div class="hero__content">
+          <div class="status-badge">AI-Powered Setup</div>
+
+          <h1 class="hero__title" id="title">Complete your professional profile</h1>
+          <p class="hero__subtitle">
+            Upload your CV or start fresh. Our AI drafts your profile, highlights, and portfolio —
+            while you keep full control of your story.
+          </p>
+
+          <div class="cta-buttons">
+            <button type="button" class="btn btn--primary" id="getStartedBtn">
+              Get started
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <button type="button" class="btn btn--secondary" id="uploadBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Upload CV
+            </button>
+          </div>
+
+          <!-- Dropzone -->
+          <div class="dropzone" id="dropzone" role="button" aria-label="Upload your CV by clicking or dragging a file here">
+            <div class="dropzone__inner">
+              <div class="dz-icon">CV</div>
+              <div>
+                <div class="dz-text"><strong>Drag & drop</strong> your CV here, or <strong>click to browse</strong></div>
+                <div class="dz-meta">PDF, DOC, or DOCX • up to 8 MB</div>
+              </div>
+            </div>
+          </div>
+
+          <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" hidden />
+
+          <a class="link-secondary" href="javascript:void(0)" id="resetLink">Or Skip It?</a>
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="visual-container">
+            <div class="profile-mockup">
+              <div class="mockup-header">
+                <div class="avatar-placeholder" id="avatarInitials">JD</div>
+                <div class="mockup-info">
+                  <h3 id="mockName">John Developer</h3>
+                  <p id="mockRole">Senior Full-Stack Engineer</p>
+                </div>
+              </div>
+              <div class="mockup-stats">
+                <div class="stat">
+                  <div class="stat-number" id="mockConnections">150+</div>
+                  <div class="stat-label">Connections</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-number" id="mockProjects">12</div>
+                  <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-number" id="mockRating">5★</div>
+                  <div class="stat-label">Rating</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="floating-elements">
+              <div class="floating-card">✨ Skills auto-detected</div>
+              <div class="floating-card">🏆 Top 5% match</div>
+              <div class="floating-card">📈 Profile boosted</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Steps -->
+      <nav class="steps-nav" aria-label="Onboarding steps">
+        <div class="steps-header">Your journey ahead</div>
+        <div class="steps-list">
+          <span class="step-item active">Personal Info</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Location</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Skills</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Experience</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Portfolio</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Education</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Preferences</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Launch</span>
+        </div>
+      </nav>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      "use strict";
+
+      // DOM refs
+      const fileInput      = document.getElementById('fileInput');
+      const uploadBtn      = document.getElementById('uploadBtn');
+      const dropzone       = document.getElementById('dropzone');
+      const getStartedBtn  = document.getElementById('getStartedBtn');
+      const resetLink      = document.getElementById('resetLink');
+      const progressFill   = document.getElementById('progressFill');
+      const stepText       = document.getElementById('stepText');
+      const avatarInitials = document.getElementById('avatarInitials');
+      const mockName       = document.getElementById('mockName');
+      const mockRole       = document.getElementById('mockRole');
+
+      const TOTAL_STEPS = 8;
+
+      function setProgress(step){
+        const pct = Math.max(0, Math.min(100, (step / TOTAL_STEPS) * 100));
+        progressFill.style.width = pct + '%';
+        stepText.textContent = `Step ${step} of ${TOTAL_STEPS}`;
+        try { localStorage.setItem('onboarding_step', String(step)); } catch {}
+      }
+
+      function loadProgress(){
+        try {
+          const s = parseInt(localStorage.getItem('onboarding_step') || '0', 10);
+          if (!Number.isNaN(s)) setProgress(s);
+          else setProgress(0);
+        } catch {
+          setProgress(0);
+        }
+      }
+
+      function toast(msg){
+        const t = document.createElement('div');
+        t.className = 'toast';
+        t.setAttribute('role','status');
+        t.setAttribute('aria-live','polite');
+        t.textContent = msg;
+        document.body.appendChild(t);
+        setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(-6px)'; setTimeout(() => t.remove(), 200); }, 2500);
+      }
+
+      // Simple CV extraction stub
+      function extractFromText(text){
+        const out = { name: '', role: '', skills: [] };
+        // Try name from lines
+        const lines = (text || '').split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+        if (lines[0] && lines[0].length < 64) out.name = lines[0].replace(/[^a-z\s\-'.]/ig,' ').replace(/\s{2,}/g,' ').trim();
+
+        // Guess role
+        const roles = ['Developer','Engineer','Designer','Product Manager','Data Scientist','Marketer','Analyst'];
+        const foundRole = roles.find(r => new RegExp(r, 'i').test(text));
+        out.role = foundRole ? foundRole : 'Professional';
+
+        // Grab some skills by keywords
+        const SKILL_LIB = ['JavaScript','TypeScript','React','Node.js','Vue','Angular','Next.js','Python','Django','Flask','Java','Spring','Go','Kotlin','Swift','Figma','SQL','NoSQL','AWS','GCP','Azure','Docker','Kubernetes','CI/CD','Tailwind','Redux'];
+        out.skills = SKILL_LIB.filter(s => new RegExp('\\b' + s.replace(/[.+]/g,'\\$&') + '\\b','i').test(text)).slice(0,10);
+
+        return out;
+      }
+
+      async function handleFile(file){
+        if(!file){ return; }
+        if(!/pdf|word|officedocument|text|plain/i.test(file.type) && !/\.(pdf|docx?|txt)$/i.test(file.name)){
+          toast('Please upload a PDF, DOC, DOCX, or TXT file.');
+          return;
+        }
+        if(file.size > 8 * 1024 * 1024){
+          toast('File is larger than 8MB. Try a smaller file.');
+          return;
+        }
+
+        // Read file (text best-effort)
+        let text = '';
+        try{
+          if(file.type.includes('text') || /\.txt$/i.test(file.name)){
+            text = await file.text();
+          } else {
+            // For PDFs/DOCs we can’t parse reliably here — use filename hints
+            text = file.name.replace(/\.(pdf|docx?|txt)$/i,'').replace(/[_\-]/g,' ');
+          }
+        } catch{}
+
+        const extracted = extractFromText(text);
+
+        // Save to onboarding storage (best-effort)
+        try {
+          const personal = JSON.parse(localStorage.getItem('onboarding_personal') || '{}');
+          // Name
+          if (extracted.name && !personal.firstName) {
+            const parts = extracted.name.split(' ');
+            personal.firstName = parts[0] || '';
+            personal.lastName  = parts.slice(1).join(' ') || '';
+          }
+          if (!personal.username && (personal.firstName || personal.lastName)) {
+            const uname = (personal.firstName + personal.lastName).toLowerCase().replace(/[^a-z0-9]/g,'');
+            personal.username = uname || 'username';
+          }
+          localStorage.setItem('onboarding_personal', JSON.stringify(personal));
+
+          // Role to experience headline (optional)
+          const experience = JSON.parse(localStorage.getItem('onboarding_experience') || '[]');
+          if (experience.length === 0 && extracted.role) {
+            experience.push({ id: 1, title: extracted.role, company: '', start: '', end: '', description: '' });
+            localStorage.setItem('onboarding_experience', JSON.stringify(experience));
+          }
+
+          // Skills
+          const skills = JSON.parse(localStorage.getItem('onboarding_skills') || '[]');
+          const skillSet = new Set(skills.map(s => s.name));
+          extracted.skills.forEach((s,i) => {
+            if(!skillSet.has(s)) skills.push({ id: Date.now()+i, name: s, level: 4 });
+          });
+          localStorage.setItem('onboarding_skills', JSON.stringify(skills));
+        } catch {}
+
+        // Reflect on mock
+        if (extracted.name){
+          mockName.textContent = extracted.name;
+          const initials = extracted.name.split(' ').map(n => n[0]).join('').slice(0,3).toUpperCase();
+          avatarInitials.textContent = initials || 'U';
+        }
+        if (extracted.role) mockRole.textContent = extracted.role;
+
+        toast('CV uploaded. Drafting your profile…');
+        setProgress(1); // Move to first step if not started
+      }
+
+      // Events
+      uploadBtn.addEventListener('click', () => fileInput.click());
+      fileInput.addEventListener('change', (e) => handleFile(e.target.files && e.target.files[0]));
+
+      // Dropzone drag & drop
+      ;['dragenter','dragover'].forEach(ev => {
+        dropzone.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.add('dragover'); });
+      });
+      ;['dragleave','drop'].forEach(ev => {
+        dropzone.addEventListener(ev, (e) => { e.preventDefault(); e.stopPropagation(); dropzone.classList.remove('dragover'); });
+      });
+      dropzone.addEventListener('click', () => fileInput.click());
+      dropzone.addEventListener('drop', (e) => {
+        const file = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+        if (file) handleFile(file);
+      });
+
+      // Start setup
+      getStartedBtn.addEventListener('click', () => {
+        setProgress(1);
+        toast('Let’s begin with your personal info');
+        setTimeout(() => {
+          // Real app:
+          window.location.href = '/onboarding/personal';
+        }, 500);
+      });
+
+      // Reset progress
+      resetLink.addEventListener('click', () => {
+        if (!confirm('Reset all onboarding data? This cannot be undone.')) return;
+        const keys = [
+          'onboarding_step','onboarding_personal','onboarding_location','onboarding_skills',
+          'onboarding_experience','onboarding_portfolio','onboarding_education','onboarding_preferences'
+        ];
+        try { keys.forEach(k => localStorage.removeItem(k)); } catch {}
+        setProgress(0);
+        mockName.textContent = 'John Developer';
+        avatarInitials.textContent = 'JD';
+        mockRole.textContent = 'Senior Full-Stack Engineer';
+        toast('Progress reset');
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.target && ['INPUT','TEXTAREA'].includes(e.target.tagName)) return;
+        if (e.key.toLowerCase() === 'g'){ getStartedBtn.click(); }
+        if (e.key.toLowerCase() === 'u'){ uploadBtn.click(); }
+      });
+
+      // Init from storage
+      document.addEventListener('DOMContentLoaded', () => {
+        loadProgress();
+        // Prefill mock with stored name if present
+        try {
+          const personal = JSON.parse(localStorage.getItem('onboarding_personal') || '{}');
+          const fullName = `${personal.firstName || ''} ${personal.lastName || ''}`.trim();
+          if (fullName){
+            mockName.textContent = fullName;
+            avatarInitials.textContent = fullName.split(' ').map(n => n[0]).join('').slice(0,3).toUpperCase();
+          }
+        } catch {}
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,793 +1,1047 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review & Publish - ProMatch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1351D8;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-muted: #64748B;
-            --border-light: #E2E8F0;
-            --success: #10B981;
-            --warning: #F59E0B;
-            --danger: #EF4444;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Review & Publish - ProMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root{
+      --primary: #0066CC;
+      --primary-hover: #0052A3;
+      --secondary: #F3F6FF;
+      --accent: #00A0DC;
+      --text-primary: #1D2129;
+      --text-secondary: #65676B;
+      --text-muted: #8A8D91;
+      --bg: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --border: #DADDE1;
+      --border-light: #E4E6EA;
+      --success: #42B883;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+      --gradient: linear-gradient(135deg, #0066CC 0%, #00A0DC 100%);
+      --gradient-light: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 160, 220, 0.1) 100%);
+      --gradient-success: linear-gradient(135deg, #42B883 0%, #34D399 100%);
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        .header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Animated Background */
+    .bg-decoration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gradient-light);
+      animation: float 8s ease-in-out infinite;
+    }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
+    .floating-shape:nth-child(1) {
+      width: 60px;
+      height: 60px;
+      top: 45%;
+      right: 22%;
+      animation-delay: 0s;
+    }
 
-        .progress-indicator {
-            padding: 8px 16px;
-            background: var(--success);
-            color: white;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-        }
+    .floating-shape:nth-child(2) {
+      width: 45px;
+      height: 45px;
+      bottom: 55%;
+      left: 20%;
+      animation-delay: 3s;
+    }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
+    .floating-shape:nth-child(3) {
+      width: 30px;
+      height: 30px;
+      top: 85%;
+      right: 55%;
+      animation-delay: 6s;
+    }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            width: 100%;
-            transition: width 0.3s ease;
-        }
+    /* Success Confetti */
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      animation: confetti-fall 3s ease-in-out infinite;
+    }
 
-        .main-card {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-            padding: 40px;
-        }
+    .confetti:nth-child(even) {
+      background: var(--success);
+      animation-delay: 0.5s;
+    }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    .confetti:nth-child(3n) {
+      background: var(--accent);
+      animation-delay: 1s;
+    }
 
-        .step-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: var(--success);
-            color: white;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      25% { transform: translateY(-4px) rotate(90deg); opacity: 0.5; }
+      50% { transform: translateY(-2px) rotate(180deg); opacity: 0.3; }
+      75% { transform: translateY(-6px) rotate(270deg); opacity: 0.4; }
+    }
 
-        .card-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+    @keyframes confetti-fall {
+      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
 
-        .card-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
 
-        .validation-section {
-            background: #fef3c7;
-            border: 1px solid var(--warning);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-            display: none;
-        }
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .validation-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--warning);
-            margin-bottom: 12px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
 
-        .validation-list {
-            list-style: none;
-        }
+    .brand__mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
 
-        .validation-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
+    .brand__mark:hover {
+      transform: scale(1.05);
+    }
 
-        .validation-item.complete {
-            color: var(--success);
-        }
+    .progress-container {
+      background: var(--gradient-success);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-        .validation-item.incomplete {
-            color: var(--danger);
-        }
+    .progress-container::before {
+      content: '✓';
+      font-size: 14px;
+    }
 
-        .profile-preview {
-            border: 2px solid var(--border-light);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-        }
+    /* Main Container */
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        .profile-header {
-            margin-bottom: 24px;
-        }
+    .main-card {
+      background: var(--bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      animation: slideUp 0.8s ease-out;
+    }
 
-        .profile-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .profile-location {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
+    /* Header Section */
+    .form-header {
+      text-align: center;
+      padding: 48px 48px 32px;
+      background: linear-gradient(135deg, rgba(66, 184, 131, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
+      border-bottom: 1px solid var(--border-light);
+    }
 
-        .profile-bio {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 16px;
-        }
+    .step-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gradient-success);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: pulse 2s ease-in-out infinite;
+    }
 
-        .profile-url {
-            background: var(--bg-secondary);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
+    .step-indicator::before {
+      content: '🎉';
+      font-size: 14px;
+    }
 
-        .skills-section {
-            margin-bottom: 20px;
-        }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
 
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
+    .form-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
+    .form-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+    }
 
-        .skill-chip {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 13px;
-        }
+    /* Form Section */
+    .form-content {
+      padding: 48px;
+    }
 
-        .skill-level {
-            background: var(--primary);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 11px;
-        }
+    /* Profile Preview */
+    .profile-preview {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border-light);
+      animation: profileAppear 1s ease-out 0.3s both;
+    }
 
-        .section-preview {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-light);
-        }
+    @keyframes profileAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .section-preview:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
 
-        .section-content {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.5;
-        }
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0 auto 16px;
+    }
 
-        .visibility-section {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
+    .profile-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
 
-        .switch-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .profile-location {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
 
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
+    .profile-url {
+      background: var(--bg);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+    }
 
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
+    /* Skills Preview */
+    .skills-preview {
+      margin-bottom: 24px;
+    }
 
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
+    .preview-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
 
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-        input:checked + .slider {
-            background-color: var(--success);
-        }
+    .skill-chip {
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        }
+    .skill-level {
+      background: var(--primary);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
 
-        .ai-section {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
+    /* Stats */
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
 
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+    .stat-item {
+      text-align: center;
+      padding: 16px 12px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+    }
 
-        .ai-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--gradient-primary);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
+    .stat-number {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
 
-        .btn-ai {
-            padding: 10px 16px;
-            background: var(--bg-primary);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
 
-        .btn-ai:hover {
-            background: var(--primary);
-            color: white;
-        }
+    /* Visibility Toggle */
+    .visibility-section {
+      background: var(--secondary);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: space-between;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-light);
-        }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
+    .toggle-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
 
-        .btn-back {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border-color: var(--border-light);
-        }
+    .toggle-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
 
-        .btn-publish {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
-            min-width: 160px;
-        }
+    /* Switch Component */
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 24px;
+    }
 
-        .btn-publish:hover {
-            transform: translateY(-2px);
-        }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
 
-        .btn-publish:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--border);
+      transition: 0.3s;
+      border-radius: 24px;
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
 
-            .main-card {
-                padding: 24px;
-            }
+    input:checked + .slider {
+      background: var(--gradient-success);
+    }
 
-            .card-title {
-                font-size: 24px;
-            }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
 
-            .action-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
+    /* AI Helper */
+    .ai-helper {
+      background: var(--secondary);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
 
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
 
-        .spinner {
-            width: 16px;
-            height: 16px;
-            border: 2px solid transparent;
-            border-top: 2px solid currentColor;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+    .ai-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+    }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-    </style>
+    .ai-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .ai-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .ai-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ai-button {
+      background: var(--bg);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ai-button:hover:not(:disabled) {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-1px);
+    }
+
+    .ai-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Action Buttons */
+    .form-actions {
+      padding: 32px 48px;
+      background: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      min-height: 52px;
+    }
+
+    .btn-back {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-back:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-publish {
+      background: var(--gradient-success);
+      color: white;
+      box-shadow: var(--shadow-md);
+      min-width: 200px;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-publish:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-publish:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-publish::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-publish:hover::after {
+      left: 100%;
+    }
+
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success Animation */
+    .success-checkmark {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--gradient-success);
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: checkmarkPop 0.5s ease-out;
+    }
+
+    @keyframes checkmarkPop {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .form-header {
+        padding: 32px 24px;
+      }
+
+      .form-content {
+        padding: 32px 24px;
+      }
+
+      .form-actions {
+        padding: 24px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-title {
+        font-size: 28px;
+      }
+
+      .profile-stats {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .ai-buttons {
+        flex-direction: column;
+      }
+
+      .floating-shape {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-card {
+        border-radius: 16px;
+        margin: 0 -8px;
+      }
+
+      .form-header {
+        padding: 24px 20px;
+      }
+
+      .form-content {
+        padding: 24px 20px;
+      }
+
+      .form-actions {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <div class="logo-icon">P</div>
-                ProMatch
-            </a>
-            <div class="progress-indicator">Step 8 of 8 - Complete!</div>
-        </div>
-    </header>
+  <!-- Animated Background -->
+  <div class="bg-decoration">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
 
-    <div class="container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-
-        <div class="main-card">
-            <div class="card-header">
-                <div class="step-badge">Review & Publish</div>
-                <h1 class="card-title">Your profile is ready!</h1>
-                <p class="card-subtitle">Review everything and publish your professional profile</p>
-            </div>
-
-            <!-- Validation Section -->
-            <div class="validation-section" id="validationSection">
-                <div class="validation-title">Complete these items to publish:</div>
-                <ul class="validation-list" id="validationList"></ul>
-            </div>
-
-            <!-- Profile Preview -->
-            <div class="profile-preview">
-                <div class="profile-header">
-                    <div class="profile-name" id="profileName">John Doe</div>
-                    <div class="profile-location" id="profileLocation">Karachi, Pakistan</div>
-                    <div class="profile-bio" id="profileBio">Full-Stack Developer with 5+ years of experience...</div>
-                    <div class="profile-url" id="profileUrl">promatch.com/johndoe</div>
-                </div>
-
-                <!-- Skills -->
-                <div class="skills-section">
-                    <div class="section-title">Skills & Expertise</div>
-                    <div class="skills-grid" id="skillsPreview"></div>
-                </div>
-
-                <!-- Experience -->
-                <div class="section-preview" id="experienceSection">
-                    <div class="section-title">Experience</div>
-                    <div class="section-content" id="experiencePreview">
-                        No experience added yet
-                    </div>
-                </div>
-
-                <!-- Portfolio -->
-                <div class="section-preview" id="portfolioSection">
-                    <div class="section-title">Portfolio</div>
-                    <div class="section-content" id="portfolioPreview">
-                        No projects added yet
-                    </div>
-                </div>
-
-                <!-- Education -->
-                <div class="section-preview" id="educationSection">
-                    <div class="section-title">Education</div>
-                    <div class="section-content" id="educationPreview">
-                        No education added yet
-                    </div>
-                </div>
-
-                <!-- Languages -->
-                <div class="section-preview" id="languagesSection">
-                    <div class="section-title">Languages</div>
-                    <div class="section-content" id="languagesPreview">
-                        No languages added yet
-                    </div>
-                </div>
-            </div>
-
-            <!-- Visibility Toggle -->
-            <div class="visibility-section">
-                <div class="switch-container">
-                    <div>
-                        <div style="font-weight: 600; margin-bottom: 4px;">Make my profile public</div>
-                        <div style="font-size: 13px; color: var(--text-secondary);">Your profile will be visible to clients and searchable</div>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox" id="makePublic" checked>
-                        <span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-
-            <!-- AI Polish Section -->
-            <div class="ai-section">
-                <div class="ai-header">
-                    <div class="ai-icon">✨</div>
-                    <span style="font-weight: 600; font-size: 14px;">AI Profile Polish</span>
-                </div>
-                <button type="button" class="btn-ai" onclick="polishCopy('professional')">Make it Professional</button>
-                <button type="button" class="btn-ai" onclick="polishCopy('friendly')">Make it Friendly</button>
-                <button type="button" class="btn-ai" onclick="polishCopy('concise')">Make it Concise</button>
-                <button type="button" class="btn-ai" onclick="generateOGImage()">Generate sharing image</button>
-            </div>
-
-            <div class="action-buttons">
-                <a href="#" class="btn btn-back" onclick="goBack()">
-                    <span>←</span> Edit Preferences
-                </a>
-                <button class="btn btn-publish" id="publishBtn" onclick="publishProfile()">
-                    <span>Publish Profile</span>
-                    <span>🚀</span>
-                </button>
-            </div>
-        </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="brand" href="#">
+        <div class="brand__mark">P</div>
+        <span>ProMatch</span>
+      </a>
+      
+      <div class="progress-container">
+        Complete!
+      </div>
     </div>
+  </header>
 
-    <script>
-        let profileData = {};
-        let validationPassed = false;
+  <!-- Main -->
+  <div class="container">
+    <div class="main-card">
+      <!-- Header -->
+      <div class="form-header">
+        <div class="step-indicator">
+          Review & Publish
+        </div>
+        <h1 class="form-title">Your profile looks amazing!</h1>
+        <p class="form-subtitle">
+          Review everything one last time and publish your professional profile
+        </p>
+      </div>
 
-        function loadProfileData() {
-            const personal = JSON.parse(localStorage.getItem('onboarding_personal') || '{}');
-            const location = JSON.parse(localStorage.getItem('onboarding_location') || '{}');
-            const skills = JSON.parse(localStorage.getItem('onboarding_skills') || '[]');
-            const experience = JSON.parse(localStorage.getItem('onboarding_experience') || '[]');
-            const portfolio = JSON.parse(localStorage.getItem('onboarding_portfolio') || '[]');
-            const education = JSON.parse(localStorage.getItem('onboarding_education') || '[]');
-            const languages = JSON.parse(localStorage.getItem('onboarding_languages') || '[]');
-            const preferences = JSON.parse(localStorage.getItem('onboarding_preferences') || '{}');
+      <!-- Form -->
+      <div class="form-content">
+        <!-- Profile Preview -->
+        <div class="profile-preview">
+          <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">JD</div>
+            <div class="profile-name" id="profileName">John Doe</div>
+            <div class="profile-location" id="profileLocation">Karachi, Pakistan</div>
+            <div class="profile-url" id="profileUrl">promatch.com/johndoe</div>
+          </div>
 
-            profileData = {
-                personal,
-                location,
-                skills,
-                experience,
-                portfolio,
-                education,
-                languages,
-                preferences
-            };
+          <!-- Stats -->
+          <div class="profile-stats">
+            <div class="stat-item">
+              <div class="stat-number" id="skillsCount">5</div>
+              <div class="stat-label">Skills</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="experienceCount">2</div>
+              <div class="stat-label">Experience</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number" id="projectsCount">1</div>
+              <div class="stat-label">Projects</div>
+            </div>
+          </div>
 
-            return profileData;
-        }
+          <!-- Skills Preview -->
+          <div class="skills-preview">
+            <div class="preview-title">Top Skills</div>
+            <div class="skills-grid" id="skillsGrid"></div>
+          </div>
+        </div>
 
-        function validateProfile() {
-            const data = loadProfileData();
-            const issues = [];
+        <!-- Visibility Toggle -->
+        <div class="visibility-section">
+          <div class="toggle-row">
+            <div class="toggle-info">
+              <h3>Make profile public</h3>
+              <p>Your profile will be visible to clients and searchable</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="makePublic" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
 
-            // Required validations
-            if (!data.personal.firstName) issues.push({key: 'firstName', text: 'First name', page: 1});
-            if (!data.personal.lastName) issues.push({key: 'lastName', text: 'Last name', page: 1});
-            if (!data.personal.email) issues.push({key: 'email', text: 'Email address', page: 1});
-            if (!data.personal.username) issues.push({key: 'username', text: 'Username', page: 1});
-            if (!data.location.country) issues.push({key: 'country', text: 'Country', page: 2});
-            if (!data.location.city) issues.push({key: 'city', text: 'City', page: 2});
-            if (!data.skills || data.skills.length < 3) issues.push({key: 'skills', text: 'At least 3 skills', page: 3});
+        <!-- AI Helper -->
+        <div class="ai-helper">
+          <div class="ai-header">
+            <div class="ai-icon">✨</div>
+            <div>
+              <div class="ai-title">Final Polish</div>
+              <div class="ai-desc">Last-minute improvements with AI assistance</div>
+            </div>
+          </div>
+          <div class="ai-buttons">
+            <button type="button" class="ai-button" onclick="polishProfile()">
+              <span>🎯</span>
+              <span>Polish Copy</span>
+            </button>
+            <button type="button" class="ai-button" onclick="generateImage()">
+              <span>🖼️</span>
+              <span>Generate Image</span>
+            </button>
+            <button type="button" class="ai-button" onclick="optimizeProfile()">
+              <span>⚡</span>
+              <span>Optimize SEO</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-            const validationSection = document.getElementById('validationSection');
-            const validationList = document.getElementById('validationList');
-            const publishBtn = document.getElementById('publishBtn');
+      <!-- Actions -->
+      <div class="form-actions">
+        <a href="#" class="btn btn-back" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Edit Profile
+        </a>
+        
+        <button type="button" class="btn btn-publish" id="publishBtn" onclick="publishProfile()">
+          <span id="btnText">Publish Profile</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
 
-            if (issues.length > 0) {
-                validationSection.style.display = 'block';
-                validationList.innerHTML = '';
-                
-                issues.forEach(issue => {
-                    const li = document.createElement('li');
-                    li.className = 'validation-item incomplete';
-                    li.innerHTML = `<span>✗</span> <a href="#" onclick="goToPage(${issue.page})" style="color: var(--primary); text-decoration: none;">${issue.text}</a>`;
-                    validationList.appendChild(li);
-                });
-                
-                publishBtn.disabled = true;
-                validationPassed = false;
-            } else {
-                validationSection.style.display = 'none';
-                publishBtn.disabled = false;
-                validationPassed = true;
-            }
-        }
+  <script>
+    // Load and display profile data
+    function loadProfileData() {
+      const personal = JSON.parse(localStorage.getItem('onboarding_personal') || '{}');
+      const location = JSON.parse(localStorage.getItem('onboarding_location') || '{}');
+      const skills = JSON.parse(localStorage.getItem('onboarding_skills') || '[]');
+      const experience = JSON.parse(localStorage.getItem('onboarding_experience') || '[]');
+      const portfolio = JSON.parse(localStorage.getItem('onboarding_portfolio') || '[]');
 
-        function renderPreview() {
-            const data = profileData;
+      return { personal, location, skills, experience, portfolio };
+    }
 
-            // Profile Header
-            const fullName = `${data.personal.firstName || ''} ${data.personal.lastName || ''}`.trim();
-            document.getElementById('profileName').textContent = fullName || 'Your Name';
-            
-            const locationText = [data.location.city, data.location.country].filter(Boolean).join(', ');
-            document.getElementById('profileLocation').textContent = locationText || 'Your Location';
-            
-            document.getElementById('profileBio').textContent = data.personal.bio || 'Your professional bio will appear here';
-            document.getElementById('profileUrl').textContent = `promatch.com/${data.personal.username || 'username'}`;
+    function renderProfile() {
+      const data = loadProfileData();
 
-            // Skills
-            const skillsContainer = document.getElementById('skillsPreview');
-            skillsContainer.innerHTML = '';
-            
-            if (data.skills && data.skills.length > 0) {
-                data.skills.forEach(skill => {
-                    const chip = document.createElement('div');
-                    chip.className = 'skill-chip';
-                    chip.innerHTML = `
-                        <span>${skill.name}</span>
-                        <span class="skill-level">${skill.level}</span>
-                    `;
-                    skillsContainer.appendChild(chip);
-                });
-            } else {
-                skillsContainer.innerHTML = '<div style="color: var(--text-muted); font-size: 14px;">No skills added yet</div>';
-            }
+      // Profile header
+      const fullName = `${data.personal.firstName || ''} ${data.personal.lastName || ''}`.trim();
+      const initials = fullName.split(' ').map(n => n[0]).join('').toUpperCase() || 'U';
+      
+      document.getElementById('profileAvatar').textContent = initials;
+      document.getElementById('profileName').textContent = fullName || 'Your Name';
+      
+      const locationText = [data.location.city, data.location.country].filter(Boolean).join(', ');
+      document.getElementById('profileLocation').textContent = locationText || 'Your Location';
+      document.getElementById('profileUrl').textContent = `promatch.com/${data.personal.username || 'username'}`;
 
-            // Experience
-            const expPreview = document.getElementById('experiencePreview');
-            if (data.experience && data.experience.length > 0) {
-                const expText = data.experience.map(exp => 
-                    `${exp.title} at ${exp.company} (${exp.startYear || 'Start'} - ${exp.current ? 'Present' : exp.endYear || 'End'})`
-                ).join('<br>');
-                expPreview.innerHTML = expText;
-            } else {
-                expPreview.textContent = 'No experience added yet';
-            }
+      // Stats
+      document.getElementById('skillsCount').textContent = data.skills.length || 0;
+      document.getElementById('experienceCount').textContent = data.experience.length || 0;
+      document.getElementById('projectsCount').textContent = data.portfolio.length || 0;
 
-            // Portfolio
-            const portfolioPreview = document.getElementById('portfolioPreview');
-            if (data.portfolio && data.portfolio.length > 0) {
-                const projectText = data.portfolio.map(project => project.title).filter(Boolean).join(', ');
-                portfolioPreview.textContent = projectText || 'Portfolio projects added';
-            } else {
-                portfolioPreview.textContent = 'No projects added yet';
-            }
+      // Skills
+      const skillsGrid = document.getElementById('skillsGrid');
+      skillsGrid.innerHTML = '';
+      
+      const topSkills = data.skills.slice(0, 6);
+      topSkills.forEach(skill => {
+        const chip = document.createElement('div');
+        chip.className = 'skill-chip';
+        chip.innerHTML = `
+          <span>${skill.name}</span>
+          <span class="skill-level">${skill.level}</span>
+        `;
+        skillsGrid.appendChild(chip);
+      });
 
-            // Education
-            const eduPreview = document.getElementById('educationPreview');
-            if (data.education && data.education.length > 0) {
-                const eduText = data.education.map(edu => 
-                    `${edu.degree} from ${edu.school}`
-                ).filter(text => text.trim() !== 'from').join('<br>');
-                eduPreview.innerHTML = eduText || 'Education added';
-            } else {
-                eduPreview.textContent = 'No education added yet';
-            }
+      if (topSkills.length === 0) {
+        skillsGrid.innerHTML = '<div style="color: var(--text-muted); font-size: 13px;">No skills added</div>';
+      }
+    }
 
-            // Languages
-            const langPreview = document.getElementById('languagesPreview');
-            if (data.languages && data.languages.length > 0) {
-                const langText = data.languages.map(lang => `${lang.name} (${lang.level})`).join(', ');
-                langPreview.textContent = langText;
-            } else {
-                langPreview.textContent = 'No languages added yet';
-            }
-        }
+    // AI Functions
+    function polishProfile() {
+      const btn = event.target.closest('.ai-button');
+      const originalText = btn.innerHTML;
+      
+      btn.innerHTML = '<div class="loading-spinner"></div> Polishing...';
+      btn.disabled = true;
 
-        function polishCopy(style) {
-            const styleNames = {
-                'professional': 'Professional',
-                'friendly': 'Friendly', 
-                'concise': 'Concise'
-            };
-            
-            alert(`AI would polish your profile copy to make it more ${styleNames[style].toLowerCase()}. This would update your bio, experience bullets, and project descriptions.`);
-        }
+      setTimeout(() => {
+        showSuccess('Profile copy has been polished for maximum impact!');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 2000);
+    }
 
-        function generateOGImage() {
-            alert('AI would generate a custom sharing image with your name and top skills for better social media previews.');
-        }
+    function generateImage() {
+      const btn = event.target.closest('.ai-button');
+      const originalText = btn.innerHTML;
+      
+      btn.innerHTML = '<div class="loading-spinner"></div> Creating...';
+      btn.disabled = true;
 
-        function goToPage(pageNumber) {
-            const pageNames = {
-                1: 'Personal Information',
-                2: 'Location', 
-                3: 'Skills'
-            };
-            alert(`Would navigate back to ${pageNames[pageNumber]} to complete missing information.`);
-        }
+      setTimeout(() => {
+        showSuccess('Custom sharing image generated with your skills and branding!');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 2500);
+    }
 
-        function goBack() {
-            alert('Going back to Work Preferences...');
-        }
+    function optimizeProfile() {
+      const btn = event.target.closest('.ai-button');
+      const originalText = btn.innerHTML;
+      
+      btn.innerHTML = '<div class="loading-spinner"></div> Optimizing...';
+      btn.disabled = true;
 
-        function publishProfile() {
-            if (!validationPassed) {
-                alert('Please complete all required fields before publishing.');
-                return;
-            }
+      setTimeout(() => {
+        showSuccess('Profile optimized for search engines and discoverability!');
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1800);
+    }
 
-            const publishBtn = document.getElementById('publishBtn');
-            const makePublic = document.getElementById('makePublic').checked;
-            
-            publishBtn.innerHTML = '<div class="spinner"></div> Publishing...';
-            publishBtn.disabled = true;
+    // Publish profile
+    function publishProfile() {
+      const publishBtn = document.getElementById('publishBtn');
+      const btnText = document.getElementById('btnText');
+      const makePublic = document.getElementById('makePublic').checked;
 
-            // Analytics
-            gtag('event', 'publish_click', {
-                event_category: 'onboarding',
-                event_label: 'profile_publish_start'
-            });
+      btnText.innerHTML = '<div class="loading-spinner"></div>';
+      publishBtn.disabled = true;
 
-            // Simulate publishing process
-            setTimeout(() => {
-                // Final save
-                const completeProfile = {
-                    ...profileData,
-                    isPublic: makePublic,
-                    publishedAt: new Date().toISOString()
-                };
-                
-                localStorage.setItem('published_profile', JSON.stringify(completeProfile));
+      // Add confetti
+      createConfetti();
 
-                // Success analytics
-                gtag('event', 'publish_success', {
-                    event_category: 'onboarding',
-                    event_label: 'profile_published'
-                });
+      setTimeout(() => {
+        // Save published profile
+        const completeProfile = {
+          ...loadProfileData(),
+          isPublic: makePublic,
+          publishedAt: new Date().toISOString(),
+          profileUrl: `promatch.com/${loadProfileData().personal.username}`
+        };
+        
+        localStorage.setItem('published_profile', JSON.stringify(completeProfile));
 
-                // Redirect to success page
-                alert(`🎉 Profile published successfully!\n\nYour profile is now live at: promatch.com/${profileData.personal.username}\n\nBackground processes started:\n- Search indexing\n- OG image generation\n- Welcome email sent`);
-                
-            }, 2000);
-        }
+        // Success state
+        btnText.innerHTML = '<div class="success-checkmark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>';
+        
+        setTimeout(() => {
+          alert(`🎉 Congratulations!\n\nYour profile is now live at:\n${completeProfile.profileUrl}\n\n✅ Profile indexed for search\n✅ Welcome email sent\n✅ Ready to receive client inquiries\n\nWelcome to ProMatch!`);
+          // Real app: window.location.href = '/dashboard';
+        }, 1000);
+      }, 2000);
+    }
 
-        function gtag(action, event, params) {
-            console.log('Analytics:', action, event, params);
-        }
+    // Create confetti animation
+    function createConfetti() {
+      const colors = ['var(--primary)', 'var(--success)', 'var(--accent)'];
+      
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+          confetti.style.animationDelay = Math.random() * 2 + 's';
+          
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => confetti.remove(), 5000);
+        }, i * 100);
+      }
+    }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            gtag('event', 'review_view', {
-                event_category: 'onboarding',
-                event_label: 'step_8_view'
-            });
+    // Show success message
+    function showSuccess(message) {
+      const successDiv = document.createElement('div');
+      successDiv.style.cssText = `
+        position: fixed; top: 20px; right: 20px; background: var(--success);
+        color: white; padding: 16px 24px; border-radius: 12px; font-size: 14px;
+        font-weight: 600; z-index: 1000; max-width: 350px;
+        box-shadow: var(--shadow-lg); animation: slideIn 0.3s ease;
+      `;
+      successDiv.textContent = message;
+      
+      document.body.appendChild(successDiv);
+      
+      setTimeout(() => {
+        successDiv.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => successDiv.remove(), 300);
+      }, 3000);
+    }
 
-            loadProfileData();
-            validateProfile();
-            renderPreview();
-        });
-    </script>
+    // Back navigation
+    function goBack() {
+      alert('Going back to edit your preferences...');
+      // Real app: window.location.href = '/onboarding/preferences';
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      renderProfile();
+      
+      // Add entrance animations
+      setTimeout(() => {
+        document.querySelector('.profile-preview').style.animation = 'profileAppear 0.8s ease-out forwards';
+      }, 300);
+    });
+
+    // Add CSS animations for notifications
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>

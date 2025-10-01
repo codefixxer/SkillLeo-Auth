@@ -1,637 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Let's get your profile ready - ProMatch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1351D8;
-            --primary-light: #4F75FF;
-            --primary-dark: #0B3BA8;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --bg-tertiary: #F1F5F9;
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-muted: #64748B;
-            --border-light: #E2E8F0;
-            --border-default: #CBD5E1;
-            --success: #10B981;
-            --warning: #F59E0B;
-            --danger: #EF4444;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Complete Your Profile - ProMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root{
+      --primary: #0066CC;
+      --primary-hover: #0052A3;
+      --secondary: #F3F6FF;
+      --accent: #00A0DC;
+      --text-primary: #1D2129;
+      --text-secondary: #65676B;
+      --text-muted: #8A8D91;
+      --bg: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --border: #DADDE1;
+      --border-light: #E4E6EA;
+      --success: #42B883;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+      --gradient: linear-gradient(135deg, #0066CC 0%, #00A0DC 100%);
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            font-weight: 400;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        /* Header */
-        .header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 0;
-            margin-bottom: 40px;
-        }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      font-size: 14px;
+    }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Header */
+    .header {
+      background: var(--bg);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 18px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
 
-        .progress-indicator {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
+    .brand__mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      /* box-shadow: var(--shadow-sm); */
+    }
 
-        .progress-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--border-default);
-        }
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
 
-        .progress-dot.active {
-            background: var(--primary);
-        }
+    .progress-bar {
+      width: 160px;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
 
-        /* Main Content */
-        .main-card {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-            padding: 48px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      background: var(--gradient);
+      border-radius: 4px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .main-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 80%;
-            height: 200%;
-            background: radial-gradient(ellipse at center, rgba(19, 81, 216, 0.03) 0%, transparent 70%);
-            pointer-events: none;
-        }
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
 
-        .content {
-            position: relative;
-            z-index: 2;
-        }
+    .main-card {
+      background: var(--bg);
+      border-radius: 16px;
+      /* box-shadow: var(--shadow-md); */
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
 
-        .hero-section {
-            margin-bottom: 48px;
-        }
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      min-height: 500px;
+      /* padding: 0 3vw; */
+    }
 
-        .hero-title {
-            font-size: 42px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
+    .hero__content {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* padding: 0 3vw; */
+    }
 
-        .hero-subtitle {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 500px;
-            margin: 0 auto 32px;
-            line-height: 1.5;
-        }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      width: fit-content;
+      border: 1px solid rgba(0, 102, 204, 0.15);
+    }
 
-        .ai-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: rgba(79, 117, 255, 0.1);
-            color: var(--primary-light);
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 32px;
-        }
+    .status-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
 
-        /* Steps Section */
-        .steps-section {
-            margin-bottom: 48px;
-        }
+    .hero__title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-        .steps-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 24px;
-        }
+    .hero__subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 400px;
+    }
 
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
-        }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
 
-        .step-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            transition: all 0.2s ease;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
 
-        .step-item:hover {
-            background: rgba(19, 81, 216, 0.02);
-            border-color: var(--primary);
-        }
+    .btn--primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
 
-        .step-number {
-            width: 28px;
-            height: 28px;
-            background: var(--gradient-primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
+    .btn--primary:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
 
-        .step-name {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-primary);
-        }
+    .btn--secondary {
+      background: var(--bg);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
 
-        /* AI Features Card */
-        .ai-features-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-light);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 48px;
-            text-align: left;
-        }
+    .btn--secondary:hover {
+      background: var(--bg-secondary);
+      border-color: var(--primary);
+    }
 
-        .ai-card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+    .link-secondary {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      border-bottom: 1px dotted var(--text-muted);
+      transition: color 0.2s ease;
+    }
 
-        .ai-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
+    .link-secondary:hover {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
 
-        .ai-card-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+    /* Hero Visual */
+    .hero__visual {
+      background: linear-gradient(135deg, #F8FAFF 0%, #EEF4FF 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px;
+    }
 
-        .ai-features-list {
-            list-style: none;
-            margin-bottom: 20px;
-        }
+    .visual-container {
+      position: relative;
+      width: 100%;
+      max-width: 360px;
+    }
 
-        .ai-features-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 12px;
-            padding: 8px 0;
-        }
+    .profile-mockup {
+      background: white;
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      padding: 24px;
+      border: 1px solid var(--border-light);
+    }
 
-        .ai-features-list li::before {
-            content: '✓';
-            width: 20px;
-            height: 20px;
-            background: var(--success);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
 
-        .ai-disclaimer {
-            font-size: 12px;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-top: 16px;
-        }
+    .avatar-placeholder {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 24px;
+    }
 
-        /* Action Buttons */
-        .action-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+    .mockup-info h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 16px;
-            text-decoration: none;
-            cursor: pointer;
-            border: 2px solid transparent;
-            min-height: 52px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            min-width: 160px;
-        }
+    .mockup-info p {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
-        }
+    .mockup-stats {
+      display: flex;
+      gap: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-light);
+    }
 
-        .btn:hover::before {
-            left: 100%;
-        }
+    .stat {
+      text-align: center;
+      flex: 1;
+    }
 
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
+    .stat-number {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
 
-        .btn-secondary {
-            background: var(--bg-primary);
-            color: var(--text-secondary);
-            border: 2px solid var(--border-default);
-        }
+    .floating-elements {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
 
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-1px);
-        }
+    .floating-card {
+      position: absolute;
+      background: white;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: var(--shadow-md);
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border-light);
+      animation: float 6s ease-in-out infinite;
+    }
 
-        /* Progress Bar */
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
-            margin-bottom: 32px;
-            overflow: hidden;
-        }
+    .floating-card:nth-child(1) {
+      top: 20%;
+      right: -10%;
+      animation-delay: 0s;
+    }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
+    .floating-card:nth-child(2) {
+      bottom: 25%;
+      left: -15%;
+      animation-delay: 2s;
+    }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
+    .floating-card:nth-child(3) {
+      top: 60%;
+      right: -5%;
+      animation-delay: 4s;
+    }
 
-            .main-card {
-                padding: 32px 24px;
-            }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
 
-            .hero-title {
-                font-size: 32px;
-            }
+    /* Steps Navigation */
+    .steps-nav {
+      background: var(--bg);
+      border-top: 1px solid var(--border-light);
+      padding: 24px 48px;
+    }
 
-            .hero-subtitle {
-                font-size: 16px;
-            }
+    .steps-header {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-            .steps-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
+    .steps-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
 
-            .ai-features-card {
-                padding: 24px;
-            }
+    .step-item {
+      padding: 8px 12px;
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+      transition: all 0.2s ease;
+    }
 
-            .action-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
+    .step-item.active {
+      background: var(--secondary);
+      color: var(--primary);
+      border-color: rgba(0, 102, 204, 0.25);
+      font-weight: 600;
+    }
 
-            .btn {
-                width: 100%;
-                max-width: 280px;
-            }
+    .step-separator {
+      color: var(--text-muted);
+      font-size: 12px;
+      margin: 0 4px;
+    }
 
-            .header-content {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero__visual {
+        order: -1;
+        padding: 32px 24px;
+      }
+      
+      .hero__content {
+        padding: 32px 24px;
+      }
+      
+      .steps-nav {
+        padding: 20px 24px;
+      }
+      
+      .container {
+        padding: 24px 16px;
+      }
+      
+      .hero__title {
+        font-size: 28px;
+      }
+      
+      .progress-container {
+        display: none;
+      }
+    }
 
-            .progress-indicator {
-                order: -1;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 28px;
-            }
-
-            .step-item {
-                padding: 12px;
-            }
-
-            .step-name {
-                font-size: 13px;
-            }
-        }
-    </style>
+    @media (max-width: 640px) {
+      .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .btn {
+        justify-content: center;
+      }
+      
+      .steps-list {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <div class="logo-icon">P</div>
-                ProMatch
-            </a>
-            
-            <div class="progress-indicator">
-                <div class="progress-dot active"></div>
-                <span>Step 0 of 8</span>
-            </div>
+
+
+
+  <style>.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-img img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+/* Header layout fixes */
+.header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 16px; /* Add some padding */
+    min-height: 60px;
+}
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-width: 120px; /* Ensure minimum width */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+#stepText {
+    font-size: 12px;
+    white-space: nowrap; /* Prevent text wrapping */
+    margin-bottom: 4px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .header__inner {
+        padding: 0 12px;
+    }
+    
+    .progress-container {
+        min-width: 100px;
+    }
+    
+    #stepText {
+        font-size: 11px;
+    }
+
+    .container{padding: 0; border-radius: 0;}
+    .main-card {border-radius: 0;}
+}
+
+/* Tablet adjustments to ensure visibility at 968px */
+@media (max-width: 968px) {
+    .progress-container {
+        display: flex !important; /* Force display */
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+} 
+
+.floating-card2{margin-left: 10px;}
+</style>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="logo" href="#">
+        <picture class="logo-img">
+            <source media="(max-width: 768px)" srcset="../logos/rm-bg/icon1.png">
+            <img src="../logos/rm-bg/logo1.png" alt="ProMatch Logo">
+        </picture>
+    </a>
+      <div class="progress-container" aria-live="polite">
+        <span id="stepText">Step 0 of 8</span>
+        <div class="progress-bar" aria-hidden="true">
+          <div class="progress-fill" style="width:0%"></div>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="main-card">
-            <div class="content">
-                <!-- Progress Bar -->
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 0%"></div>
-                </div>
-
-                <!-- Hero Section -->
-                <div class="hero-section">
-                    <div class="ai-badge">
-                        <span>🤖</span>
-                        AI-Powered Setup
-                    </div>
-                    
-                    <h1 class="hero-title">Let's get your profile ready</h1>
-                    <p class="hero-subtitle">AI can draft your bio, skills and case studies from your CV. You control every word.</p>
-                </div>
-
-                <!-- Steps Section -->
-                <div class="steps-section">
-                    <h2 class="steps-title">Complete your profile in 8 simple steps</h2>
-                    
-                    <div class="steps-grid">
-                        <div class="step-item">
-                            <div class="step-number">1</div>
-                            <div class="step-name">Personal</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">2</div>
-                            <div class="step-name">Location</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">3</div>
-                            <div class="step-name">Skills</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">4</div>
-                            <div class="step-name">Experience</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">5</div>
-                            <div class="step-name">Portfolio</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">6</div>
-                            <div class="step-name">Education & Languages</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">7</div>
-                            <div class="step-name">Work Preferences</div>
-                        </div>
-                        <div class="step-item">
-                            <div class="step-number">8</div>
-                            <div class="step-name">Review & Publish</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI Features Card -->
-                <div class="ai-features-card">
-                    <div class="ai-card-header">
-                        <div class="ai-icon">🤖</div>
-                        <h3 class="ai-card-title">AI Profile Builder</h3>
-                    </div>
-                    
-                    <ul class="ai-features-list">
-                        <li>Generate professional bio from your background and skills</li>
-                        <li>Suggest relevant skills based on your experience</li>
-                        <li>Transform work responsibilities into impact-focused bullets</li>
-                    </ul>
-                    
-                    <div class="ai-disclaimer">
-                        * AI provides drafts only. You have full control to edit and customize every word.
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="startSetup()">
-                        Start Setup
-                    </button>
-                    <button class="btn btn-secondary" onclick="resetProgress()">
-                        Reset Progress
-                    </button>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <script>
-        function startSetup() {
-            // Log analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'onboarding_start', {
-                    event_category: 'onboarding',
-                    event_label: 'step_0_start'
-                });
-            }
-            
-            // Animate progress
-            const progressFill = document.querySelector('.progress-fill');
-            progressFill.style.width = '12.5%';
-            
-            // Simulate navigation to page 01
-            setTimeout(() => {
-                alert('Navigating to Step 1: Personal Information');
-                // In real app: window.location.href = '/onboarding/personal';
-            }, 300);
-        }
+  <!-- Main -->
+  <main class="container">
+    <div class="main-card">
+      <section class="hero">
+        <div class="hero__content">
+          <div class="status-badge">
+            AI-Powered Setup
+          </div>
+          
+          <h1 class="hero__title">Complete your professional profile</h1>
+          <p class="hero__subtitle">
+            Upload your CV or start fresh. Our AI intelligently builds your profile, 
+            highlights, and portfolio—while you maintain complete control over your story.
+          </p>
 
-        function resetProgress() {
-            // Log analytics
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'reset_progress', {
-                    event_category: 'onboarding',
-                    event_label: 'step_0_reset'
-                });
-            }
-            
-            // Clear any saved data
-            localStorage.removeItem('onboarding_progress');
-            sessionStorage.clear();
-            
-            // Reset progress bar
-            const progressFill = document.querySelector('.progress-fill');
-            progressFill.style.width = '0%';
-            
-            // Show confirmation
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = 'Progress Reset!';
-            btn.style.background = 'var(--success)';
-            
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.background = '';
-            }, 2000);
-        }
+          <div class="cta-buttons">
+            <button class="btn btn--primary" onclick="startSetup()">
+              Get started
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="btn btn--secondary" onclick="importCV()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Upload CV
+            </button>
+          </div>
+          
+          <a class="link-secondary" href="javascript:void(0)" onclick="resetProgress()">
+            Reset my progress
+          </a>
+        </div>
 
-        // Initialize page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add subtle animations
-            const cards = document.querySelectorAll('.step-item');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.4s ease';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-
-            // Check for any saved progress
-            const savedProgress = localStorage.getItem('onboarding_progress');
-            if (savedProgress) {
-                const resetBtn = document.querySelector('.btn-secondary');
-                resetBtn.style.display = 'inline-flex';
-            }
-        });
-
-        // Smooth hover effects
-        document.querySelectorAll('.step-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-            });
+        <div class="hero__visual" aria-hidden="true">
+          <div class="visual-container">
+            <div class="profile-mockup">
+              <div class="mockup-header">
+                <div class="avatar-placeholder">JD</div>
+                <div class="mockup-info">
+                  <h3>John Developer</h3>
+                  <p>Senior Full Stack Engineer</p>
+                </div>
+              </div>
+              <div class="mockup-stats">
+                <div class="stat">
+                  <div class="stat-number">150+</div>
+                  <div class="stat-label">Connections</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-number">12</div>
+                  <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat">
+                  <div class="stat-number">5★</div>
+                  <div class="stat-label">Rating</div>
+                </div>
+              </div>
+            </div>
             
-            item.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
-    </script>
+            <div class="floating-elements">
+              <div class="floating-card">✨ Skills auto-detected</div>
+              <div class="floating-card floating-card2">🏆 Top 5% match</div>
+              <div class="floating-card">📈 Profile boosted</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="steps-nav" role="navigation" aria-label="Onboarding steps">
+        <div class="steps-header">Your journey ahead</div>
+        <div class="steps-list">
+          <span class="step-item active">Personal Info</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Location</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Skills</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Experience</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Portfolio</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Education</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Preferences</span>
+          <span class="step-separator">•</span>
+          <span class="step-item">Launch</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
 </body>
 </html>

@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio Projects - ProMatch</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0066cc;
+        --primary-600: #0052a3;
+        --secondary: #f3f6ff;
+        --accent: #00a0dc;
+        --ink: #1d2129;
+        --ink-2: #334155;
+        --muted: #65676b;
+        --muted-2: #8a8d91;
+        --bg: #ffffff;
+        --bg-2: #f8f9fa;
+        --border: #e4e6ea;
+        --border-2: #dadde1;
+        --success: #42b883;
+        --warning: #f59e0b;
+        --danger: #ef4444;
+        --gradient: linear-gradient(135deg, #0066cc 0%, #00a0dc 100%);
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+        --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family: Inter, -apple-system, system-ui, Segoe UI, Roboto, Arial,
+          sans-serif;
+        color: var(--ink);
+        background: var(--bg-2);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        line-height: 1.6;
+        font-size: 14px;
+        overflow-x: hidden;
+      }
+      .header {
+        background: rgba(255, 255, 255, 0.96);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(10px);
+      }
+      .header__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: var(--ink);
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .brand__mark {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: var(--gradient);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow-sm);
+      }
+      .progress {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .progress__track {
+        width: 160px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--border);
+        overflow: hidden;
+      }
+      .progress__fill {
+        height: 100%;
+        width: 62.5%;
+        background: var(--gradient);
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 56px 20px;
+        min-height: calc(100vh - 80px);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .main-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+      }
+      .form-header {
+        padding: 42px 42px 26px;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 102, 204, 0.03) 0%,
+          rgba(0, 160, 220, 0.03) 100%
+        );
+        border-bottom: 1px solid var(--border);
+      }
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        border: 1px solid rgba(0, 102, 204, 0.15);
+        margin-bottom: 18px;
+      }
+      .title {
+        font-size: 32px;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        font-weight: 800;
+        margin-bottom: 8px;
+        color: var(--ink);
+      }
+      .subtitle {
+        font-size: 15px;
+        color: var(--muted);
+        max-width: 440px;
+        margin: 0 auto;
+      }
+      .form-content {
+        padding: 38px;
+      }
+      .skip {
+        background: var(--secondary);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px;
+        text-align: center;
+        margin-bottom: 24px;
+      }
+      .skip p {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .skip button {
+        background: #fff;
+        border: 1px solid var(--border-2);
+        color: var(--muted);
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .skip button:hover {
+        border-color: var(--primary);
+        color: var(--primary);
+        background: var(--secondary);
+      }
+      .empty {
+        border: 2px dashed var(--border);
+        border-radius: 16px;
+        padding: 56px 24px;
+        text-align: center;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+      .empty .ico {
+        font-size: 44px;
+        opacity: 0.6;
+        margin-bottom: 10px;
+      }
+      .empty h4 {
+        color: var(--ink);
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+      .projects-list {
+        display: block;
+      }
+      .project-card {
+        position: relative;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 22px;
+        margin-bottom: 14px;
+        transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+      }
+      .project-card.display:hover {
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+        border-color: var(--primary);
+      }
+      .project-card.dragging {
+        opacity: 0.85;
+        transform: scale(0.98);
+      }
+      .handle {
+        cursor: grab;
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        width: 22px;
+        height: 22px;
+        border-radius: 6px;
+        background: var(--secondary);
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--border);
+        color: var(--primary);
+      }
+      .handle:active {
+        cursor: grabbing;
+      }
+      .card-actions {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .icon-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--primary);
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+      }
+      .icon-btn:hover {
+        background: var(--primary);
+        color: #fff;
+      }
+      .icon-danger {
+        background: rgba(239, 68, 68, 0.08);
+        border-color: rgba(239, 68, 68, 0.2);
+        color: var(--danger);
+      }
+      .icon-danger:hover {
+        background: var(--danger);
+        color: #fff;
+      }
+      .cover {
+        width: 100%;
+        aspect-ratio: 16/9;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: linear-gradient(135deg, #eef4ff, #f7fafc);
+        object-fit: cover;
+        display: block;
+        margin: 6px 0 14px;
+      }
+      .card-head {
+        padding-left: 38px;
+        margin-top: 2px;
+      }
+      .card-title {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 4px;
+      }
+      .card-desc {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .card-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .link {
+        color: var(--primary);
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+      }
+      .link[aria-disabled="true"] {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+      .badge {
+        font-size: 11px;
+        color: var(--muted-2);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: #fff;
+      }
+      .edit {
+        border: 2px solid var(--primary);
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .label {
+        display: block;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--ink-2);
+        margin-bottom: 6px;
+      }
+      .input,
+      .textarea {
+        width: 100%;
+        border: 2px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+        font: inherit;
+        font-size: 15px;
+        padding: 12px 14px;
+        transition: 0.2s;
+      }
+      .textarea {
+        min-height: 88px;
+        resize: vertical;
+        line-height: 1.6;
+      }
+      .input:focus,
+      .textarea:focus {
+        outline: 0;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+      }
+      .char {
+        font-size: 12px;
+        text-align: right;
+        color: var(--muted-2);
+        margin-top: 4px;
+      }
+      .char.warn {
+        color: #d97706;
+      }
+      .char.danger {
+        color: #dc2626;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        min-height: 46px;
+        border: none;
+        border-radius: 12px;
+        padding: 0 16px;
+        background: var(--gradient);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+      }
+      .button:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+      .ghost {
+        background: #fff;
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      .actions {
+        padding: 26px 42px;
+        background: rgba(0, 0, 0, 0.02);
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+      }
+      .toast-wrap {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        z-index: 60;
+      }
+      .toast {
+        background: #111827;
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: var(--shadow-md);
+        padding: 12px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 260px;
+      }
+      .toast .t-actions {
+        margin-left: auto;
+        display: flex;
+        gap: 8px;
+      }
+      .toast button {
+        background: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .visually-hidden {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 70;
+      }
+      .modal.open {
+        display: flex;
+      }
+      .modal__dialog {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        box-shadow: var(--shadow-lg);
+        width: min(520px, 90vw);
+        padding: 20px;
+      }
+      .modal__title {
+        font-size: 18px;
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .modal__text {
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .modal__actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--secondary);
+        color: var(--primary);
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 102, 204, 0.15);
+      }
+      .unsaved {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #9ca3af;
+        font-weight: 700;
+      }
+      .unsaved .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #9ca3af;
+      }
+      .unsaved.is-dirty .dot {
+        background: #f59e0b;
+      }
+      .unsaved.is-dirty {
+        color: #f59e0b;
+      }
+      .add-btn {
+        width: 100%;
+        margin-top: 8px;
+      }
+      .ai {
+        background: var(--secondary);
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        padding: 20px;
+        margin: 20px 0;
+      }
+      .ai h4 {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 8px;
+      }
+      .ai p {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .ai .row {
+        margin-top: 10px;
+      }
+      .ficon {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        margin-right: 6px;
+        vertical-align: -3px;
+      }
+      @media (max-width: 760px) {
+        .form-header {
+          padding: 32px 20px;
+        }
+        .form-content {
+          padding: 24px 20px;
+        }
+        .actions {
+          padding: 20px;
+        }
+        .card-head {
+          padding-left: 0;
+        }
+        .handle {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__inner">
+        <a class="brand" href="#"
+          ><div class="brand__mark">P</div>
+          <span>ProMatch</span></a
+        >
+        <div class="progress" aria-live="polite">
+          <span id="stepText">Step 5 of 8</span>
+          <div class="progress__track" aria-hidden="true">
+            <div class="progress__fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <section class="main-card" role="region" aria-label="Portfolio projects">
+        <div class="form-header">
+          <span class="chip">🎨 Portfolio Projects</span>
+          <h1 class="title">Showcase your best work</h1>
+          <p class="subtitle">
+            Add projects that demonstrate your skills and expertise
+          </p>
+        </div>
+        <form class="form-content" id="portfolioForm" novalidate>
+          <div class="skip">
+            <p>Portfolio is optional but highly recommended</p>
+            <button type="button" id="skipBtn">Skip for now</button>
+          </div>
+          <div class="projects-list" id="projectsList">
+            <div class="empty" id="emptyState">
+              <div class="ico">🎯</div>
+              <h4>Add your first project</h4>
+              <div>Add projects that prove your impact</div>
+            </div>
+          </div>
+          <button type="button" class="button add-btn" id="addBtn">
+            ➕ Add Project
+          </button>
+          <div class="ai">
+            <h4>AI Project Assistant</h4>
+            <p>
+              Turn a link into a polished project or enhance your description
+            </p>
+            <div class="row">
+              <button type="button" class="button ghost" id="genBtn">
+                🔗 Generate from URL</button
+              ><button type="button" class="button ghost" id="enhanceBtn">
+                ✨ Enhance Description
+              </button>
+            </div>
+          </div>
+        </form>
+        <div class="actions">
+          <button type="button" class="button ghost" id="backBtn">
+            ← Back
+          </button>
+          <div class="unsaved" id="saveState">
+            <span class="dot"></span><span id="saveLabel">Saved</span>
+          </div>
+          <button type="button" class="button" id="continueBtn">
+            <span id="continueText">Continue →</span>
+          </button>
+        </div>
+      </section>
+    </main>
+    <div
+      class="toast-wrap"
+      id="toastWrap"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+    <div
+      class="modal"
+      id="mergeModal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="modal__dialog" role="document">
+        <div class="modal__title">Duplicate link detected</div>
+        <div class="modal__text">
+          This link matches an existing project. Merge details or keep both?
+        </div>
+        <div class="modal__actions">
+          <button class="button ghost" id="keepBothBtn">Keep both</button
+          ><button class="button" id="mergeBtn">Merge</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let projects = [];
+      let projectId = 0;
+      let editingId = null;
+      let lastDeleted = null;
+      let lastDeletedIndex = -1;
+      let dirty = false;
+      const TITLE_MAX = 80,
+        DESC_MAX = 280;
+      const list = document.getElementById("projectsList");
+      const empty = document.getElementById("emptyState");
+      const addBtn = document.getElementById("addBtn");
+      const continueBtn = document.getElementById("continueBtn");
+      const continueText = document.getElementById("continueText");
+      const saveState = document.getElementById("saveState");
+      const saveLabel = document.getElementById("saveLabel");
+      const toastWrap = document.getElementById("toastWrap");
+      const mergeModal = document.getElementById("mergeModal");
+      const keepBothBtn = document.getElementById("keepBothBtn");
+      const mergeBtn = document.getElementById("mergeBtn");
+      const genBtn = document.getElementById("genBtn");
+      const enhanceBtn = document.getElementById("enhanceBtn");
+      const progressFill = document.getElementById("progressFill");
+      const stepText = document.getElementById("stepText");
+      let pendingMerge = null;
+      const key = (k) => `promatch_portfolio_${k}`;
+      const escapeHTML = (s) =>
+        String(s || "").replace(
+          /[&<>"']/g,
+          (m) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            }[m])
+        );
+      const debounce = (fn, wait = 400) => {
+        let t;
+        return (...a) => {
+          clearTimeout(t);
+          t = setTimeout(() => fn(...a), wait);
+        };
+      };
+      const save = debounce(() => {
+        try {
+          localStorage.setItem(key("items"), JSON.stringify(projects));
+        } catch (e) {}
+        dirty = false;
+        saveState.classList.remove("is-dirty");
+        saveLabel.textContent = "Saved";
+      }, 600);
+      function load() {
+        try {
+          const raw = localStorage.getItem(key("items"));
+          if (!raw) return;
+          const arr = JSON.parse(raw) || [];
+          projects = arr.map((p) => ({ ...p, id: p.id || ++projectId }));
+          projectId = projects.reduce((m, p) => Math.max(m, p.id), 0);
+        } catch (e) {}
+      }
+      function normalizeURL(u = "") {
+        const v = u.trim();
+        if (!v) return "";
+        let s = v;
+        if (!/^https?:\/\//i.test(s)) s = "https://" + s.replace(/^\/+/, "");
+        try {
+          const url = new URL(s);
+          url.hash = "";
+          return url.toString();
+        } catch {
+          return v;
+        }
+      }
+      function eqURL(a, b) {
+        const u1 = normalizeURL(a)
+          .replace(/^https?:\/\/(www\.)?/i, "")
+          .replace(/\/$/, "");
+        const u2 = normalizeURL(b)
+          .replace(/^https?:\/\/(www\.)?/i, "")
+          .replace(/\/$/, "");
+        return u1 && u2 && u1 === u2;
+      }
+      function hostname(u) {
+        try {
+          return new URL(normalizeURL(u)).hostname.replace(/^www\./, "");
+        } catch {
+          return "";
+        }
+      }
+      function setDirty() {
+        dirty = true;
+        saveState.classList.add("is-dirty");
+        saveLabel.textContent = "Unsaved";
+        save();
+      }
+      function templateDisplay(p, i) {
+        const link = normalizeURL(p.link);
+        const has = !!link;
+        const host = hostname(link);
+        const fav = has
+          ? `<img class="ficon" src="${
+              new URL(link).origin
+            }/favicon.ico" onerror="this.style.display='none'">`
+          : "";
+        return `<div class="project-card display" data-id="${
+          p.id
+        }" data-index="${i}" draggable="true"><button class="handle" aria-label="Drag to reorder">⋮⋮</button><div class="card-actions"><button class="icon-btn" aria-label="Edit project" data-act="edit" data-id="${
+          p.id
+        }">✎</button><button class="icon-btn icon-danger" aria-label="Remove project" data-act="remove" data-id="${
+          p.id
+        }">✕</button></div>${
+          p.cover ? `<img class="cover" src="${p.cover}" alt="">` : ``
+        }<div class="card-head"><div class="card-title">${
+          escapeHTML(p.title) || "Untitled project"
+        }</div></div>${
+          p.description
+            ? `<div class="card-desc">${escapeHTML(p.description)}</div>`
+            : ""
+        }<div class="card-foot">${
+          has
+            ? `<a class="link" href="${link}" target="_blank" rel="noopener"><span>View project</span>→</a>`
+            : `<span class="link" aria-disabled="true">No link added</span>`
+        }${
+          has
+            ? `<span class="badge">${fav}${escapeHTML(host)}</span>`
+            : `<span></span>`
+        }</div></div>`;
+      }
+      function charClass(v, max) {
+        const r = v / max;
+        if (r >= 0.95) return "danger";
+        if (r >= 0.75) return "warn";
+        return "";
+      }
+      function templateEdit(p) {
+        return `<div class="project-card edit" id="edit-${
+          p.id
+        }"><div class="form-group"><input type="file" accept="image/*" class="visually-hidden" id="file-${
+          p.id
+        }" data-id="${
+          p.id
+        }" data-field="cover"><div class="row" style="justify-content:flex-end;gap:8px"><button class="icon-btn" data-act="pick" data-id="${
+          p.id
+        }" aria-label="Upload cover">🖼️</button>${
+          p.cover
+            ? `<button class="icon-btn icon-danger" data-act="clearCover" data-id="${p.id}" aria-label="Remove cover">✕</button>`
+            : ""
+        }</div>${
+          p.cover ? `<img class="cover" src="${p.cover}" alt="">` : ""
+        }</div><div class="form-group"><label class="label">Project title *</label><input class="input" maxlength="${TITLE_MAX}" data-id="${
+          p.id
+        }" data-field="title" value="${escapeHTML(
+          p.title
+        )}"><div class="char ${charClass(
+          (p.title || "").length,
+          TITLE_MAX
+        )}" id="ct-t-${p.id}">${
+          (p.title || "").length
+        }/${TITLE_MAX}</div></div><div class="form-group"><label class="label">Short description *</label><textarea class="textarea" maxlength="${DESC_MAX}" data-id="${
+          p.id
+        }" data-field="description">${escapeHTML(
+          p.description
+        )}</textarea><div class="char ${charClass(
+          (p.description || "").length,
+          DESC_MAX
+        )}" id="ct-d-${p.id}">${
+          (p.description || "").length
+        }/${DESC_MAX}</div></div><div class="form-group"><label class="label">Project link</label><input class="input" data-id="${
+          p.id
+        }" data-field="link" value="${escapeHTML(
+          p.link || ""
+        )}" placeholder="https://..."></div><div class="row" style="justify-content:flex-end;gap:8px"><button class="button ghost" data-act="cancel" data-id="${
+          p.id
+        }">Cancel</button><button class="button" data-act="save" data-id="${
+          p.id
+        }">Save</button></div></div>`;
+      }
+      function render() {
+        list.innerHTML = "";
+        if (projects.length === 0) {
+          empty.style.display = "block";
+          list.appendChild(empty);
+        } else {
+          empty.style.display = "none";
+          projects.forEach((p, i) => {
+            const html =
+              editingId === p.id ? templateEdit(p) : templateDisplay(p, i);
+            list.insertAdjacentHTML("beforeend", html);
+          });
+        }
+        updateContinue();
+      }
+      function updateContinue() {
+        continueBtn.disabled = editingId !== null;
+      }
+      function addProject() {
+        const id = ++projectId;
+        projects.unshift({
+          id,
+          title: "",
+          description: "",
+          link: "",
+          cover: "",
+        });
+        editingId = id;
+        render();
+        setTimeout(() => {
+          const el = document.querySelector(
+            `.project-card.edit .input[data-field="title"]`
+          );
+          if (el) el.focus();
+        }, 0);
+        setDirty();
+      }
+      function editProject(id) {
+        editingId = id;
+        render();
+        setTimeout(() => {
+          const el = document.querySelector(
+            `#edit-${id} .input[data-field="title"]`
+          );
+          el && el.focus();
+        }, 0);
+      }
+      function removeProject(id) {
+        const idx = projects.findIndex((p) => p.id === id);
+        if (idx < 0) return;
+        lastDeleted = projects[idx];
+        lastDeletedIndex = idx;
+        projects.splice(idx, 1);
+        render();
+        setDirty();
+        toast("Project removed", [
+          ["Undo", undoRemove],
+          ["Dismiss", null],
+        ]);
+      }
+      function undoRemove() {
+        if (lastDeleted) {
+          projects.splice(Math.max(0, lastDeletedIndex), 0, lastDeleted);
+          lastDeleted = null;
+          lastDeletedIndex = -1;
+          render();
+          setDirty();
+        }
+      }
+      function cancelEdit(id) {
+        const p = projects.find((x) => x.id === id);
+        if (p && !p.title && !p.description && !p.link && !p.cover) {
+          removeProject(id);
+        }
+        editingId = null;
+        render();
+      }
+      function saveProject(id) {
+        const p = projects.find((x) => x.id === id);
+        if (!p) return;
+        if (!p.title.trim() || !p.description.trim()) {
+          toast("Fill title and description");
+          return;
+        }
+        p.link = normalizeURL(p.link || "");
+        editingId = null;
+        render();
+        setDirty();
+      }
+      function setField(id, field, value) {
+        const p = projects.find((x) => x.id === id);
+        if (!p) return;
+        p[field] = value;
+        setDirty();
+        if (field === "title") {
+          const c = document.getElementById(`ct-t-${id}`);
+          if (c) c.textContent = `${value.length}/${TITLE_MAX}`;
+          if (c) c.className = `char ${charClass(value.length, TITLE_MAX)}`;
+        }
+        if (field === "description") {
+          const c = document.getElementById(`ct-d-${id}`);
+          if (c) c.textContent = `${value.length}/${DESC_MAX}`;
+          if (c) c.className = `char ${charClass(value.length, DESC_MAX)}`;
+        }
+      }
+      list.addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const act = b.dataset.act;
+        const id = parseInt(b.dataset.id, 10);
+        if (act === "edit") editProject(id);
+        if (act === "remove") removeProject(id);
+        if (act === "save") saveProject(id);
+        if (act === "cancel") cancelEdit(id);
+        if (act === "pick") {
+          const f = document.getElementById(`file-${id}`);
+          f && f.click();
+        }
+        if (act === "clearCover") {
+          setField(id, "cover", "");
+          editProject(id);
+        }
+      });
+      list.addEventListener("input", (e) => {
+        const t = e.target;
+        if (!t.dataset.field) return;
+        const id = parseInt(t.dataset.id, 10);
+        const field = t.dataset.field;
+        let v = t.value;
+        if (field === "link") v = v.trim();
+        setField(id, field, v);
+      });
+      list.addEventListener(
+        "blur",
+        (e) => {
+          const t = e.target;
+          if (t.dataset && t.dataset.field === "link") {
+            const id = parseInt(t.dataset.id, 10);
+            const p = projects.find((x) => x.id === id);
+            if (!p) return;
+            const url = normalizeURL(p.link || "");
+            if (!url) return;
+            p.link = url;
+            const dup = projects.find((x) => x.id !== id && eqURL(x.link, url));
+            if (dup) {
+              pendingMerge = { sourceId: id, targetId: dup.id };
+              openMerge();
+            } else {
+              unfurlInto(id, url);
+            }
+            setDirty();
+          }
+        },
+        true
+      );
+      function openMerge() {
+        mergeModal.classList.add("open");
+        mergeModal.setAttribute("aria-hidden", "false");
+        mergeBtn.focus();
+      }
+      function closeMerge() {
+        mergeModal.classList.remove("open");
+        mergeModal.setAttribute("aria-hidden", "true");
+      }
+      keepBothBtn.addEventListener("click", () => {
+        pendingMerge = null;
+        closeMerge();
+      });
+      mergeBtn.addEventListener("click", () => {
+        if (!pendingMerge) return;
+        const src = projects.find((p) => p.id === pendingMerge.sourceId);
+        const tgt = projects.find((p) => p.id === pendingMerge.targetId);
+        if (src && tgt) {
+          tgt.title = tgt.title || src.title;
+          tgt.description = tgt.description || src.description;
+          tgt.cover = tgt.cover || src.cover;
+          projects = projects.filter((p) => p.id !== src.id);
+          editingId = null;
+          render();
+          setDirty();
+          toast("Merged into existing project");
+        }
+        pendingMerge = null;
+        closeMerge();
+      });
+      mergeModal.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeMerge();
+      });
+      list.addEventListener("change", (e) => {
+        const f = e.target;
+        if (f.type === "file" && f.dataset.field === "cover") {
+          const id = parseInt(f.dataset.id, 10);
+          const file = f.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = () => {
+            setField(id, "cover", reader.result);
+            editProject(id);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+      let dragId = null;
+      let dragStartIndex = null;
+      list.addEventListener("dragstart", (e) => {
+        const card = e.target.closest(".project-card.display");
+        if (!card) return;
+        e.dataTransfer.effectAllowed = "move";
+        dragId = parseInt(card.dataset.id, 10);
+        dragStartIndex = parseInt(card.dataset.index, 10);
+        card.classList.add("dragging");
+      });
+      list.addEventListener("dragend", (e) => {
+        const card = e.target.closest(".project-card.display");
+        if (card) card.classList.remove("dragging");
+        dragId = null;
+        dragStartIndex = null;
+      });
+      list.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        const after = getAfterCard(e.clientY);
+        const dragging = list.querySelector(".project-card.display.dragging");
+        if (!dragging) return;
+        if (after == null) {
+          list.appendChild(dragging);
+        } else {
+          list.insertBefore(dragging, after);
+        }
+      });
+      list.addEventListener("drop", () => {
+        const ids = [...list.querySelectorAll(".project-card.display")].map(
+          (el) => parseInt(el.dataset.id, 10)
+        );
+        const newOrder = [];
+        ids.forEach((id) => {
+          const p = projects.find((x) => x.id === id);
+          if (p) newOrder.push(p);
+        });
+        if (newOrder.length === projects.length) {
+          projects = newOrder;
+          render();
+          setDirty();
+          toast("Order updated");
+        }
+      });
+      function getAfterCard(y) {
+        const els = [
+          ...list.querySelectorAll(".project-card.display:not(.dragging)"),
+        ];
+        return els.reduce(
+          (closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+              return { offset, element: child };
+            } else {
+              return closest;
+            }
+          },
+          { offset: Number.NEGATIVE_INFINITY }
+        ).element;
+      }
+      function toast(msg, actions = []) {
+        const el = document.createElement("div");
+        el.className = "toast";
+        const span = document.createElement("span");
+        span.textContent = msg;
+        el.appendChild(span);
+        const acts = document.createElement("div");
+        acts.className = "t-actions";
+        actions.forEach(([label, fn]) => {
+          const b = document.createElement("button");
+          b.textContent = label;
+          b.onclick = () => {
+            fn && fn();
+            el.remove();
+          };
+          acts.appendChild(b);
+        });
+        el.appendChild(acts);
+        toastWrap.appendChild(el);
+        setTimeout(() => {
+          el.style.opacity = "0";
+          setTimeout(() => el.remove(), 300);
+        }, 4000);
+      }
+      async function unfurlInto(id, url) {
+        try {
+          const res = await fetch(url, { mode: "cors" });
+          const text = await res.text();
+          const doc = new DOMParser().parseFromString(text, "text/html");
+          const ogTitle = doc.querySelector(
+            'meta[property="og:title"]'
+          )?.content;
+          const ogDesc = doc.querySelector(
+            'meta[property="og:description"]'
+          )?.content;
+          const title = ogTitle || doc.title || "";
+          const desc = ogDesc || "";
+          const p = projects.find((x) => x.id === id);
+          if (!p) return;
+          if (!p.title && title) {
+            p.title = title.slice(0, TITLE_MAX);
+          }
+          if (!p.description && desc) {
+            p.description = desc.slice(0, DESC_MAX);
+          }
+          setDirty();
+          render();
+        } catch {
+          const p = projects.find((x) => x.id === id);
+          if (!p) return;
+          const base = hostname(url) || "Project";
+          if (!p.title) p.title = `${base} – Project`;
+          if (!p.description)
+            p.description = `Designed and shipped a responsive ${base} experience with measurable impact.`;
+          setDirty();
+          render();
+        }
+      }
+      document.addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
+          e.preventDefault();
+          if (editingId != null) saveProject(editingId);
+        }
+        if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+          if (editingId != null) {
+            e.preventDefault();
+            saveProject(editingId);
+          }
+        }
+        if (e.key === "Escape" && editingId != null) {
+          e.preventDefault();
+          cancelEdit(editingId);
+        }
+      });
+      addBtn.addEventListener("click", addProject);
+      document
+        .getElementById("skipBtn")
+        .addEventListener("click", () => advance());
+      genBtn.addEventListener("click", () => {
+        if (editingId == null && projects.length === 0) addProject();
+        const id = editingId ?? projects[0].id;
+        const input = document.querySelector(
+          `#edit-${id} .input[data-field="link"]`
+        );
+        let v = (input && input.value.trim()) || "";
+        if (!v) {
+          v = prompt("Paste a project URL", "https://") || "";
+          if (input) input.value = v;
+        }
+        v = v.trim();
+        if (!v) return;
+        setField(id, "link", v);
+        unfurlInto(id, normalizeURL(v));
+      });
+      enhanceBtn.addEventListener("click", () => {
+        const id = editingId ?? projects[0]?.id;
+        if (!id) {
+          addProject();
+          return;
+        }
+        const p = projects.find((x) => x.id === id);
+        const base = (p?.description || "").trim();
+        const improved = base
+          ? `${base.replace(
+              /\.*\s*$/,
+              ""
+            )}. Delivered results: +18% conversions, −35% load time, WCAG AA.`
+          : `Led end-to-end delivery from scope to ship. Results: +18% conversions, −35% load time, WCAG AA.`;
+        p.description = improved.slice(0, DESC_MAX);
+        setDirty();
+        render();
+      });
+      continueBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        advance();
+      });
+      function advance() {
+        progressFill.style.width = "75%";
+        stepText.textContent = "Step 6 of 8";
+        continueBtn.disabled = true;
+        continueText.innerHTML = "Saving…";
+        setTimeout(() => {
+          continueText.innerHTML = "Continue →";
+          toast("Saved. Moving to Education…");
+        }, 900);
+      }
+      document.getElementById("backBtn").addEventListener("click", () => {
+        toast("Back to Experience");
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        load();
+        render();
+      });
+    </script>
+  </body>
+</html>

@@ -1,754 +1,1007 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Education & Languages - ProMatch</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1351D8;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --text-primary: #0F172A;
-            --text-secondary: #475569;
-            --text-muted: #64748B;
-            --border-light: #E2E8F0;
-            --success: #10B981;
-            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, #4F75FF 100%);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Education - ProMatch</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root{
+      --primary: #0066CC;
+      --primary-hover: #0052A3;
+      --secondary: #F3F6FF;
+      --accent: #00A0DC;
+      --text-primary: #1D2129;
+      --text-secondary: #65676B;
+      --text-muted: #8A8D91;
+      --bg: #FFFFFF;
+      --bg-secondary: #F8F9FA;
+      --border: #DADDE1;
+      --border-light: #E4E6EA;
+      --success: #42B883;
+      --danger: #EF4444;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.15);
+      --gradient: linear-gradient(135deg, #0066CC 0%, #00A0DC 100%);
+      --gradient-light: linear-gradient(135deg, rgba(0, 102, 204, 0.1) 0%, rgba(0, 160, 220, 0.1) 100%);
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            line-height: 1.6;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        .header {
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      font-size: 14px;
+      overflow-x: hidden;
+    }
 
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Animated Background */
+    .bg-decoration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--gradient-light);
+      animation: float 8s ease-in-out infinite;
+    }
 
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
+    .floating-shape:nth-child(1) {
+      width: 100px;
+      height: 100px;
+      top: 35%;
+      right: 18%;
+      animation-delay: 0s;
+    }
 
-        .progress-indicator {
-            padding: 8px 16px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
+    .floating-shape:nth-child(2) {
+      width: 70px;
+      height: 70px;
+      bottom: 45%;
+      left: 15%;
+      animation-delay: 3s;
+    }
 
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: var(--border-light);
-            border-radius: 3px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
+    .floating-shape:nth-child(3) {
+      width: 40px;
+      height: 40px;
+      top: 75%;
+      right: 45%;
+      animation-delay: 6s;
+    }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--gradient-primary);
-            width: 75%;
-            transition: width 0.3s ease;
-        }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.3; }
+      25% { transform: translateY(-6px) rotate(90deg); opacity: 0.5; }
+      50% { transform: translateY(-3px) rotate(180deg); opacity: 0.3; }
+      75% { transform: translateY(-9px) rotate(270deg); opacity: 0.4; }
+    }
 
-        .main-card {
-            background: var(--bg-primary);
-            border-radius: 20px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-lg);
-            padding: 40px;
-        }
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+    .header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .step-badge {
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(19, 81, 216, 0.1);
-            color: var(--primary);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 20px;
+    }
 
-        .card-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+    .brand__mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+    }
 
-        .card-subtitle {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
+    .brand__mark:hover {
+      transform: scale(1.05);
+    }
 
-        .section {
-            margin-bottom: 32px;
-        }
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text-primary);
-        }
+    .progress-bar {
+      width: 160px;
+      height: 8px;
+      background: var(--border-light);
+      border-radius: 4px;
+      overflow: hidden;
+    }
 
-        .education-container, .languages-container {
-            margin-bottom: 20px;
-        }
+    .progress-fill {
+      height: 100%;
+      width: 75%;
+      background: var(--gradient);
+      border-radius: 4px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        .empty-state {
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--text-muted);
-            font-size: 14px;
-            border: 2px dashed var(--border-light);
-            border-radius: 12px;
-        }
+    /* Main Container */
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
 
-        .education-card {
-            border: 2px solid var(--border-light);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            position: relative;
-        }
+    .main-card {
+      background: var(--bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      animation: slideUp 0.8s ease-out;
+    }
 
-        .remove-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #ef4444;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 12px;
-        }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .form-row {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
+    /* Header Section */
+    .form-header {
+      text-align: center;
+      padding: 48px 48px 32px;
+      background: linear-gradient(135deg, rgba(0, 102, 204, 0.03) 0%, rgba(0, 160, 220, 0.03) 100%);
+      border-bottom: 1px solid var(--border-light);
+    }
 
-        .form-group {
-            flex: 1;
-            margin-bottom: 16px;
-        }
+    .step-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      border: 1px solid rgba(0, 102, 204, 0.15);
+    }
 
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
+    .step-indicator::before {
+      content: '🎓';
+      font-size: 14px;
+    }
 
-        .form-input, .form-select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border-light);
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            transition: border-color 0.3s ease;
-        }
+    .form-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+      letter-spacing: -0.02em;
+    }
 
-        .form-input:focus, .form-select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
+    .form-subtitle {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+    }
 
-        .languages-input-section {
-            margin-bottom: 16px;
-        }
+    /* Form Section */
+    .form-content {
+      padding: 48px;
+    }
 
-        .language-input-row {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
+    /* Skip Section */
+    .skip-section {
+      background: var(--secondary);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
 
-        .language-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
+    .skip-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
 
-        .language-chip {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-secondary);
-            border: 2px solid var(--border-light);
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 13px;
-        }
+    .skip-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.2s ease;
+    }
 
-        .language-name {
-            font-weight: 500;
-        }
+    .skip-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--secondary);
+    }
 
-        .language-level {
-            background: var(--primary);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 11px;
-        }
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 32px;
+      border: 2px dashed var(--border-light);
+      border-radius: 16px;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+    }
 
-        .chip-remove {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #ef4444;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 10px;
-        }
+    .empty-state:hover {
+      border-color: var(--primary);
+      background: rgba(0, 102, 204, 0.02);
+    }
 
-        .ai-section {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: 0.6;
+    }
 
-        .ai-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
+    .empty-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
 
-        .ai-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--gradient-primary);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
+    .empty-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
-        .btn-ai {
-            padding: 10px 16px;
-            background: var(--bg-primary);
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
-        }
+    /* Education Cards */
+    .education-list {
+      margin-bottom: 32px;
+    }
 
-        .btn-ai:hover {
-            background: var(--primary);
-            color: white;
-        }
+    .education-card {
+      background: var(--bg);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 20px;
+      position: relative;
+      transition: all 0.3s ease;
+      animation: cardAppear 0.5s ease;
+    }
 
-        .btn-add {
-            width: 100%;
-            padding: 12px;
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 16px;
-            transition: transform 0.2s ease;
-        }
+    /* Display Card */
+    .display-card {
+      background: var(--bg-secondary);
+      padding: 24px;
+    }
 
-        .btn-add:hover {
-            transform: translateY(-1px);
-        }
+    .display-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: space-between;
-            padding-top: 24px;
-            border-top: 1px solid var(--border-light);
-        }
+    .card-actions {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
 
-        .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
+    .card-edit {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: var(--secondary);
+      color: var(--primary);
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
 
-        .btn-back {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border-color: var(--border-light);
-        }
+    .card-edit:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.05);
+    }
 
-        .btn-next {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: var(--shadow-md);
-        }
+    .card-remove {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
 
-        .btn-next:hover {
-            transform: translateY(-2px);
-        }
+    .card-remove:hover {
+      background: var(--danger);
+      color: white;
+      transform: scale(1.05);
+    }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 16px;
-            }
+    .card-header {
+      margin-right: 80px;
+    }
 
-            .main-card {
-                padding: 24px;
-            }
+    .card-school {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
 
-            .card-title {
-                font-size: 24px;
-            }
+    .card-degree {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
 
-            .form-row, .language-input-row {
-                flex-direction: column;
-                gap: 8px;
-            }
+    .card-grade {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
 
-            .action-buttons {
-                flex-direction: column;
-                gap: 12px;
-            }
+    /* Edit Form */
+    .edit-card {
+      border: 2px solid var(--primary);
+      background: var(--bg);
+    }
 
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-    </style>
+    .form-header-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .save-btn {
+      background: var(--success);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .save-btn:hover {
+      background: #0F9A6D;
+      transform: translateY(-1px);
+    }
+
+    .cancel-btn {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .cancel-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .required {
+      color: var(--primary);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--border-light);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      font-weight: 400;
+      background: var(--bg);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 48px;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-input:hover:not(:focus) {
+      border-color: var(--border);
+    }
+
+    /* Add Education Button */
+    .add-education-btn {
+      width: 100%;
+      padding: 16px 24px;
+      background: var(--gradient);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      transition: all 0.3s ease;
+    }
+
+    .add-education-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Action Buttons */
+    .form-actions {
+      padding: 32px 48px;
+      background: rgba(0, 0, 0, 0.02);
+      border-top: 1px solid var(--border-light);
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      font-family: inherit;
+      min-height: 52px;
+    }
+
+    .btn-back {
+      background: var(--bg);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-back:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: var(--shadow-md);
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 24px 16px;
+      }
+
+      .form-header {
+        padding: 32px 24px;
+      }
+
+      .form-content {
+        padding: 32px 24px;
+      }
+
+      .form-actions {
+        padding: 24px;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .form-title {
+        font-size: 28px;
+      }
+
+      .education-card {
+        padding: 24px;
+      }
+
+      .floating-shape {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-card {
+        border-radius: 16px;
+        margin: 0 -8px;
+      }
+
+      .form-header {
+        padding: 24px 20px;
+      }
+
+      .form-content {
+        padding: 24px 20px;
+      }
+
+      .form-actions {
+        padding: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <div class="logo-icon">P</div>
-                ProMatch
-            </a>
-            <div class="progress-indicator">Step 6 of 8</div>
+  <!-- Animated Background -->
+  <div class="bg-decoration">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner">
+      <a class="brand" href="#">
+        <div class="brand__mark">P</div>
+        <span>ProMatch</span>
+      </a>
+      
+      <div class="progress-container" aria-live="polite">
+        <span id="stepText">Step 6 of 8</span>
+        <div class="progress-bar" aria-hidden="true">
+          <div class="progress-fill"></div>
         </div>
-    </header>
-
-    <div class="container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
-
-        <div class="main-card">
-            <div class="card-header">
-                <div class="step-badge">Education & Languages</div>
-                <h1 class="card-title">Academic background</h1>
-                <p class="card-subtitle">Add your education and language skills for better profile visibility</p>
-            </div>
-
-            <form id="educationForm">
-                <!-- Education Section -->
-                <div class="section">
-                    <h2 class="section-title">Education</h2>
-                    
-                    <div class="education-container" id="educationContainer">
-                        <div class="empty-state" id="educationEmpty">
-                            Add your educational background to build credibility
-                        </div>
-                    </div>
-
-                    <button type="button" class="btn-add" onclick="addEducation()">+ Add Education</button>
-                </div>
-
-                <!-- Languages Section -->
-                <div class="section">
-                    <h2 class="section-title">Languages</h2>
-                    
-                    <div class="languages-input-section">
-                        <div class="language-input-row">
-                            <input type="text" class="form-input" id="languageInput" placeholder="Language name" style="flex: 2;">
-                            <select class="form-select" id="proficiencySelect" style="flex: 1;">
-                                <option value="">Proficiency</option>
-                                <option value="Basic">Basic</option>
-                                <option value="Conversational">Conversational</option>
-                                <option value="Fluent">Fluent</option>
-                                <option value="Native">Native</option>
-                            </select>
-                            <button type="button" class="btn-add" onclick="addLanguage()" style="width: auto; padding: 12px 16px; margin: 0;">Add</button>
-                        </div>
-                    </div>
-
-                    <div class="language-chips" id="languageChips"></div>
-                </div>
-
-                <!-- AI Section -->
-                <div class="ai-section">
-                    <div class="ai-header">
-                        <div class="ai-icon">🤖</div>
-                        <span style="font-weight: 600; font-size: 14px;">AI Helper</span>
-                    </div>
-                    <button type="button" class="btn-ai" onclick="normalizeDegrees()">Normalize degree names</button>
-                    <button type="button" class="btn-ai" onclick="suggestLanguages()">Suggest languages</button>
-                </div>
-
-                <div class="action-buttons">
-                    <a href="#" class="btn btn-back" onclick="goBack()">
-                        <span>←</span> Back
-                    </a>
-                    <button type="submit" class="btn btn-next">
-                        Continue <span>→</span>
-                    </button>
-                </div>
-            </form>
-        </div>
+      </div>
     </div>
+  </header>
 
-    <script>
-        let educations = [];
-        let languages = [];
-        let educationCounter = 0;
+  <!-- Main -->
+  <div class="container">
+    <div class="main-card">
+      <!-- Header -->
+      <div class="form-header">
+        <div class="step-indicator">
+          Education
+        </div>
+        <h1 class="form-title">Academic background</h1>
+        <p class="form-subtitle">
+          Add your educational qualifications to build credibility with clients
+        </p>
+      </div>
 
-        const currentYear = new Date().getFullYear();
-        const years = Array.from({length: 30}, (_, i) => currentYear - i);
+      <!-- Form -->
+      <form id="educationForm" class="form-content">
+        <!-- Skip Section -->
+        <div class="skip-section">
+          <div class="skip-text">Education is optional but helps build trust with clients</div>
+          <button type="button" class="skip-btn" onclick="skipEducation()">Skip for now</button>
+        </div>
 
-        function addEducation() {
-            educationCounter++;
-            const education = {
-                id: educationCounter,
-                school: '',
-                degree: '',
-                startYear: '',
-                endYear: ''
-            };
-            
-            educations.push(education);
+        <!-- Education List -->
+        <div class="education-list" id="educationList">
+          <div class="empty-state" id="emptyState">
+            <div class="empty-icon">📚</div>
+            <div class="empty-title">Add your education</div>
+            <div class="empty-subtitle">Start with your highest qualification</div>
+          </div>
+        </div>
+
+        <!-- Add Education Button -->
+        <button type="button" class="add-education-btn" onclick="addEducation()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Add Education
+        </button>
+      </form>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <a href="#" class="btn btn-back" onclick="goBack()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back
+        </a>
+        
+        <button type="submit" class="btn btn-primary" id="continueBtn">
+          <span id="btnText">Continue</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Education management
+    let educations = [];
+    let educationIdCounter = 0;
+    let editingId = null;
+
+    // DOM elements
+    const educationList = document.getElementById('educationList');
+    const emptyState = document.getElementById('emptyState');
+    const continueBtn = document.getElementById('continueBtn');
+    const btnText = document.getElementById('btnText');
+
+    // Add education
+    function addEducation() {
+      const id = ++educationIdCounter;
+      const education = {
+        id: id,
+        school: '',
+        degree: '',
+        grade: ''
+      };
+
+      educations.unshift(education);
+      editingId = id;
+      renderEducations();
+
+      // Focus first input
+      setTimeout(() => {
+        const firstInput = document.querySelector(`#edu-${id} .form-input`);
+        if (firstInput) firstInput.focus();
+      }, 100);
+    }
+
+    // Edit education
+    function editEducation(id) {
+      editingId = id;
+      renderEducations();
+    }
+
+    // Save education
+    function saveEducation(id) {
+      const education = educations.find(e => e.id === id);
+      if (education && education.school.trim() && education.degree.trim()) {
+        editingId = null;
+        renderEducations();
+      } else {
+        alert('Please fill in school and degree before saving.');
+      }
+    }
+
+    // Cancel editing
+    function cancelEdit(id) {
+      const education = educations.find(e => e.id === id);
+      if (education && !education.school.trim() && !education.degree.trim()) {
+        removeEducation(id);
+      } else {
+        editingId = null;
+        renderEducations();
+      }
+    }
+
+    // Remove education
+    function removeEducation(id) {
+      educations = educations.filter(e => e.id !== id);
+      if (editingId === id) editingId = null;
+      renderEducations();
+    }
+
+    // Update education field
+    function updateEducation(id, field, value) {
+      const education = educations.find(e => e.id === id);
+      if (education) {
+        education[field] = value;
+      }
+    }
+
+    // Render educations
+    function renderEducations() {
+      if (educations.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      emptyState.style.display = 'none';
+      
+      educationList.innerHTML = educations.map(education => {
+        if (editingId === education.id) {
+          return renderEditForm(education);
+        } else {
+          return renderDisplayCard(education);
+        }
+      }).join('');
+    }
+
+    // Render display card
+    function renderDisplayCard(education) {
+      return `
+        <div class="education-card display-card" id="edu-${education.id}">
+          <div class="card-actions">
+            <button type="button" class="card-edit" onclick="editEducation(${education.id})" title="Edit education">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="m18.5 2.5 a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button type="button" class="card-remove" onclick="removeEducation(${education.id})" title="Remove education">
+              ×
+            </button>
+          </div>
+          
+          <div class="card-header">
+            <div class="card-school">${education.school || 'School/University Name'}</div>
+            <div class="card-degree">${education.degree || 'Degree'}</div>
+            ${education.grade ? `<div class="card-grade">${education.grade}</div>` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    // Render edit form
+    function renderEditForm(education) {
+      return `
+        <div class="education-card edit-card" id="edu-${education.id}">
+          <div class="form-header-actions">
+            <button type="button" class="save-btn" onclick="saveEducation(${education.id})" title="Save education">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <polyline points="20,6 9,17 4,12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Save
+            </button>
+            <button type="button" class="cancel-btn" onclick="cancelEdit(${education.id})" title="Cancel editing">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cancel
+            </button>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              School/University<span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              class="form-input" 
+              placeholder="University of Oxford"
+              value="${education.school}"
+              oninput="updateEducation(${education.id}, 'school', this.value)"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">
+              Degree<span class="required">*</span>
+            </label>
+            <input 
+              type="text" 
+              class="form-input" 
+              placeholder="Bachelor of Computer Science"
+              value="${education.degree}"
+              oninput="updateEducation(${education.id}, 'degree', this.value)"
+            >
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Grade/Score (Optional)</label>
+            <input 
+              type="text" 
+              class="form-input" 
+              placeholder="3.8 GPA, 85%, First Class, etc."
+              value="${education.grade}"
+              oninput="updateEducation(${education.id}, 'grade', this.value)"
+            >
+          </div>
+        </div>
+      `;
+    }
+
+    // Skip education
+    function skipEducation() {
+      document.querySelector('.progress-fill').style.width = '87.5%';
+      setTimeout(() => {
+        alert('Skipping education. Moving to final step...');
+        // Real app: window.location.href = '/onboarding/preferences';
+      }, 300);
+    }
+
+    // Form submission
+    document.getElementById('educationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Save educations
+      localStorage.setItem('onboarding_education', JSON.stringify(educations));
+      
+      // Animate button
+      btnText.innerHTML = '<div class="loading-spinner"></div>';
+      continueBtn.disabled = true;
+      
+      // Update progress
+      document.querySelector('.progress-fill').style.width = '87.5%';
+      
+      // Simulate navigation
+      setTimeout(() => {
+        alert('Education saved! Moving to final step...');
+        // Real app: window.location.href = '/onboarding/preferences';
+      }, 1500);
+    });
+
+    // Back navigation
+    function goBack() {
+      alert('Going back to Portfolio...');
+      // Real app: window.location.href = '/onboarding/portfolio';
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load saved educations
+      const saved = localStorage.getItem('onboarding_education');
+      if (saved) {
+        try {
+          educations = JSON.parse(saved);
+          if (educations.length > 0) {
+            educationIdCounter = Math.max(...educations.map(edu => edu.id));
             renderEducations();
-            
-            gtag('event', 'education_add', {
-                event_category: 'onboarding',
-                event_label: 'education_added'
-            });
+          }
+        } catch (e) {
+          console.log('Could not load saved education data');
         }
-
-        function removeEducation(id) {
-            educations = educations.filter(e => e.id !== id);
-            renderEducations();
-        }
-
-        function renderEducations() {
-            const container = document.getElementById('educationContainer');
-            const emptyState = document.getElementById('educationEmpty');
-            
-            if (educations.length === 0) {
-                emptyState.style.display = 'block';
-                return;
-            }
-            
-            emptyState.style.display = 'none';
-            container.innerHTML = '';
-            
-            educations.forEach(edu => {
-                const eduCard = document.createElement('div');
-                eduCard.className = 'education-card';
-                eduCard.innerHTML = `
-                    <button type="button" class="remove-btn" onclick="removeEducation(${edu.id})">×</button>
-                    
-                    <div class="form-group">
-                        <label class="form-label">School/University</label>
-                        <input type="text" class="form-input" placeholder="Institution name" 
-                               value="${edu.school}" onchange="updateEducation(${edu.id}, 'school', this.value)">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Degree</label>
-                        <input type="text" class="form-input" placeholder="e.g., Bachelor of Science in Computer Science" 
-                               value="${edu.degree}" onchange="updateEducation(${edu.id}, 'degree', this.value)">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label class="form-label">Start Year</label>
-                            <select class="form-select" onchange="updateEducation(${edu.id}, 'startYear', this.value)">
-                                <option value="">Year</option>
-                                ${years.map(year => `<option value="${year}" ${edu.startYear == year ? 'selected' : ''}>${year}</option>`).join('')}
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">End Year</label>
-                            <select class="form-select" onchange="updateEducation(${edu.id}, 'endYear', this.value)">
-                                <option value="">Year</option>
-                                ${years.map(year => `<option value="${year}" ${edu.endYear == year ? 'selected' : ''}>${year}</option>`).join('')}
-                            </select>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(eduCard);
-            });
-        }
-
-        function updateEducation(id, field, value) {
-            const edu = educations.find(e => e.id === id);
-            if (edu) {
-                edu[field] = value;
-            }
-        }
-
-        function addLanguage() {
-            const languageInput = document.getElementById('languageInput');
-            const proficiencySelect = document.getElementById('proficiencySelect');
-            
-            const languageName = languageInput.value.trim();
-            const proficiency = proficiencySelect.value;
-            
-            if (!languageName || !proficiency) {
-                alert('Please enter both language name and proficiency level.');
-                return;
-            }
-            
-            // Check for duplicates
-            if (languages.find(lang => lang.name.toLowerCase() === languageName.toLowerCase())) {
-                alert('Language already added!');
-                return;
-            }
-            
-            languages.push({
-                id: Date.now(),
-                name: languageName,
-                level: proficiency
-            });
-            
-            languageInput.value = '';
-            proficiencySelect.value = '';
-            
-            renderLanguages();
-            
-            gtag('event', 'language_add', {
-                event_category: 'onboarding',
-                event_label: languageName
-            });
-        }
-
-        function removeLanguage(id) {
-            languages = languages.filter(lang => lang.id !== id);
-            renderLanguages();
-        }
-
-        function renderLanguages() {
-            const container = document.getElementById('languageChips');
-            
-            if (languages.length === 0) {
-                container.innerHTML = '<div style="color: var(--text-muted); font-size: 14px; text-align: center; padding: 20px;">No languages added yet</div>';
-                return;
-            }
-            
-            container.innerHTML = '';
-            languages.forEach(lang => {
-                const chip = document.createElement('div');
-                chip.className = 'language-chip';
-                chip.innerHTML = `
-                    <span class="language-name">${lang.name}</span>
-                    <span class="language-level">${lang.level}</span>
-                    <button class="chip-remove" onclick="removeLanguage(${lang.id})">×</button>
-                `;
-                container.appendChild(chip);
-            });
-        }
-
-        function normalizeDegrees() {
-            if (educations.length === 0) {
-                alert('Add education entries first to use this feature.');
-                return;
-            }
-            
-            // Simulate degree normalization
-            educations.forEach(edu => {
-                if (edu.degree.toLowerCase().includes('bsc') || edu.degree.toLowerCase().includes('bs')) {
-                    edu.degree = edu.degree.replace(/bsc|bs/gi, 'Bachelor of Science');
-                }
-                if (edu.degree.toLowerCase().includes('ba')) {
-                    edu.degree = edu.degree.replace(/\bba\b/gi, 'Bachelor of Arts');
-                }
-                if (edu.degree.toLowerCase().includes('msc') || edu.degree.toLowerCase().includes('ms')) {
-                    edu.degree = edu.degree.replace(/msc|ms/gi, 'Master of Science');
-                }
-            });
-            
-            renderEducations();
-            alert('Degree names have been normalized to full forms.');
-        }
-
-        function suggestLanguages() {
-            // Get location from previous step
-            const locationData = localStorage.getItem('onboarding_location');
-            
-            if (!locationData) {
-                alert('Location information not found. Please complete the location step first.');
-                return;
-            }
-            
-            const location = JSON.parse(locationData);
-            let suggestions = [];
-            
-            // Country-based language suggestions
-            switch(location.country) {
-                case 'pk':
-                    suggestions = ['Urdu', 'English', 'Punjabi'];
-                    break;
-                case 'us':
-                case 'uk':
-                case 'ca':
-                case 'au':
-                    suggestions = ['English'];
-                    break;
-                case 'in':
-                    suggestions = ['Hindi', 'English'];
-                    break;
-                case 'bd':
-                    suggestions = ['Bengali', 'English'];
-                    break;
-                case 'ae':
-                case 'sa':
-                    suggestions = ['Arabic', 'English'];
-                    break;
-                default:
-                    suggestions = ['English'];
-            }
-            
-            // Add suggested languages that aren't already added
-            suggestions.forEach(langName => {
-                if (!languages.find(lang => lang.name.toLowerCase() === langName.toLowerCase())) {
-                    languages.push({
-                        id: Date.now() + Math.random(),
-                        name: langName,
-                        level: langName === 'English' ? 'Fluent' : 'Native'
-                    });
-                }
-            });
-            
-            renderLanguages();
-            alert(`Added suggested languages based on your location: ${suggestions.join(', ')}`);
-        }
-
-        // Enter key handling for language input
-        document.getElementById('languageInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                addLanguage();
-            }
-        });
-
-        function goBack() {
-            alert('Going back to Portfolio...');
-        }
-
-        document.getElementById('educationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            localStorage.setItem('onboarding_education', JSON.stringify(educations));
-            localStorage.setItem('onboarding_languages', JSON.stringify(languages));
-            
-            document.querySelector('.progress-fill').style.width = '87.5%';
-            
-            setTimeout(() => {
-                alert('Education & Languages saved! Moving to work preferences...');
-            }, 500);
-        });
-
-        function gtag(action, event, params) {
-            console.log('Analytics:', action, event, params);
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            const savedEducation = localStorage.getItem('onboarding_education');
-            const savedLanguages = localStorage.getItem('onboarding_languages');
-            
-            if (savedEducation) {
-                educations = JSON.parse(savedEducation);
-                renderEducations();
-            }
-            
-            if (savedLanguages) {
-                languages = JSON.parse(savedLanguages);
-                renderLanguages();
-            } else {
-                renderLanguages(); // Show empty state
-            }
-        });
-    </script>
+      }
+    });
+  </script>
 </body>
 </html>
